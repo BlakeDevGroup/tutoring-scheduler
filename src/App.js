@@ -17,6 +17,7 @@ import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import React, { useState } from "react";
+import Events from "./models/events";
 
 const theme = {
   global: {
@@ -30,6 +31,20 @@ const theme = {
     },
   },
 };
+
+let eventOne = new Events({
+  id: Math.random() * 10000 + 1,
+  title: "Our First Event",
+  start: "2021-07-29T10:30:00",
+  end: "2021-07-29T11:30:00",
+});
+
+let eventTwo = new Events({
+  id: Math.random() * 10000 + 1,
+  title: "Our Second Event",
+  start: "2021-07-29T14:30:00",
+  end: "2021-07-29T15:30:00",
+});
 
 // const AppBar = (props) => (
 //   <Box
@@ -172,6 +187,18 @@ const App = () => {
                   handleWindowResize
                   selectable={true}
                   navLinks={true}
+                  events={[
+                    {
+                      id: eventOne.id,
+                      title: eventOne.title,
+                      start: eventOne.start,
+                    },
+                    {
+                      id: eventTwo.id,
+                      title: eventTwo.title,
+                      start: eventTwo.start,
+                    },
+                  ]}
                 />
               </Main>
             </Box>
