@@ -155,7 +155,7 @@ const App = () => {
                 <FullCalendar
                   // aspectRatio=".56"
                   plugins={[dayGridPlugin]}
-                  initialView="dayGridWeek"
+                  initialView="dayGridMonth"
                   expandRows={true}
                 />
               </Main>
