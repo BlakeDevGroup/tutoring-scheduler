@@ -15,6 +15,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import { FormClose, BladesVertical, Add, CaretDownFill } from "grommet-icons";
 import NewBar from "./nav-bar/new-bar";
 import React, { useState } from "react";
+import Events from "./models/events";
 
 const theme = {
   global: {
@@ -28,6 +29,20 @@ const theme = {
     },
   },
 };
+
+let eventOne = new Events({
+  id: Math.random() * 10000 + 1,
+  title: "Our First Event",
+  start: "2021-07-29T10:30:00",
+  end: "2021-07-29T11:30:00",
+});
+
+let eventTwo = new Events({
+  id: Math.random() * 10000 + 1,
+  title: "Our Second Event",
+  start: "2021-07-29T14:30:00",
+  end: "2021-07-29T15:30:00",
+});
 
 // const AppBar = (props) => (
 //   <Box
@@ -157,6 +172,20 @@ const App = () => {
                   plugins={[dayGridPlugin]}
                   initialView="dayGridWeek"
                   expandRows={true}
+                  events={[
+                    {
+                      id: eventOne.id,
+                      title: eventOne.title,
+                      start: eventOne.start,
+                      allDay: eventOne.end,
+                    },
+                    {
+                      id: eventTwo.id,
+                      title: eventTwo.title,
+                      start: eventTwo.start,
+                      allDay: eventTwo.end,
+                    },
+                  ]}
                 />
               </Main>
             </Box>
