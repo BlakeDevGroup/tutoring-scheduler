@@ -5,7 +5,7 @@ import {
   Heading,
   Main,
   ResponsiveContext,
-  // Calendar,
+  Text,
   CheckBoxGroup,
   Select,
   Grommet,
@@ -45,13 +45,17 @@ const theme = {
 // );
 
 function CheckBox(props) {
-  const [value, option] = React.useState("medium");
+  const selectedCalendarView = () => {}
+    console.log("Checkbox selected!")
   return (
+    <Text margin="medium">Select Calendar
     <CheckBoxGroup
     options={["Personal", "Work", "Test"]}
     gap="small"
     margin="medium"
+    onChange={selectedCalendarView}
     />
+    </Text>
     )
 }
 
@@ -138,8 +142,10 @@ const App = () => {
                     animation="fadeIn"
                   >
                     <FullCalendar
-                      plugins={[dayGridPlugin]}
+                      plugins={[dayGridPlugin, interactionPlugin]}
                       initialView="dayGridMonth"
+                      selectable={true}
+                      navLinks={true}
                     />
                     {/* <Calendar
                       // size="medium"

@@ -1,6 +1,6 @@
 import { Box } from "grommet";
 
-const NewBar = (props) => (
+const NavBar = (props) => (
   <Box
     tag="header"
     direction="row"
@@ -14,4 +14,4 @@ const NewBar = (props) => (
   />
 );
 
-export default NewBar;
+export default NavBar;
