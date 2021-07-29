@@ -52,7 +52,6 @@ function CheckBox(props) {
     options={["Personal", "Work", "Test"]}
     gap="small"
     margin="medium"
-    // onChange= ({ value, option }) => {}
     />
     </Text>
     )
