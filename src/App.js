@@ -6,14 +6,15 @@ import {
   Main,
   ResponsiveContext,
   // Calendar,
+  CheckBoxGroup,
   Select,
-  Grid,
   Grommet,
 } from "grommet";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { FormClose, BladesVertical, Add, CaretDownFill } from "grommet-icons";
-import NewBar from "./nav-bar/new-bar";
+import NavBar from "./nav-bar/new-bar";
+import interactionPlugin from '@fullcalendar/interaction';
 import React, { useState } from "react";
 
 const theme = {
@@ -43,6 +44,17 @@ const theme = {
 //   />
 // );
 
+function CheckBox(props) {
+  const [value, option] = React.useState("medium");
+  return (
+    <CheckBoxGroup
+    options={["Personal", "Work", "Test"]}
+    gap="small"
+    margin="medium"
+    />
+    )
+}
+
 function DropMenu(props) {
   const [value, setValue] = React.useState("medium");
   return (
@@ -65,7 +77,7 @@ const App = () => {
       <ResponsiveContext.Consumer>
         {(size) => (
           <Box fill>
-            <NewBar>
+            <NavBar>
               {/* <Heading level="4" margin="none" align="right">
                 My App
               </Heading> */}
@@ -77,8 +89,7 @@ const App = () => {
                 My App
               </Heading>
               <DropMenu />
-            </NewBar>
-
+            </NavBar>
             <Box
               direction=""
               height="xsmall"
@@ -106,6 +117,16 @@ const App = () => {
                       icon={<Add />}
                       margin={{ left: "small", top: "small" }}
                       hoverIndicator="true"
+                    />
+                  </Box>
+                  <Box 
+                  flex
+                  width="medium"
+                  background="light-2"
+                  elevation="small"
+                  animation="fadeIn" 
+                  >
+                    <CheckBox 
                     />
                   </Box>
                   <Box
@@ -153,10 +174,12 @@ const App = () => {
               )}
               <Main margin="xsmall">
                 <FullCalendar
-                  // aspectRatio=".56"
-                  plugins={[dayGridPlugin]}
-                  initialView="dayGridWeek"
+                  plugins={[dayGridPlugin, interactionPlugin]}
+                  initialView="dayGridMonth"
                   expandRows={true}
+                  handleWindowResize
+                  selectable={true}
+                  navLinks={true}
                 />
               </Main>
             </Box>
