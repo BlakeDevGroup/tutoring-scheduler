@@ -156,7 +156,7 @@ const App = () => {
                   // aspectRatio=".56"
                   plugins={[dayGridPlugin]}
                   initialView="dayGridMonth"
-                  expandRows={true}
+                  // expandRows={true}
                 />
               </Main>
             </Box>
