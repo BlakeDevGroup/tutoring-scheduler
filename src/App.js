@@ -15,6 +15,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import { FormClose, BladesVertical, Add, CaretDownFill } from "grommet-icons";
 import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import React, { useState } from "react";
 
 const theme = {
@@ -45,15 +46,13 @@ const theme = {
 // );
 
 function CheckBox(props) {
-  const selectedCalendarView = () => {}
-    console.log("Checkbox selected!")
   return (
     <Text margin="medium">Select Calendar
     <CheckBoxGroup
     options={["Personal", "Work", "Test"]}
     gap="small"
     margin="medium"
-    onChange={selectedCalendarView}
+    // onChange= ({ value, option }) => {}
     />
     </Text>
     )
@@ -76,15 +75,11 @@ function DropMenu(props) {
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   return (
-    // <div className="App">
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
         {(size) => (
           <Box fill>
             <NavBar>
-              {/* <Heading level="4" margin="none" align="right">
-                My App
-              </Heading> */}
               <Button
                 icon={<BladesVertical />}
                 onClick={() => setShowSidebar(!showSidebar)}
@@ -100,9 +95,6 @@ const App = () => {
               flex
               overflow={{ horizontal: "hidded" }}
             >
-              {/* <Box flex align="center" justify="center">
-                app body
-              </Box> */}
               {!showSidebar || size !== "small" ? (
                 <Collapsible direction="horizontal" open={showSidebar}>
                   <Box
@@ -147,11 +139,6 @@ const App = () => {
                       selectable={true}
                       navLinks={true}
                     />
-                    {/* <Calendar
-                      // size="medium"
-                      // date={new Date().toISOString()}
-                      // onSelect={(date) => {}}
-                    /> */}
                   </Box>
                 </Collapsible>
               ) : (
@@ -180,8 +167,8 @@ const App = () => {
               )}
               <Main margin="xsmall">
                 <FullCalendar
-                  plugins={[dayGridPlugin, interactionPlugin]}
-                  initialView="dayGridMonth"
+                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                  initialView="timeGridWeek"
                   expandRows={true}
                   handleWindowResize
                   selectable={true}
@@ -193,7 +180,6 @@ const App = () => {
         )}
       </ResponsiveContext.Consumer>
     </Grommet>
-    /* </div> */
   );
 };
 
