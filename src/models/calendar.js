@@ -1,6 +1,6 @@
 export default class Calendar {
   constructor(calendarObject) {
-    this.id = eventObject.id;
-    this.calendarName = eventObject.calendarName;
+    this.id = calendarObject.id;
+    this.calendarName = calendarObject.calendarName;
   }
 }

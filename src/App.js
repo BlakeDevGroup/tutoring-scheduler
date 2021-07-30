@@ -18,6 +18,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import React, { useState } from "react";
 import Events from "./models/events";
+import Calendar from "./models/calendar"
 
 const theme = {
   global: {
@@ -46,6 +47,11 @@ let eventTwo = new Events({
   end: "2021-07-29T15:30:00",
 });
 
+let calendarOne = new Calendar({
+  id: Math.random() * 10000 + 1,
+  calendarName: "Work"
+})
+
 // const AppBar = (props) => (
 //   <Box
 //     tag="header"
@@ -62,9 +68,10 @@ let eventTwo = new Events({
 
 function CheckBox(props) {
   return (
-    <Text margin="medium">Select Calendar
+    <Text 
+    margin="medium">Select Calendar
     <CheckBoxGroup
-    options={["Personal", "Work", "Test"]}
+    options={["Personal", calendarOne.calendarName, "Test"]}
     gap="small"
     margin="medium"
     />
@@ -129,16 +136,17 @@ const App = () => {
                       hoverIndicator="true"
                     />
                   </Box>
-                  <Box 
-                  flex
-                  width="medium"
-                  background="light-2"
-                  elevation="small"
-                  animation="fadeIn" 
-                  >
                     <CheckBox 
                     />
-                  </Box>
+                    <Button
+                    alignSelf="end"
+                    label="Add Calendar"
+                    color="asd"
+                    size="small"
+                    icon={<Add />}
+                    margin={{ left: "small", bottom: "Large" }}
+                    hoverIndicator="true">
+                    </Button>
                   <Box
                     flex
                     width="medium"
