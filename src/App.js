@@ -114,6 +114,7 @@ function AddViewForm(props) {
         <TextInput
           id="text-input-id"
           name="name"
+          placeholder="View"
           value={textValue}
           onChange={(e) => setTextValue(e.target.value)}
         />
