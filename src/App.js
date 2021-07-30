@@ -5,17 +5,29 @@ import {
   Heading,
   Main,
   ResponsiveContext,
-  // Calendar,
+  Text,
+  CheckBoxGroup,
   Select,
-  Grid,
+  FormField,
+  Form,
+  TextInput,
   Grommet,
 } from "grommet";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { FormClose, BladesVertical, Add, CaretDownFill } from "grommet-icons";
-import NewBar from "./nav-bar/new-bar";
+import {
+  FormClose,
+  BladesVertical,
+  Add,
+  CaretDownFill,
+  ChapterAdd,
+} from "grommet-icons";
+import NavBar from "./nav-bar/new-bar";
+import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import React, { useState } from "react";
 import Events from "./models/events";
+import Calendar from "./models/calendar";
 
 const theme = {
   global: {
@@ -44,6 +56,15 @@ let eventTwo = new Events({
   end: "2021-07-29T15:30:00",
 });
 
+let calendarOne = new Calendar({
+  id: Math.random() * 10000 + 1,
+  calendarName: "News",
+});
+
+let calendarTwo = new Calendar({
+  id: Math.random() * 10000 + 1,
+  calendarName: "Work",
+});
 // const AppBar = (props) => (
 //   <Box
 //     tag="header"
@@ -57,6 +78,63 @@ let eventTwo = new Events({
 //     {...props}
 //   />
 // );
+function AddViewForm(props) {
+  /**
+   * AddViewForm.state = {
+   *  calendars = [calendarOne.calendarName, calendarTwo.calendarName]
+   * }
+   *
+   * setCalendars([])
+   *
+   * AddViewForm.state = {
+   *  calendars = []
+   * }
+   */
+  const [calendars, setCalendars] = useState([
+    calendarOne.calendarName,
+    calendarTwo.calendarName,
+  ]);
+  const [textValue, setValue] = useState("");
+
+  return (
+    <Form
+      value={textValue}
+      onChange={(nextValue) => setValue(nextValue)}
+      onReset={() => setValue("")}
+      onSubmit={(e) => {
+        console.log(e.value.name);
+        const calendar = new Calendar({
+          id: Math.random * 10000 + 1,
+          calendarName: e.value.name,
+        });
+        setCalendars([].concat(calendars, calendar.calendarName));
+      }}
+    >
+      <CheckBoxGroup options={calendars} gap="small" margin="medium" />
+      <FormField name="name" htmlFor="text-input-id" label="Add View">
+        <TextInput id="text-input-id" name="name" />
+      </FormField>
+      <Box direction="row" gap="medium">
+        <Button type="submit" primary label="Submit" />
+        <Button type="reset" label="Reset" />
+      </Box>
+    </Form>
+  );
+}
+
+// function CheckBox() {
+//   const [options, setValue] = React.useState("medium");
+//   return (
+//     <Text
+//       margin="medium">Select View
+//     <CheckBoxGroup
+//       options={["Personal", calendarOne.calendarName, "Test"]}
+//       gap="small"
+//       margin="medium"
+//     />
+//     </Text>
+//     )
+// }
 
 function DropMenu(props) {
   const [value, setValue] = React.useState("medium");
@@ -75,15 +153,11 @@ function DropMenu(props) {
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   return (
-    // <div className="App">
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
         {(size) => (
           <Box fill>
-            <NewBar>
-              {/* <Heading level="4" margin="none" align="right">
-                My App
-              </Heading> */}
+            <NavBar>
               <Button
                 icon={<BladesVertical />}
                 onClick={() => setShowSidebar(!showSidebar)}
@@ -92,17 +166,13 @@ const App = () => {
                 My App
               </Heading>
               <DropMenu />
-            </NewBar>
-
+            </NavBar>
             <Box
               direction=""
               height="xsmall"
               flex
               overflow={{ horizontal: "hidded" }}
             >
-              {/* <Box flex align="center" justify="center">
-                app body
-              </Box> */}
               {!showSidebar || size !== "small" ? (
                 <Collapsible direction="horizontal" open={showSidebar}>
                   <Box
@@ -123,6 +193,7 @@ const App = () => {
                       hoverIndicator="true"
                     />
                   </Box>
+                  <AddViewForm />
                   <Box
                     flex
                     width="medium"
@@ -132,14 +203,11 @@ const App = () => {
                     animation="fadeIn"
                   >
                     <FullCalendar
-                      plugins={[dayGridPlugin]}
+                      plugins={[dayGridPlugin, interactionPlugin]}
                       initialView="dayGridMonth"
+                      selectable={true}
+                      navLinks={true}
                     />
-                    {/* <Calendar
-                      // size="medium"
-                      // date={new Date().toISOString()}
-                      // onSelect={(date) => {}}
-                    /> */}
                   </Box>
                 </Collapsible>
               ) : (
@@ -168,22 +236,22 @@ const App = () => {
               )}
               <Main margin="xsmall">
                 <FullCalendar
-                  // aspectRatio=".56"
-                  plugins={[dayGridPlugin]}
-                  initialView="dayGridWeek"
+                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                  initialView="timeGridWeek"
                   expandRows={true}
+                  handleWindowResize
+                  selectable={true}
+                  navLinks={true}
                   events={[
                     {
                       id: eventOne.id,
                       title: eventOne.title,
                       start: eventOne.start,
-                      allDay: eventOne.end,
                     },
                     {
                       id: eventTwo.id,
                       title: eventTwo.title,
                       start: eventTwo.start,
-                      allDay: eventTwo.end,
                     },
                   ]}
                 />
@@ -193,7 +261,6 @@ const App = () => {
         )}
       </ResponsiveContext.Consumer>
     </Grommet>
-    /* </div> */
   );
 };
 
