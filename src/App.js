@@ -106,6 +106,7 @@ function AddViewForm(props) {
           calendarName: textValue,
         });
         setCalendars([].concat(calendars, calendar.calendarName));
+        setTextValue("");
       }}
     >
       <CheckBoxGroup options={calendars} gap="small" margin="medium" />
