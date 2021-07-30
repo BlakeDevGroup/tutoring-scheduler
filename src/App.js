@@ -94,25 +94,28 @@ function AddViewForm(props) {
     calendarOne.calendarName,
     calendarTwo.calendarName,
   ]);
-  const [textValue, setValue] = useState("");
+  const [textValue, setTextValue] = useState("");
 
   return (
     <Form
-      value={textValue}
-      onChange={(nextValue) => setValue(nextValue)}
-      onReset={() => setValue("")}
+      onReset={() => setTextValue("")}
       onSubmit={(e) => {
-        console.log(e.value.name);
+        if (textValue == "") return;
         const calendar = new Calendar({
           id: Math.random * 10000 + 1,
-          calendarName: e.value.name,
+          calendarName: textValue,
         });
         setCalendars([].concat(calendars, calendar.calendarName));
       }}
     >
       <CheckBoxGroup options={calendars} gap="small" margin="medium" />
       <FormField name="name" htmlFor="text-input-id" label="Add View">
-        <TextInput id="text-input-id" name="name" />
+        <TextInput
+          id="text-input-id"
+          name="name"
+          value={textValue}
+          onChange={(e) => setTextValue(e.target.value)}
+        />
       </FormField>
       <Box direction="row" gap="medium">
         <Button type="submit" primary label="Submit" />
@@ -177,10 +180,12 @@ const App = () => {
                 <Collapsible direction="horizontal" open={showSidebar}>
                   <Box
                     flex
+                    direction="column"
                     width="medium"
                     background="light-2"
                     elevation="small"
                     animation="fadeIn"
+                    justify="evenly"
                   >
                     <Button
                       primary
@@ -192,16 +197,9 @@ const App = () => {
                       margin={{ left: "small", top: "small" }}
                       hoverIndicator="true"
                     />
-                  </Box>
-                  <AddViewForm />
-                  <Box
-                    flex
-                    width="medium"
-                    background="light-2"
-                    elevation="small"
-                    align="stretch"
-                    animation="fadeIn"
-                  >
+
+                    <AddViewForm />
+
                     <FullCalendar
                       plugins={[dayGridPlugin, interactionPlugin]}
                       initialView="dayGridMonth"
