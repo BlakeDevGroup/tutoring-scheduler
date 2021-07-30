@@ -8,11 +8,14 @@ import {
   Text,
   CheckBoxGroup,
   Select,
+  FormField,
+  Form,
+  TextInput,
   Grommet,
 } from "grommet";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { FormClose, BladesVertical, Add, CaretDownFill } from "grommet-icons";
+import { FormClose, BladesVertical, Add, CaretDownFill, ChapterAdd } from "grommet-icons";
 import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -49,7 +52,7 @@ let eventTwo = new Events({
 
 let calendarOne = new Calendar({
   id: Math.random() * 10000 + 1,
-  calendarName: "Work"
+  calendarName: "News"
 })
 
 // const AppBar = (props) => (
@@ -65,19 +68,49 @@ let calendarOne = new Calendar({
 //     {...props}
 //   />
 // );
-
-function CheckBox(props) {
+function AddViewForm(props) {
+  const [value, setValue] = React.useState({});
   return (
-    <Text 
-    margin="medium">Select Calendar
-    <CheckBoxGroup
-    options={["Personal", calendarOne.calendarName, "Test"]}
-    gap="small"
-    margin="medium"
-    />
-    </Text>
-    )
+    <Form
+      value={value}
+      onChange={nextValue => setValue(nextValue)}
+      onReset={() => setValue({})}
+      onSubmit={({ value }) => {setValue()}}
+      > 
+         <CheckBoxGroup
+          options={["Personal", calendarOne.calendarName, setValue,]}
+          gap="small"
+          margin="medium"
+        />
+        <FormField name="name" htmlFor="text-input-id" label="Add View">
+          <TextInput id="text-input-id" name="name" />
+        </FormField>
+        <Box direction="row" gap="medium">
+          <Button 
+          type="submit" 
+          primary label="Submit" 
+          />
+          <Button type="reset" label="Reset" />
+        </Box>
+    </Form>
+  );
 }
+
+
+
+// function CheckBox() {
+//   const [options, setValue] = React.useState("medium");
+//   return (
+//     <Text 
+//       margin="medium">Select View
+//     <CheckBoxGroup
+//       options={["Personal", calendarOne.calendarName, "Test"]}
+//       gap="small"
+//       margin="medium"
+//     />
+//     </Text>
+//     )
+// }
 
 function DropMenu(props) {
   const [value, setValue] = React.useState("medium");
@@ -136,17 +169,8 @@ const App = () => {
                       hoverIndicator="true"
                     />
                   </Box>
-                    <CheckBox 
+                    <AddViewForm
                     />
-                    <Button
-                    alignSelf="end"
-                    label="Add Calendar"
-                    color="asd"
-                    size="small"
-                    icon={<Add />}
-                    margin={{ left: "small", bottom: "Large" }}
-                    hoverIndicator="true">
-                    </Button>
                   <Box
                     flex
                     width="medium"
