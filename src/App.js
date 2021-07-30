@@ -15,13 +15,19 @@ import {
 } from "grommet";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { FormClose, BladesVertical, Add, CaretDownFill, ChapterAdd } from "grommet-icons";
+import {
+  FormClose,
+  BladesVertical,
+  Add,
+  CaretDownFill,
+  ChapterAdd,
+} from "grommet-icons";
 import NavBar from "./nav-bar/new-bar";
-import interactionPlugin from '@fullcalendar/interaction';
-import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import React, { useState } from "react";
 import Events from "./models/events";
-import Calendar from "./models/calendar"
+import Calendar from "./models/calendar";
 
 const theme = {
   global: {
@@ -52,9 +58,13 @@ let eventTwo = new Events({
 
 let calendarOne = new Calendar({
   id: Math.random() * 10000 + 1,
-  calendarName: "News"
-})
+  calendarName: "News",
+});
 
+let calendarTwo = new Calendar({
+  id: Math.random() * 10000 + 1,
+  calendarName: "Work",
+});
 // const AppBar = (props) => (
 //   <Box
 //     tag="header"
@@ -69,39 +79,53 @@ let calendarOne = new Calendar({
 //   />
 // );
 function AddViewForm(props) {
-  const [value, setValue] = React.useState({});
+  /**
+   * AddViewForm.state = {
+   *  calendars = [calendarOne.calendarName, calendarTwo.calendarName]
+   * }
+   *
+   * setCalendars([])
+   *
+   * AddViewForm.state = {
+   *  calendars = []
+   * }
+   */
+  const [calendars, setCalendars] = useState([
+    calendarOne.calendarName,
+    calendarTwo.calendarName,
+  ]);
+  const [textValue, setValue] = useState("");
+
   return (
     <Form
-      value={value}
-      onChange={nextValue => setValue(nextValue)}
-      onReset={() => setValue({})}
-      onSubmit={({ value }) => {setValue()}}
-      > 
-         <CheckBoxGroup
-          options={["Personal", calendarOne.calendarName, setValue,]}
-          gap="small"
-          margin="medium"
-        />
-        <FormField name="name" htmlFor="text-input-id" label="Add View">
-          <TextInput id="text-input-id" name="name" />
-        </FormField>
-        <Box direction="row" gap="medium">
-          <Button 
-          type="submit" 
-          primary label="Submit" 
-          />
-          <Button type="reset" label="Reset" />
-        </Box>
+      value={textValue}
+      onChange={(nextValue) => setValue(nextValue)}
+      onReset={() => setValue("")}
+      onSubmit={(e) => {
+        console.log(e.value.name);
+        const calendar = new Calendar({
+          id: Math.random * 10000 + 1,
+          calendarName: e.value.name,
+        });
+        setCalendars([].concat(calendars, calendar.calendarName));
+      }}
+    >
+      <CheckBoxGroup options={calendars} gap="small" margin="medium" />
+      <FormField name="name" htmlFor="text-input-id" label="Add View">
+        <TextInput id="text-input-id" name="name" />
+      </FormField>
+      <Box direction="row" gap="medium">
+        <Button type="submit" primary label="Submit" />
+        <Button type="reset" label="Reset" />
+      </Box>
     </Form>
   );
 }
 
-
-
 // function CheckBox() {
 //   const [options, setValue] = React.useState("medium");
 //   return (
-//     <Text 
+//     <Text
 //       margin="medium">Select View
 //     <CheckBoxGroup
 //       options={["Personal", calendarOne.calendarName, "Test"]}
@@ -169,8 +193,7 @@ const App = () => {
                       hoverIndicator="true"
                     />
                   </Box>
-                    <AddViewForm
-                    />
+                  <AddViewForm />
                   <Box
                     flex
                     width="medium"
