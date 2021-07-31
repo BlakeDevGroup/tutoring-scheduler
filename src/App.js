@@ -114,7 +114,7 @@ function AddViewForm(props) {
         <TextInput
           id="text-input-id"
           name="name"
-          placeholder="View"
+          placeholder="Name your calendar"
           value={textValue}
           onChange={(e) => setTextValue(e.target.value)}
         />
