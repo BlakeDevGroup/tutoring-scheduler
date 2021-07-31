@@ -28,6 +28,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import React, { useState } from "react";
 import Events from "./models/events";
 import Calendar from "./models/calendar";
+import MainCalendar from "./main-components/main-calendar";
 
 const theme = {
   global: {
@@ -42,20 +43,6 @@ const theme = {
   },
 };
 
-let eventOne = new Events({
-  id: Math.random() * 10000 + 1,
-  title: "Our First Event",
-  start: "2021-07-29T10:30:00",
-  end: "2021-07-29T11:30:00",
-});
-
-let eventTwo = new Events({
-  id: Math.random() * 10000 + 1,
-  title: "Our Second Event",
-  start: "2021-07-29T14:30:00",
-  end: "2021-07-29T15:30:00",
-});
-
 let calendarOne = new Calendar({
   id: Math.random() * 10000 + 1,
   calendarName: "News",
@@ -65,31 +52,8 @@ let calendarTwo = new Calendar({
   id: Math.random() * 10000 + 1,
   calendarName: "Work",
 });
-// const AppBar = (props) => (
-//   <Box
-//     tag="header"
-//     direction="row"
-//     align="center"
-//     justify="between"
-//     background="brand"
-//     pad={{ left: "medium", right: "small", vertical: "small" }}
-//     elevation="medium"
-//     style={{ zIndex: "1" }}
-//     {...props}
-//   />
-// );
+
 function AddViewForm(props) {
-  /**
-   * AddViewForm.state = {
-   *  calendars = [calendarOne.calendarName, calendarTwo.calendarName]
-   * }
-   *
-   * setCalendars([])
-   *
-   * AddViewForm.state = {
-   *  calendars = []
-   * }
-   */
   const [calendars, setCalendars] = useState([
     calendarOne.calendarName,
     calendarTwo.calendarName,
@@ -126,21 +90,6 @@ function AddViewForm(props) {
     </Form>
   );
 }
-
-// function CheckBox() {
-//   const [options, setValue] = React.useState("medium");
-//   return (
-//     <Text
-//       margin="medium">Select View
-//     <CheckBoxGroup
-//       options={["Personal", calendarOne.calendarName, "Test"]}
-//       gap="small"
-//       margin="medium"
-//     />
-//     </Text>
-//     )
-// }
-
 function DropMenu(props) {
   const [value, setValue] = React.useState("medium");
   return (
@@ -235,26 +184,7 @@ const App = () => {
                 </layer>
               )}
               <Main margin="xsmall">
-                <FullCalendar
-                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                  initialView="timeGridWeek"
-                  expandRows={true}
-                  handleWindowResize
-                  selectable={true}
-                  navLinks={true}
-                  events={[
-                    {
-                      id: eventOne.id,
-                      title: eventOne.title,
-                      start: eventOne.start,
-                    },
-                    {
-                      id: eventTwo.id,
-                      title: eventTwo.title,
-                      start: eventTwo.start,
-                    },
-                  ]}
-                />
+                <MainCalendar />
               </Main>
             </Box>
           </Box>
