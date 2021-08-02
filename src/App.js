@@ -73,6 +73,19 @@ let calendarTwo = new Calendar({
 //       </Layer>
 
 
+export const EventTitle = () => {
+  const [value, setValue] = React.useState('');
+  
+  const onChange = event => setValue(event.target.value);
+  
+  return (
+    <TextInput 
+      value={value}
+      onChange={onChange}
+      placeholder="Add title" />
+  )
+}
+
 
 
 function CreateButton() {
@@ -94,13 +107,16 @@ function CreateButton() {
         onEsc={() => setShow(false)}
         onClickOutside={() => setShow(false)}
       >   <Box height="medium" width="medium" overflow="auto">
-            <Box pad="medium">event title</Box>
+            <Box pad="medium">
+              <EventTitle />
+            </Box>
             <Box pad="medium">set time</Box>
             <Box pad="medium">set calendar</Box>
             <Box pad="medium">add description</Box>
             <Box pad="medium">company name</Box>
             <Box pad="medium">pay</Box>
             <Button 
+            color="asd"
             label="save"
             size="small"
             alignSelf="end"
