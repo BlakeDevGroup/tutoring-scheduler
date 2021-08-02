@@ -75,6 +75,21 @@ let calendarTwo = new Calendar({
 //         </Box>
 //       </Layer>
 
+function CompanyDropMenu(props) {
+  const [value, setValue] = React.useState("medium");
+  return (
+    <Select
+      margin={{ right: "large", left: "large"}}
+      icon={<CaretDownFill />}
+      size="small"
+      options={["Comp1", "Comp2", "Comp3", "Comp4"]}
+      value={value}
+      placeholder="Select a company"
+      onChange={({ option }) => setValue(option)}
+    />
+  );
+}
+
 
 function EventDescription() {
   const [value, setValue] = React.useState('');
@@ -109,8 +124,6 @@ export const AddDate = () => {
     );
   };
 
-
-
 export const EventTitle = () => {
   const [value, setValue] = React.useState('');
   
@@ -125,8 +138,6 @@ export const EventTitle = () => {
       
   )
 }
-
-
 
 function CreateButton() {
   const [show, setShow] = React.useState();
@@ -237,16 +248,15 @@ function CreateButton() {
               <AddDate />
             </Box>
             <Box 
-              // direction="row-responsive"
-              margin={{ top: "medium", left: "medium", right:"medium", bottom: "xsmall"}} 
-              // fill={true}
+              margin={{ top: "small", left: "medium", right:"medium"}} 
               height="medium"
-              // width="small"
               >
               <EventDescription />
             </Box>
-            <Box pad="small">company name</Box>
-            <Box pad="small">pay</Box>
+            <Box margin={{ top: "xsmall", bottom: "small"}}>
+              <CompanyDropMenu />
+            </Box>
+            <Box pad="medium">pay</Box>
             <Button 
             color="asd"
             label="save"
