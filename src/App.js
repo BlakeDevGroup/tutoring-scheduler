@@ -11,7 +11,9 @@ import {
   FormField,
   Form,
   TextInput,
+  DateInput,
   Layer,
+  Menu,
   Grommet,
 } from "grommet";
 import FullCalendar from "@fullcalendar/react";
@@ -73,6 +75,27 @@ let calendarTwo = new Calendar({
 //       </Layer>
 
 
+
+export const Format = () => {
+    const [value, setValue] = React.useState('');
+    const onChange = (event) => {
+      const nextValue = event.value;
+      console.log('onChange', nextValue);
+      setValue(nextValue);
+    };
+    return (
+      <Grommet theme={theme}>
+            <DateInput 
+            size="xsmall"
+            format="m/d/yy" 
+            value={value} 
+            onChange={onChange} />
+      </Grommet>
+    );
+  };
+
+
+
 export const EventTitle = () => {
   const [value, setValue] = React.useState('');
   
@@ -110,8 +133,92 @@ function CreateButton() {
             <Box pad="medium">
               <EventTitle />
             </Box>
-            <Box pad="medium">set time</Box>
-            <Box pad="medium">set calendar</Box>
+            <Box pad="medium" direction="row-responsive">
+              <Box>
+                <Text 
+                  align="center"
+                  margin={{ top: "small" }}
+                >
+                  Select time:
+                  </Text>
+              </Box>
+              <Box margin={{ left: "medium" }}>
+              <Menu
+                size="small"
+                align="start"
+                label="Start time"
+                items={[
+                  { label: '12:00', onClick: () => {} },
+                  { label: '12:30', onClick: () => {} },
+                  { label: '1:00', onClick: () => {} },
+                  { label: '1:30', onClick: () => {} },
+                  { label: '2:00', onClick: () => {} },
+                  { label: '2:30', onClick: () => {} },
+                  { label: '3:00', onClick: () => {} },
+                  { label: '3:30', onClick: () => {} },
+                  { label: '4:00', onClick: () => {} },
+                  { label: '4:30', onClick: () => {} },
+                  { label: '5:00', onClick: () => {} },
+                  { label: '5:30', onClick: () => {} },
+                  { label: '6:00', onClick: () => {} },
+                  { label: '6:30', onClick: () => {} },
+                  { label: '7:00', onClick: () => {} },
+                  { label: '7:30', onClick: () => {} },
+                  { label: '8:00', onClick: () => {} },
+                  { label: '8:30', onClick: () => {} },
+                  { label: '9:00', onClick: () => {} },
+                  { label: '9:30', onClick: () => {} },
+                  { label: '10:00', onClick: () => {} },
+                  { label: '10:30', onClick: () => {} },
+                  { label: '11:00', onClick: () => {} },
+                  { label: '11:30', onClick: () => {} },
+                ]}
+              />
+            </Box>
+            <Box>
+            <Menu
+                size="small"
+                align="end"
+                label="End time"
+                items={[
+                  { label: '12:00', onClick: () => {} },
+                  { label: '12:30', onClick: () => {} },
+                  { label: '1:00', onClick: () => {} },
+                  { label: '1:30', onClick: () => {} },
+                  { label: '2:00', onClick: () => {} },
+                  { label: '2:30', onClick: () => {} },
+                  { label: '3:00', onClick: () => {} },
+                  { label: '3:30', onClick: () => {} },
+                  { label: '4:00', onClick: () => {} },
+                  { label: '4:30', onClick: () => {} },
+                  { label: '5:00', onClick: () => {} },
+                  { label: '5:30', onClick: () => {} },
+                  { label: '6:00', onClick: () => {} },
+                  { label: '6:30', onClick: () => {} },
+                  { label: '7:00', onClick: () => {} },
+                  { label: '7:30', onClick: () => {} },
+                  { label: '8:00', onClick: () => {} },
+                  { label: '8:30', onClick: () => {} },
+                  { label: '9:00', onClick: () => {} },
+                  { label: '9:30', onClick: () => {} },
+                  { label: '10:00', onClick: () => {} },
+                  { label: '10:30', onClick: () => {} },
+                  { label: '11:00', onClick: () => {} },
+                  { label: '11:30', onClick: () => {} },
+                ]}
+              />
+            </Box>
+            </Box>
+            <Box pad="medium" direction="row-responsive">
+            <Text
+                  size="medium" 
+                  align="center"
+                  margin={{ top: "xsmall", right: "medium" }}
+                >
+                  Select date:
+                  </Text>
+              <Format />
+            </Box>
             <Box pad="medium">add description</Box>
             <Box pad="medium">company name</Box>
             <Box pad="medium">pay</Box>
@@ -121,6 +228,7 @@ function CreateButton() {
             size="small"
             alignSelf="end"
             hoverIndicator="true"
+            margin={{ bottom: "xsmall", right: "xsmall" }}
             />
           </Box>
           {/* <Button label="close" onClick={() => setShow(false)} /> */}
@@ -175,6 +283,7 @@ function DropMenu(props) {
       size="xsmall"
       options={["Day", "Week", "Month", "Year"]}
       value={value}
+      placeholder="Select calendar view"
       onChange={({ option }) => setValue(option)}
     />
   );
