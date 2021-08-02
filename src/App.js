@@ -11,6 +11,7 @@ import {
   FormField,
   Form,
   TextInput,
+  Layer,
   Grommet,
 } from "grommet";
 import FullCalendar from "@fullcalendar/react";
@@ -53,6 +54,32 @@ let calendarTwo = new Calendar({
   calendarName: "Work",
 });
 
+
+function CreateButton() {
+  const [show, setShow] = React.useState();
+  return (
+    <Box>
+      <Button 
+      primary
+      alignSelf="start"
+      label="Create"
+      color="asd"
+      size="large"
+      icon={<Add />}
+      margin={{ left: "small", top: "small" }}
+      hoverIndicator="true" 
+      onClick={() => setShow(true)} />
+      {show && (
+        <Layer
+          onEsc={() => setShow(false)}
+          onClickOutside={() => setShow(false)}
+        >
+          <Button label="close" onClick={() => setShow(false)} />
+        </Layer>
+      )}
+    </Box>
+  );
+}
 function AddViewForm(props) {
   const [calendars, setCalendars] = useState([
     calendarOne.calendarName,
@@ -138,15 +165,15 @@ const App = () => {
                     animation="fadeIn"
                     justify="evenly"
                   >
-                    <Button
-                      primary
-                      alignSelf="start"
-                      label="Create"
-                      color="asd"
-                      size="large"
-                      icon={<Add />}
-                      margin={{ left: "small", top: "small" }}
-                      hoverIndicator="true"
+                    <CreateButton
+                      // primary
+                      // alignSelf="start"
+                      // label="Create"
+                      // color="asd"
+                      // size="large"
+                      // icon={<Add />}
+                      // margin={{ left: "small", top: "small" }}
+                      // hoverIndicator="true"
                     />
 
                     <AddViewForm />
