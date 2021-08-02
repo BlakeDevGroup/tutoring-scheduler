@@ -55,6 +55,26 @@ let calendarTwo = new Calendar({
 });
 
 
+// const MarginLayer = ({ margin, ...rest }) => (
+//       <Layer
+//         margin={
+//           margin || { left: '40px', top: '50px', right: '30px', bottom: '10px' }
+//         }
+//         {...rest}
+//       >
+//         <Box height="small" overflow="auto">
+//           <Box pad="xlarge">text</Box>
+//           <Box pad="xlarge">text</Box>
+//           <Box pad="xlarge">text</Box>
+//           <Box pad="xlarge">text</Box>
+//           <Box pad="xlarge">text</Box>
+//           <Box pad="xlarge">text</Box>
+//         </Box>
+//       </Layer>
+
+
+
+
 function CreateButton() {
   const [show, setShow] = React.useState();
   return (
@@ -71,9 +91,16 @@ function CreateButton() {
       onClick={() => setShow(true)} />
       {show && (
         <Layer
-          onEsc={() => setShow(false)}
-          onClickOutside={() => setShow(false)}
-        >
+        onEsc={() => setShow(false)}
+        onClickOutside={() => setShow(false)}
+      >   <Box height="medium" width="medium" overflow="auto">
+            <Box pad="medium">event title</Box>
+            <Box pad="medium">set time</Box>
+            <Box pad="medium">set calendar</Box>
+            <Box pad="medium">add description</Box>
+            <Box pad="medium">company name</Box>
+            <Box pad="medium">pay</Box>
+          </Box>
           <Button label="close" onClick={() => setShow(false)} />
         </Layer>
       )}
