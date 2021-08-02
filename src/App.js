@@ -100,8 +100,14 @@ function CreateButton() {
             <Box pad="medium">add description</Box>
             <Box pad="medium">company name</Box>
             <Box pad="medium">pay</Box>
+            <Button 
+            label="save"
+            size="small"
+            alignSelf="end"
+            hoverIndicator="true"
+            />
           </Box>
-          <Button label="close" onClick={() => setShow(false)} />
+          {/* <Button label="close" onClick={() => setShow(false)} /> */}
         </Layer>
       )}
     </Box>
