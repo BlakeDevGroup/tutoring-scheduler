@@ -13,6 +13,7 @@ import {
   TextInput,
   DateInput,
   Layer,
+  Tip,
   TextArea,
   Menu,
   Grommet,
@@ -24,7 +25,7 @@ import {
   BladesVertical,
   Add,
   CaretDownFill,
-  ChapterAdd,
+  Money,
 } from "grommet-icons";
 import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -256,7 +257,26 @@ function CreateButton() {
             <Box margin={{ top: "xsmall", bottom: "small"}}>
               <CompanyDropMenu />
             </Box>
-            <Box pad="medium">pay</Box>
+            <Box 
+            align="start" 
+            pad="small"
+            margin={{left: "medium"}}
+            >
+            <Tip
+              content={
+          <Box alignContent="center" pad="xsmall" gap="small" width={{ max: 'small' }}>
+            <Text weight="bold">Pay: $35/hr</Text>
+            <>
+            </>
+          </Box>
+        }
+        dropProps={{ align: { left: 'right' } }}
+      >
+        <Button 
+        margin={{top: "small"}}
+        icon={<Money size="medium" />} />
+      </Tip>
+            </Box>
             <Button 
             color="asd"
             label="save"
