@@ -13,6 +13,7 @@ import {
   TextInput,
   DateInput,
   Layer,
+  TextArea,
   Menu,
   Grommet,
 } from "grommet";
@@ -75,8 +76,22 @@ let calendarTwo = new Calendar({
 //       </Layer>
 
 
+function EventDescription() {
+  const [value, setValue] = React.useState('');
+  return (
+    <TextArea
+      fill={true}
+      size="small"
+      resize={false}
+      placeholder="Event Description"
+      value={value}
+      onChange={event => setValue(event.target.value)}
+    />
+  );
+}
 
-export const Format = () => {
+
+export const AddDate = () => {
     const [value, setValue] = React.useState('');
     const onChange = (event) => {
       const nextValue = event.value;
@@ -105,7 +120,9 @@ export const EventTitle = () => {
     <TextInput 
       value={value}
       onChange={onChange}
-      placeholder="Add title" />
+      placeholder="Add title"
+   />
+      
   )
 }
 
@@ -217,11 +234,19 @@ function CreateButton() {
                 >
                   Select date:
                   </Text>
-              <Format />
+              <AddDate />
             </Box>
-            <Box pad="medium">add description</Box>
-            <Box pad="medium">company name</Box>
-            <Box pad="medium">pay</Box>
+            <Box 
+              // direction="row-responsive"
+              margin={{ top: "medium", left: "medium", right:"medium", bottom: "xsmall"}} 
+              // fill={true}
+              height="medium"
+              // width="small"
+              >
+              <EventDescription />
+            </Box>
+            <Box pad="small">company name</Box>
+            <Box pad="small">pay</Box>
             <Button 
             color="asd"
             label="save"
