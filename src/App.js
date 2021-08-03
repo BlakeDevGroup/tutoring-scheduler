@@ -59,7 +59,7 @@ const App = () => {
               flex
               overflow={{ horizontal: "hidded" }}
             >
-              {!showSidebar || size !== "small"}
+               {!showSidebar || size !== "small" ? (
                 <Collapsible direction="horizontal" open={showSidebar}>
                   <Box
                     flex
@@ -105,6 +105,7 @@ const App = () => {
                     sidebar
                   </Box>
                 </layer>
+              )} 
               <Main margin="xsmall">
                 <MainCalendar />
               </Main>
