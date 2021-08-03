@@ -27,6 +27,7 @@ import {
   CaretDownFill,
   Money,
 } from "grommet-icons";
+import EventDescription from "./Create-event-components/Event-description";
 import CompanyDropMenu from "./Create-event-components/Company-drop-menu";
 import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -59,53 +60,19 @@ let calendarTwo = new Calendar({
   calendarName: "Work",
 });
 
-
-// const MarginLayer = ({ margin, ...rest }) => (
-//       <Layer
-//         margin={
-//           margin || { left: '40px', top: '50px', right: '30px', bottom: '10px' }
-//         }
-//         {...rest}
-//       >
-//         <Box height="small" overflow="auto">
-//           <Box pad="xlarge">text</Box>
-//           <Box pad="xlarge">text</Box>
-//           <Box pad="xlarge">text</Box>
-//           <Box pad="xlarge">text</Box>
-//           <Box pad="xlarge">text</Box>
-//           <Box pad="xlarge">text</Box>
-//         </Box>
-//       </Layer>
-
-// function CompanyDropMenu(props) {
-//   const [value, setValue] = React.useState("medium");
+// function EventDescription() {
+//   const [value, setValue] = React.useState('');
 //   return (
-//     <Select
-//       margin={{ right: "large", left: "large"}}
-//       icon={<CaretDownFill />}
+//     <TextArea
+//       fill={true}
 //       size="small"
-//       options={["Comp1", "Comp2", "Comp3", "Comp4"]}
+//       resize={false}
+//       placeholder="Event Description"
 //       value={value}
-//       placeholder="Select a company"
-//       onChange={({ option }) => setValue(option)}
+//       onChange={event => setValue(event.target.value)}
 //     />
 //   );
 // }
-
-
-function EventDescription() {
-  const [value, setValue] = React.useState('');
-  return (
-    <TextArea
-      fill={true}
-      size="small"
-      resize={false}
-      placeholder="Event Description"
-      value={value}
-      onChange={event => setValue(event.target.value)}
-    />
-  );
-}
 
 
 export const AddDate = () => {
