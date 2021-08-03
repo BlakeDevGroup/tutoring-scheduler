@@ -16,4 +16,4 @@ export const EventTitle = () => {
     )
   }
 
-  export default EventTitle;
+export default EventTitle;

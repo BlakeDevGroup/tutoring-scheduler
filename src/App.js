@@ -5,17 +5,6 @@ import {
   Heading,
   Main,
   ResponsiveContext,
-  Text,
-  CheckBoxGroup,
-  Select,
-  FormField,
-  Form,
-  TextInput,
-  DateInput,
-  Layer,
-  Tip,
-  TextArea,
-  Menu,
   Grommet,
 } from "grommet";
 import FullCalendar from "@fullcalendar/react";
@@ -23,17 +12,14 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import {
   FormClose,
   BladesVertical,
-  Add,
-  CaretDownFill,
-  Money,
 } from "grommet-icons";
+import AddViewForm from "./nav-bar/Add-calendar-view";
+import NavDropMenu from "./nav-bar/Calendar-view-dropmenu";
 import CreateButton from "./Create-events/Create-events";
 import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from "@fullcalendar/interaction";
-import timeGridPlugin from "@fullcalendar/timegrid";
 import React, { useState } from "react";
 import Events from "./models/events";
-import Calendar from "./models/calendar";
 import MainCalendar from "./main-components/main-calendar";
 
 const theme = {
@@ -49,67 +35,6 @@ const theme = {
   },
 };
 
-let calendarOne = new Calendar({
-  id: Math.random() * 10000 + 1,
-  calendarName: "News",
-});
-
-let calendarTwo = new Calendar({
-  id: Math.random() * 10000 + 1,
-  calendarName: "Work",
-});
-
-function AddViewForm(props) {
-  const [calendars, setCalendars] = useState([
-    calendarOne.calendarName,
-    calendarTwo.calendarName,
-  ]);
-  const [textValue, setTextValue] = useState("");
-
-  return (
-    <Form
-      onReset={() => setTextValue("")}
-      onSubmit={(e) => {
-        if (textValue == "") return;
-        const calendar = new Calendar({
-          id: Math.random * 10000 + 1,
-          calendarName: textValue,
-        });
-        setCalendars([].concat(calendars, calendar.calendarName));
-        setTextValue("");
-      }}
-    >
-      <CheckBoxGroup options={calendars} gap="small" margin="medium" />
-      <FormField name="name" htmlFor="text-input-id" label="Add View">
-        <TextInput
-          id="text-input-id"
-          name="name"
-          placeholder="Name your calendar"
-          value={textValue}
-          onChange={(e) => setTextValue(e.target.value)}
-        />
-      </FormField>
-      <Box direction="row" gap="medium">
-        <Button type="submit" primary label="Submit" />
-        <Button type="reset" label="Reset" />
-      </Box>
-    </Form>
-  );
-}
-function DropMenu(props) {
-  const [value, setValue] = React.useState("medium");
-  return (
-    <Select
-      margin={{ right: "medium" }}
-      icon={<CaretDownFill />}
-      size="xsmall"
-      options={["Day", "Week", "Month", "Year"]}
-      value={value}
-      placeholder="Select calendar view"
-      onChange={({ option }) => setValue(option)}
-    />
-  );
-}
 
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -126,7 +51,7 @@ const App = () => {
               <Heading level="3" margin="none" align="right">
                 My App
               </Heading>
-              <DropMenu />
+              <NavDropMenu />
             </NavBar>
             <Box
               direction=""
@@ -134,7 +59,7 @@ const App = () => {
               flex
               overflow={{ horizontal: "hidded" }}
             >
-              {!showSidebar || size !== "small" ? (
+              {!showSidebar || size !== "small"}
                 <Collapsible direction="horizontal" open={showSidebar}>
                   <Box
                     flex
@@ -145,16 +70,7 @@ const App = () => {
                     animation="fadeIn"
                     justify="evenly"
                   >
-                    <CreateButton
-                      // primary
-                      // alignSelf="start"
-                      // label="Create"
-                      // color="asd"
-                      // size="large"
-                      // icon={<Add />}
-                      // margin={{ left: "small", top: "small" }}
-                      // hoverIndicator="true"
-                    />
+                    <CreateButton />
 
                     <AddViewForm />
 
@@ -189,7 +105,6 @@ const App = () => {
                     sidebar
                   </Box>
                 </layer>
-              )}
               <Main margin="xsmall">
                 <MainCalendar />
               </Main>
