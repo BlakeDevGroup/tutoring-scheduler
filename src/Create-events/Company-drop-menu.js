@@ -3,7 +3,6 @@ import { CaretDownFill } from "grommet-icons";
 import React, { useState } from "react";
 
 
-
 function CompanyDropMenu(props) {
     const [value, setValue] = React.useState("medium");
     return (

@@ -1,6 +1,7 @@
 import { TextArea } from "grommet";
 import React, { useState } from "react";
 
+
 function EventDescription() {
     const [value, setValue] = React.useState('');
     return (
@@ -15,4 +16,4 @@ function EventDescription() {
     );
   }
 
-  export default EventDescription;
+export default EventDescription;
