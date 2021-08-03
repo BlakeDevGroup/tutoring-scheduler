@@ -27,6 +27,7 @@ import {
   CaretDownFill,
   Money,
 } from "grommet-icons";
+import CompanyDropMenu from "./Create-event-components/Company-drop-menu";
 import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -76,20 +77,20 @@ let calendarTwo = new Calendar({
 //         </Box>
 //       </Layer>
 
-function CompanyDropMenu(props) {
-  const [value, setValue] = React.useState("medium");
-  return (
-    <Select
-      margin={{ right: "large", left: "large"}}
-      icon={<CaretDownFill />}
-      size="small"
-      options={["Comp1", "Comp2", "Comp3", "Comp4"]}
-      value={value}
-      placeholder="Select a company"
-      onChange={({ option }) => setValue(option)}
-    />
-  );
-}
+// function CompanyDropMenu(props) {
+//   const [value, setValue] = React.useState("medium");
+//   return (
+//     <Select
+//       margin={{ right: "large", left: "large"}}
+//       icon={<CaretDownFill />}
+//       size="small"
+//       options={["Comp1", "Comp2", "Comp3", "Comp4"]}
+//       value={value}
+//       placeholder="Select a company"
+//       onChange={({ option }) => setValue(option)}
+//     />
+//   );
+// }
 
 
 function EventDescription() {
