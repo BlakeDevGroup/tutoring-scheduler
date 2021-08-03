@@ -5,6 +5,12 @@ import {
   Heading,
   Main,
   ResponsiveContext,
+  Text,
+  CheckBoxGroup,
+  Select,
+  FormField,
+  Form,
+  TextInput,
   Grommet,
 } from "grommet";
 import FullCalendar from "@fullcalendar/react";
@@ -12,14 +18,19 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import {
   FormClose,
   BladesVertical,
+  Add,
+  CaretDownFill,
+  ChapterAdd,
 } from "grommet-icons";
 import AddViewForm from "./nav-bar/Add-calendar-view";
 import NavDropMenu from "./nav-bar/Calendar-view-dropmenu";
-import CreateButton from "./Create-events/Create-events";
+import CreateButton from "./Create-events/Create-events"
 import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import React, { useState } from "react";
 import Events from "./models/events";
+import Calendar from "./models/calendar";
 import MainCalendar from "./main-components/main-calendar";
 
 const theme = {
@@ -34,7 +45,6 @@ const theme = {
     },
   },
 };
-
 
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -59,7 +69,7 @@ const App = () => {
               flex
               overflow={{ horizontal: "hidded" }}
             >
-               {!showSidebar || size !== "small" ? (
+              {!showSidebar || size !== "small" ? (
                 <Collapsible direction="horizontal" open={showSidebar}>
                   <Box
                     flex
@@ -70,7 +80,8 @@ const App = () => {
                     animation="fadeIn"
                     justify="evenly"
                   >
-                    <CreateButton />
+                    <CreateButton
+                    />
 
                     <AddViewForm />
 
@@ -105,7 +116,7 @@ const App = () => {
                     sidebar
                   </Box>
                 </layer>
-              )} 
+              )}
               <Main margin="xsmall">
                 <MainCalendar />
               </Main>

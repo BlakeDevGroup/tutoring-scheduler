@@ -34,6 +34,7 @@ const MainCalendar = (props) => {
         selectable={true}
         navLinks={true}
         events={events}
+        nowIndicator={false}
         />
     );
 }
