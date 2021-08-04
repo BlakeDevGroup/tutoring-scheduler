@@ -11,9 +11,9 @@ function CompanyDropMenu(props) {
         icon={<CaretDownFill />}
         size="small"
         options={["Comp1", "Comp2", "Comp3", "Comp4"]}
-        value={value}
+        value={props.value}
         placeholder="Select a company"
-        onChange={({ option }) => setValue(option)}
+        onChange={(e) => props.onChange(e.target.value)}
       />
     );
   }
