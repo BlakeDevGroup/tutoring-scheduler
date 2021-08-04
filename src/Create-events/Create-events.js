@@ -68,6 +68,8 @@ import {
 
 function CreateButton() {
     const [title, setTitle] = React.useState("");
+    const [company, setCompany] = React.useState("");
+    const [description, setDescription] = React.useState("");
     const [show, setShowEventModal] = React.useState();
     const [date, setDate] = React.useState();
     const [timeValueAm, setTimeValueAm] = React.useState("");
@@ -120,6 +122,7 @@ function CreateButton() {
               <Select
                   dropHeight="small"                 
                   size="small"
+                  messages="hello"
                   align="end"
                   placeholder="End time"
                   options={timeArray()}
@@ -145,10 +148,17 @@ function CreateButton() {
                 margin={{ top: "small", left: "medium", right:"medium", bottom:"small"}} 
                 height="small"
                 >
-                <EventDescription />
+                <EventDescription 
+                onChange={setDescription}
+                value={description}
+                />
               </Box>
               <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}}>
-                <CompanyDropMenu />
+                <CompanyDropMenu
+                  value={company}
+                  onChange={setCompany}
+                
+                />
               </Box>
               {/* <Box 
               align="start" 
