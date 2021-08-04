@@ -14,20 +14,20 @@ const theme = {
     },
   };
 
-export const AddDate = () => {
-    const [value, setValue] = React.useState('');
-    const onChange = (event) => {
-      const nextValue = event.value;
-      console.log('onChange', nextValue);
-      setValue(nextValue);
-    };
+export const AddDate = (props) => {
+    // const [value, setValue] = React.useState('');
+    // const onChange = (event) => {
+    //   const nextValue = event.value;
+    //   console.log('onChange', nextValue);
+    //   setValue(nextValue);
+    // };
     return (
       <Grommet theme={theme}>
             <DateInput 
-            size="xsmall"
+            size="small"
             format="m/d/yy" 
-            value={value} 
-            onChange={onChange} />
+            value={props.value} 
+            onChange={(e) => {props.onChange(e.value)}} />
       </Grommet>
     );
   };

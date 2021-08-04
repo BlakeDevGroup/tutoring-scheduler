@@ -82,9 +82,7 @@ const App = () => {
                   >
                     <CreateButton
                     />
-
                     <AddViewForm />
-
                     <FullCalendar
                       plugins={[dayGridPlugin, interactionPlugin]}
                       initialView="dayGridMonth"

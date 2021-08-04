@@ -1,16 +1,15 @@
 import { TextInput } from "grommet";
 import React, { useState } from "react";
 
-export const EventTitle = () => {
-    const [value, setValue] = React.useState('');
-    
-    const onChange = event => setValue(event.target.value);
+export const EventTitle = (props) => {
     
     return (
-      <TextInput 
-        value={value}
-        onChange={onChange}
+      <TextInput
+        Margin={{Top:"small"}} 
+        value={props.value}
+        onChange={(e) => props.onChange(e.target.value)}
         placeholder="Add title"
+        size="large"
      />
         
     )

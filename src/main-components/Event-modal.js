@@ -10,11 +10,35 @@ import {
     Add,
     Money
   } from "grommet-icons";
-  import EventTitle from "./Event-title";
-  import AddDate from "./Add-date";
-  import EventDescription from "./Event-description";
-  import CompanyDropMenu from "./Company-drop-menu";
+  import EventTitle from "../Create-events/Event-title";
+  import AddDate from "../Create-events/Add-date";
+  import EventDescription from "../Create-events/Event-description";
+  import CompanyDropMenu from "../Create-events/Company-drop-menu";
   import React, { useState } from "react";
+
+
+  function timeArray() {
+    let times = []
+    for(let i = 0; i < 12; i++) {
+        let time = i
+        if (i == 0) time = 12
+        times.push({label:`${time}:00am`, onClick: () => {}})
+        times.push({label:`${time}:15am`, onClick: () => {}})
+        times.push({label:`${time}:30am`, onClick: () => {}})
+        times.push({label:`${time}:45am`, onClick: () => {}})
+    }
+
+    for(let i = 12; i > 0; i--) {
+        let time = i
+        if (i == 0) time = 12
+        times.push({label:`${time}:00pm`, onClick: () => {}})
+        times.push({label:`${time}:15pm`, onClick: () => {}})
+        times.push({label:`${time}:30pm`, onClick: () => {}})
+        times.push({label:`${time}:45pm`, onClick: () => {}})
+    }
+
+    return times
+}
 
 function EventModal() {
     const [show, setShow] = React.useState();
@@ -42,32 +66,7 @@ function EventModal() {
                   size="small"
                   align="start"
                   label="Start time"
-                  items={[
-                    { label: '12:00', onClick: () => {} },
-                    { label: '12:30', onClick: () => {} },
-                    { label: '1:00', onClick: () => {} },
-                    { label: '1:30', onClick: () => {} },
-                    { label: '2:00', onClick: () => {} },
-                    { label: '2:30', onClick: () => {} },
-                    { label: '3:00', onClick: () => {} },
-                    { label: '3:30', onClick: () => {} },
-                    { label: '4:00', onClick: () => {} },
-                    { label: '4:30', onClick: () => {} },
-                    { label: '5:00', onClick: () => {} },
-                    { label: '5:30', onClick: () => {} },
-                    { label: '6:00', onClick: () => {} },
-                    { label: '6:30', onClick: () => {} },
-                    { label: '7:00', onClick: () => {} },
-                    { label: '7:30', onClick: () => {} },
-                    { label: '8:00', onClick: () => {} },
-                    { label: '8:30', onClick: () => {} },
-                    { label: '9:00', onClick: () => {} },
-                    { label: '9:30', onClick: () => {} },
-                    { label: '10:00', onClick: () => {} },
-                    { label: '10:30', onClick: () => {} },
-                    { label: '11:00', onClick: () => {} },
-                    { label: '11:30', onClick: () => {} },
-                  ]}
+                  items={timeArray()}
                 />
               </Box>
               <Box>
@@ -75,32 +74,7 @@ function EventModal() {
                   size="small"
                   align="end"
                   label="End time"
-                  items={[
-                    { label: '12:00', onClick: () => {} },
-                    { label: '12:30', onClick: () => {} },
-                    { label: '1:00', onClick: () => {} },
-                    { label: '1:30', onClick: () => {} },
-                    { label: '2:00', onClick: () => {} },
-                    { label: '2:30', onClick: () => {} },
-                    { label: '3:00', onClick: () => {} },
-                    { label: '3:30', onClick: () => {} },
-                    { label: '4:00', onClick: () => {} },
-                    { label: '4:30', onClick: () => {} },
-                    { label: '5:00', onClick: () => {} },
-                    { label: '5:30', onClick: () => {} },
-                    { label: '6:00', onClick: () => {} },
-                    { label: '6:30', onClick: () => {} },
-                    { label: '7:00', onClick: () => {} },
-                    { label: '7:30', onClick: () => {} },
-                    { label: '8:00', onClick: () => {} },
-                    { label: '8:30', onClick: () => {} },
-                    { label: '9:00', onClick: () => {} },
-                    { label: '9:30', onClick: () => {} },
-                    { label: '10:00', onClick: () => {} },
-                    { label: '10:30', onClick: () => {} },
-                    { label: '11:00', onClick: () => {} },
-                    { label: '11:30', onClick: () => {} },
-                  ]}
+                  items={timeArray()}
                 />
               </Box>
               </Box>

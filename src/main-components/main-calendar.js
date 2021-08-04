@@ -4,9 +4,9 @@ import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import React, { useState } from "react";
 
-
 import Events from "../models/events";
 import eventsData from "../data/events.json";
+import EventModal from "./Event-modal";
 
 const getEvents = () => {
 
@@ -21,20 +21,20 @@ const getEvents = () => {
 
     return events
 }
-const MainCalendar = (props) => {
+const MainCalendar = () => {
     const [events, setEvents] = useState(getEvents())
-    
 
     return (
         <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="timeGridWeek"
+        initialView="dayGridMonth"
         expandRows={true}
         handleWindowResize
         selectable={true}
         navLinks={true}
         events={events}
-        nowIndicator={false}
+        nowIndicator={true}
+        // dateClick={}
         />
     );
 }

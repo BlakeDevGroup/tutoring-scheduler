@@ -7,7 +7,7 @@ function EventDescription() {
     return (
       <TextArea
         fill={true}
-        size="small"
+        size="large"
         resize={false}
         placeholder="Event Description"
         value={value}

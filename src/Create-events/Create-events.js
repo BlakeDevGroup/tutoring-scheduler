@@ -3,8 +3,10 @@ import {
     Button,
     Text,
     Layer,
+    Select,
     Tip,
     Menu,
+    Grommet,
   } from "grommet";
   import {
     Add,
@@ -15,10 +17,63 @@ import {
   import EventDescription from "./Event-description";
   import CompanyDropMenu from "./Company-drop-menu";
   import React, { useState } from "react";
+  import eventsData from "../data/events.json";
+
+  const getEvents = () => {
+
+    let events = []
+
+    eventsData["events"].forEach(data => {
+        
+        events.push(data)
+      }
+    )
+  };
+  
+  const theme = {
+    global: {
+      colors: {
+        brand: "#81FCED",
+      },
+      font: {
+        family: "Roboto",
+        size: "18px",
+        height: "20px",
+      },
+    },
+  };
+  
+  function timeArray() {
+    let times = []
+    for(let i = 0; i < 12; i++) {
+        let time = i
+        if (i == 0) time = 12
+        times.push(`${time}:00am`)
+        times.push(`${time}:15am`)
+        times.push(`${time}:30am`)
+        times.push(`${time}:45am`)
+    }
+
+    for(let i = 0; i < 12; i++) {
+      let time = i
+      if (i == 0) time = 12
+      times.push(`${time}:00pm`)
+      times.push(`${time}:15pm`)
+      times.push(`${time}:30pm`)
+      times.push(`${time}:45pm`)
+  }
+
+    return times
+}
 
 function CreateButton() {
-    const [show, setShow] = React.useState();
+    const [title, setTitle] = React.useState("");
+    const [show, setShowEventModal] = React.useState();
+    const [date, setDate] = React.useState();
+    const [timeValueAm, setTimeValueAm] = React.useState("");
+    const [timeValuePm, setTimeValuePm] = React.useState("");
     return (
+      <Grommet theme={theme}>
       <Box>
         <Button 
         primary
@@ -29,111 +84,73 @@ function CreateButton() {
         icon={<Add />}
         margin={{ left: "small", top: "small" }}
         hoverIndicator="true" 
-        onClick={() => setShow(true)} />
+        onClick={() => setShowEventModal(true)} />
         {show && (
           <Layer
-          onEsc={() => setShow(false)}
-          onClickOutside={() => setShow(false)}
-        >   <Box height="medium" width="medium" overflow="auto">
-              <Box pad="medium">
-                <EventTitle />
+          onEsc={() => setShowEventModal(false)}
+          onClickOutside={() => setShowEventModal(false)}
+        >   <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}}>
+              <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}}>
+                <EventTitle
+                  onChange={setTitle}
+                  value={title}
+                />
               </Box>
-              <Box pad="medium" direction="row-responsive">
+              <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}} direction="row-responsive">
                 <Box>
-                  <Text 
+                  <Text
+                    size="small" 
                     align="center"
                     margin={{ top: "small" }}
                   >
-                    Select time:
+                    Time:
                     </Text>
                 </Box>
                 <Box margin={{ left: "medium" }}>
-                <Menu
+                <Select
+                  dropHeight="small"
                   size="small"
                   align="start"
-                  label="Start time"
-                  items={[
-                    { label: '12:00', onClick: () => {} },
-                    { label: '12:30', onClick: () => {} },
-                    { label: '1:00', onClick: () => {} },
-                    { label: '1:30', onClick: () => {} },
-                    { label: '2:00', onClick: () => {} },
-                    { label: '2:30', onClick: () => {} },
-                    { label: '3:00', onClick: () => {} },
-                    { label: '3:30', onClick: () => {} },
-                    { label: '4:00', onClick: () => {} },
-                    { label: '4:30', onClick: () => {} },
-                    { label: '5:00', onClick: () => {} },
-                    { label: '5:30', onClick: () => {} },
-                    { label: '6:00', onClick: () => {} },
-                    { label: '6:30', onClick: () => {} },
-                    { label: '7:00', onClick: () => {} },
-                    { label: '7:30', onClick: () => {} },
-                    { label: '8:00', onClick: () => {} },
-                    { label: '8:30', onClick: () => {} },
-                    { label: '9:00', onClick: () => {} },
-                    { label: '9:30', onClick: () => {} },
-                    { label: '10:00', onClick: () => {} },
-                    { label: '10:30', onClick: () => {} },
-                    { label: '11:00', onClick: () => {} },
-                    { label: '11:30', onClick: () => {} },
-                  ]}
+                  placeholder="Start time"
+                  options={timeArray()}
+                  onChange={({ option }) => setTimeValueAm(option)}
                 />
               </Box>
               <Box>
-              <Menu
+              <Select
+                  dropHeight="small"                 
                   size="small"
                   align="end"
-                  label="End time"
-                  items={[
-                    { label: '12:00', onClick: () => {} },
-                    { label: '12:30', onClick: () => {} },
-                    { label: '1:00', onClick: () => {} },
-                    { label: '1:30', onClick: () => {} },
-                    { label: '2:00', onClick: () => {} },
-                    { label: '2:30', onClick: () => {} },
-                    { label: '3:00', onClick: () => {} },
-                    { label: '3:30', onClick: () => {} },
-                    { label: '4:00', onClick: () => {} },
-                    { label: '4:30', onClick: () => {} },
-                    { label: '5:00', onClick: () => {} },
-                    { label: '5:30', onClick: () => {} },
-                    { label: '6:00', onClick: () => {} },
-                    { label: '6:30', onClick: () => {} },
-                    { label: '7:00', onClick: () => {} },
-                    { label: '7:30', onClick: () => {} },
-                    { label: '8:00', onClick: () => {} },
-                    { label: '8:30', onClick: () => {} },
-                    { label: '9:00', onClick: () => {} },
-                    { label: '9:30', onClick: () => {} },
-                    { label: '10:00', onClick: () => {} },
-                    { label: '10:30', onClick: () => {} },
-                    { label: '11:00', onClick: () => {} },
-                    { label: '11:30', onClick: () => {} },
-                  ]}
+                  placeholder="End time"
+                  options={timeArray()}
+                  onChange={({ option }) => setTimeValuePm(option)}
                 />
               </Box>
               </Box>
-              <Box pad="medium" direction="row-responsive">
+              <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}} direction="row-responsive">
               <Text
-                    size="medium" 
+                    size="small" 
                     align="center"
                     margin={{ top: "xsmall", right: "medium" }}
                   >
-                    Select date:
+                    Date:
                     </Text>
-                <AddDate />
+                <AddDate
+                  onChange={setDate}
+                  value={date}
+                
+                />
               </Box>
               <Box 
-                margin={{ top: "small", left: "medium", right:"medium"}} 
-                height="medium"
+                margin={{ top: "small", left: "medium", right:"medium", bottom:"small"}} 
+                height="small"
                 >
                 <EventDescription />
               </Box>
-              <Box margin={{ top: "xsmall", bottom: "small"}}>
+              <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}}>
                 <CompanyDropMenu />
               </Box>
-              <Box 
+              {/* <Box 
               align="start" 
               pad="small"
               margin={{left: "medium"}}
@@ -152,20 +169,21 @@ function CreateButton() {
           margin={{top: "small"}}
           icon={<Money size="medium" />} />
         </Tip>
-              </Box>
+              </Box> */}
               <Button 
-              color="asd"
-              label="save"
-              size="small"
-              alignSelf="end"
-              hoverIndicator="true"
-              margin={{ bottom: "xsmall", right: "xsmall" }}
+              type="submit"
+              icon={<Add />}
+              size="medium"
+              alignSelf="center"
+              hoverIndicator
+              margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}}
               />
             </Box>
             {/* <Button label="close" onClick={() => setShow(false)} /> */}
           </Layer>
         )}
       </Box>
+    </Grommet>
     );
   }
 
