@@ -18,17 +18,17 @@ import {
   import CompanyDropMenu from "./Company-drop-menu";
   import React, { useState } from "react";
   import eventsData from "../data/events.json";
+  import Events from "../models/events";
 
-  const getEvents = () => {
+  export const setNewEvents = (events, newEvent, setEvents) => {
 
-    let events = []
+    const newEvents = [].concat(events, [newEvent])
+    
+    console.log(newEvents)
 
-    eventsData["events"].forEach(data => {
-        
-        events.push(data)
-      }
-    )
+    setEvents(newEvents)
   };
+  
   
   const theme = {
     global: {
@@ -48,32 +48,32 @@ import {
     for(let i = 0; i < 12; i++) {
         let time = i
         if (i == 0) time = 12
-        times.push(`${time}:00am`)
-        times.push(`${time}:15am`)
-        times.push(`${time}:30am`)
-        times.push(`${time}:45am`)
+        times.push(`${time}:00`)
+        times.push(`${time}:15`)
+        times.push(`${time}:30`)
+        times.push(`${time}:45`)
     }
 
-    for(let i = 0; i < 12; i++) {
-      let time = i
-      if (i == 0) time = 12
-      times.push(`${time}:00pm`)
-      times.push(`${time}:15pm`)
-      times.push(`${time}:30pm`)
-      times.push(`${time}:45pm`)
-  }
+  //   for(let i = 0; i < 12; i++) {
+  //     let time = i
+  //     if (i == 0) time = 12
+  //     times.push(`${time}:00`)
+  //     times.push(`${time}:15`)
+  //     times.push(`${time}:30`)
+  //     times.push(`${time}:45`)
+  // }
 
     return times
 }
 
-function CreateButton() {
+function CreateButton(props) {
     const [title, setTitle] = React.useState("");
     const [company, setCompany] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [show, setShowEventModal] = React.useState();
     const [date, setDate] = React.useState();
-    const [timeValueAm, setTimeValueAm] = React.useState("");
-    const [timeValuePm, setTimeValuePm] = React.useState("");
+    const [timeAm, setTimeValueAm] = React.useState("");
+    const [timePm, setTimeValuePm] = React.useState("");
     return (
       <Grommet theme={theme}>
       <Box>
@@ -110,6 +110,7 @@ function CreateButton() {
                 </Box>
                 <Box margin={{ left: "medium" }}>
                 <Select
+                  multiple={false}
                   dropHeight="small"
                   size="small"
                   align="start"
@@ -120,6 +121,7 @@ function CreateButton() {
               </Box>
               <Box>
               <Select
+                  multiple={false}
                   dropHeight="small"                 
                   size="small"
                   messages="hello"
@@ -187,6 +189,16 @@ function CreateButton() {
               alignSelf="center"
               hoverIndicator
               margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}}
+              onClick={() => {
+                setNewEvents(props.events, {
+                  "id":"3",
+                  "title":title,
+                  "start":`${date.split("T")[0]}T${timeAm}:00`,
+                  "end":`${date.split("T")[0]}T${timePm}:00`,                
+                }, props.setEvents)
+                setShowEventModal(false)
+              }
+            }
               />
             </Box>
             {/* <Button label="close" onClick={() => setShow(false)} /> */}

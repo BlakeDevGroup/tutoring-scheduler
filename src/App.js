@@ -32,6 +32,7 @@ import React, { useState } from "react";
 import Events from "./models/events";
 import Calendar from "./models/calendar";
 import MainCalendar from "./main-components/main-calendar";
+import eventsData from "./data/events.json";
 
 const theme = {
   global: {
@@ -46,8 +47,23 @@ const theme = {
   },
 };
 
+const getEvents = () => {
+
+  let events = []
+
+  eventsData["events"].forEach(data => {
+      
+      events.push(data)
+  });
+  
+  
+
+  return events
+}
+
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [events, setEvents] = useState(getEvents())
   return (
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
@@ -81,6 +97,8 @@ const App = () => {
                     justify="evenly"
                   >
                     <CreateButton
+                        events={events}
+                        setEvents = {setEvents}
                     />
                     <AddViewForm />
                     <FullCalendar
@@ -116,7 +134,9 @@ const App = () => {
                 </layer>
               )}
               <Main margin="xsmall">
-                <MainCalendar />
+                <MainCalendar 
+                  events = {events}  
+                />
               </Main>
             </Box>
           </Box>

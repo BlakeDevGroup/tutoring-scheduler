@@ -25,7 +25,7 @@ export const AddDate = (props) => {
       <Grommet theme={theme}>
             <DateInput 
             size="small"
-            format="m/d/yy" 
+            format="yyyy/mm/dd" 
             value={props.value} 
             onChange={(e) => {props.onChange(e.value)}} />
       </Grommet>
