@@ -44,7 +44,7 @@ import {
     let timeOfDay = timeString.substring(8,10)
 
     if(timeOfDay == "am") {
-      if(hour == "12") hour = "00"
+      if(hour == "12") hour = "00:00"
     } else {
       if(hour < 12) {
         hour  = parseInt(hour) + 12
@@ -111,8 +111,7 @@ function CreateButton(props) {
     const [description, setDescription] = React.useState("");
     const [show, setShowEventModal] = React.useState();
     const [date, setDate] = React.useState();
-    const [timeStart, 
-    ] = React.useState("");
+    const [timeStart, setTimeStart] = React.useState("");
     const [timeEnd, setTimeEnd] = React.useState("");
     return (
       <Grommet theme={theme}>
@@ -156,8 +155,7 @@ function CreateButton(props) {
                   align="start"
                   placeholder="Start time"
                   options={timeArray()}
-                  onChange={({ option }) => 
-                  (option)}
+                  onChange={({ option }) => (setTimeStart(option))}
                 />
               </Box>
               <Box>
@@ -214,8 +212,8 @@ function CreateButton(props) {
                 setNewEvents(props.events, {
                   "id":"3",
                   "title":title,
-                  "start":`${date.split("T")[0]}T${timeStart}:00`,
-                  "end":`${date.split("T")[0]}T${timeEnd}:00`,                
+                  "start":`${date.split("T")[0]}T${parseEventTime(timeStart)}`,
+                  "end":`${date.split("T")[0]}T${parseEventTime(timeEnd)}`,                
                 }, props.setEvents)
                 setShowEventModal(false)
               }
