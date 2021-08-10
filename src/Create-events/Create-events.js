@@ -45,26 +45,40 @@ import {
   
   function timeArray() {
     let times = []
-    for(let i = 0; i < 12; i++) {
+    for(let i = 0; i < 25; i++) {
         let time = i
-        if (i == 0) time = 12
+        if (i < 10) {
+        times.push(`0${time}:00`)
+        times.push(`0${time}:15`)
+        times.push(`0${time}:30`)
+        times.push(`0${time}:45`);
+
+        } else if (i > 9 && i != 24) {
         times.push(`${time}:00`)
         times.push(`${time}:15`)
         times.push(`${time}:30`)
-        times.push(`${time}:45`)
+        times.push(`${time}:45`);
+        } else if (i == 24) {
+        times.push(`${time}:00`);
+        }
     }
-
-  //   for(let i = 0; i < 12; i++) {
-  //     let time = i
-  //     if (i == 0) time = 12
-  //     times.push(`${time}:00`)
-  //     times.push(`${time}:15`)
-  //     times.push(`${time}:30`)
-  //     times.push(`${time}:45`)
-  // }
 
     return times
 }
+
+// function timeArrayPm() {
+//   let times = []
+//   for(let i = 13; i < 24; i++) {
+//       let time = i
+//       if (i == 0) time = 12
+//       times.push(`${time}:00`)
+//       times.push(`${time}:15`)
+//       times.push(`${time}:30`)
+//       times.push(`${time}:45`)
+//   }
+
+//   return times
+// }
 
 function CreateButton(props) {
     const [title, setTitle] = React.useState("");
