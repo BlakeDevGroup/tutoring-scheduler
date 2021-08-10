@@ -4,21 +4,16 @@ import {
     Text,
     Layer,
     Select,
-    Tip,
-    Menu,
     Grommet,
   } from "grommet";
   import {
-    Add,
-    Money
+    Add, Zoom,
   } from "grommet-icons";
   import EventTitle from "./Event-title";
   import AddDate from "./Add-date";
   import EventDescription from "./Event-description";
   import CompanyDropMenu from "./Company-drop-menu";
   import React, { useState } from "react";
-  import eventsData from "../data/events.json";
-  import Events from "../models/events";
 
   export const setNewEvents = (events, newEvent, setEvents) => {
 
@@ -42,43 +37,73 @@ import {
       },
     },
   };
+
+  function parseEventTime(timeString){
+    let hour = timeString.substring(0,2)
+    let minutes = timeString.substring(3,5)
+    let timeOfDay = timeString.substring(8,10)
+
+    if(timeOfDay == "am") {
+      if(hour == "12") hour = "00"
+    } else {
+      if(hour < 12) {
+        hour  = parseInt(hour) + 12
+      }
+    }
+    console.log(hour, minutes, timeOfDay)
+    return `${hour}:${minutes}`
+  }
+  //"2021-08-13T10:30"
+  console.log(parseEventTime("03:45:00pm"))
+  
   
   function timeArray() {
     let times = []
-    for(let i = 0; i < 25; i++) {
+    for(let i = 0; i < 12; i++) {
         let time = i
-        if (i < 10) {
-        times.push(`0${time}:00`)
-        times.push(`0${time}:15`)
-        times.push(`0${time}:30`)
-        times.push(`0${time}:45`);
-
-        } else if (i > 9 && i != 24) {
-        times.push(`${time}:00`)
-        times.push(`${time}:15`)
-        times.push(`${time}:30`)
-        times.push(`${time}:45`);
-        } else if (i == 24) {
-        times.push(`${time}:00`);
+        if(i == 0) {
+          time = 12
+          times.push(`${time}:00am`)
+          times.push(`${time}:15am`)
+          times.push(`${time}:30am`)
+          times.push(`${time}:45am`)
+        } else if (i < 10) {
+          times.push(`0${time}:00am`)
+          times.push(`0${time}:15am`)
+          times.push(`0${time}:30am`)
+          times.push(`0${time}:45am`);
+        } else {
+          times.push(`${time}:00am`)
+          times.push(`${time}:15am`)
+          times.push(`${time}:30am`)
+          times.push(`${time}:45am`);
         }
-    }
+      }
+         
+        for(let i = 0; i < 12; i++) {
+          let time = i
+          if(i == 0) {
+            time = 12
+            times.push(`${time}:00pm`)
+            times.push(`${time}:15pm`)
+            times.push(`${time}:30pm`)
+            times.push(`${time}:45pm`)
+          } else if (i < 10) {
+            times.push(`0${time}:00pm`)
+            times.push(`0${time}:15pm`)
+            times.push(`0${time}:30pm`)
+            times.push(`0${time}:45pm`);
+          } else {
+            times.push(`${time}:00pm`)
+            times.push(`${time}:15pm`)
+            times.push(`${time}:30pm`)
+            times.push(`${time}:45pm`);
+          }
+        }
 
     return times
 }
 
-// function timeArrayPm() {
-//   let times = []
-//   for(let i = 13; i < 24; i++) {
-//       let time = i
-//       if (i == 0) time = 12
-//       times.push(`${time}:00`)
-//       times.push(`${time}:15`)
-//       times.push(`${time}:30`)
-//       times.push(`${time}:45`)
-//   }
-
-//   return times
-// }
 
 function CreateButton(props) {
     const [title, setTitle] = React.useState("");
@@ -86,8 +111,9 @@ function CreateButton(props) {
     const [description, setDescription] = React.useState("");
     const [show, setShowEventModal] = React.useState();
     const [date, setDate] = React.useState();
-    const [timeAm, setTimeValueAm] = React.useState("");
-    const [timePm, setTimeValuePm] = React.useState("");
+    const [timeStart, 
+    ] = React.useState("");
+    const [timeEnd, setTimeEnd] = React.useState("");
     return (
       <Grommet theme={theme}>
       <Box>
@@ -95,7 +121,7 @@ function CreateButton(props) {
         primary
         alignSelf="start"
         label="Create"
-        color="asd"
+        color="asxce"
         size="large"
         icon={<Add />}
         margin={{ left: "small", top: "small" }}
@@ -130,7 +156,8 @@ function CreateButton(props) {
                   align="start"
                   placeholder="Start time"
                   options={timeArray()}
-                  onChange={({ option }) => setTimeValueAm(option)}
+                  onChange={({ option }) => 
+                  (option)}
                 />
               </Box>
               <Box>
@@ -142,7 +169,7 @@ function CreateButton(props) {
                   align="end"
                   placeholder="End time"
                   options={timeArray()}
-                  onChange={({ option }) => setTimeValuePm(option)}
+                  onChange={({ option }) => setTimeEnd(option)}
                 />
               </Box>
               </Box>
@@ -176,26 +203,6 @@ function CreateButton(props) {
                 
                 />
               </Box>
-              {/* <Box 
-              align="start" 
-              pad="small"
-              margin={{left: "medium"}}
-              >
-              <Tip
-                content={
-            <Box alignContent="center" pad="xsmall" gap="small" width={{ max: 'small' }}>
-              <Text weight="bold">Pay: $35/hr</Text>
-              <>
-              </>
-            </Box>
-          }
-          dropProps={{ align: { left: 'right' } }}
-        >
-          <Button 
-          margin={{top: "small"}}
-          icon={<Money size="medium" />} />
-        </Tip>
-              </Box> */}
               <Button 
               type="submit"
               icon={<Add />}
@@ -207,15 +214,14 @@ function CreateButton(props) {
                 setNewEvents(props.events, {
                   "id":"3",
                   "title":title,
-                  "start":`${date.split("T")[0]}T${timeAm}:00`,
-                  "end":`${date.split("T")[0]}T${timePm}:00`,                
+                  "start":`${date.split("T")[0]}T${timeStart}:00`,
+                  "end":`${date.split("T")[0]}T${timeEnd}:00`,                
                 }, props.setEvents)
                 setShowEventModal(false)
               }
             }
               />
             </Box>
-            {/* <Button label="close" onClick={() => setShow(false)} /> */}
           </Layer>
         )}
       </Box>
