@@ -46,7 +46,7 @@ import {
     if(timeOfDay == "am") {
       if(hour == "12") hour = "00:00"
     } else {
-      if(hour < 12) {
+      if(hour < 12 && timeOfDay == "pm" ) {
         hour  = parseInt(hour) + 12
       }
     }
