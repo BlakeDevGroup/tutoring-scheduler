@@ -198,7 +198,6 @@ function CreateButton(props) {
                 <CompanyDropMenu
                   value={company}
                   onChange={setCompany}
-                
                 />
               </Box>
               <Button 

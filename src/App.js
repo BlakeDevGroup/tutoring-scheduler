@@ -23,7 +23,7 @@ import {
   ChapterAdd,
 } from "grommet-icons";
 import AddViewForm from "./nav-bar/Add-calendar-view";
-import NavDropMenu from "./nav-bar/Calendar-view-dropmenu";
+import NavDropMenu from "./nav-bar/Nav-Drop-Menu";
 import CreateButton from "./Create-events/Create-events"
 import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -55,15 +55,30 @@ const getEvents = () => {
       
       events.push(data)
   });
-  
-  
 
   return events
 }
+  
+
+// const getCompanies = () => {
+
+//   let companies = []
+
+//   eventsData["companies"].forEach(data => {
+      
+//       companies.push(data)
+//   });
+
+//   return companies
+// }
+  
+
+
 
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [events, setEvents] = useState(getEvents())
+  // const [companies, setCompanies] = useState(getCompanies())
   return (
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
