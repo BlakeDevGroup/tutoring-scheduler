@@ -21,6 +21,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import React, { useState } from "react";
 import Events from "./models/events";
 import MainCalendar from "./main-components/main-calendar";
+import CompanyButton from "./nav-bar/add-company-button/Add-new-company";
 
 const theme = {
   global: {
@@ -48,6 +49,7 @@ const App = () => {
                 icon={<BladesVertical />}
                 onClick={() => setShowSidebar(!showSidebar)}
               />
+              <CompanyButton /> 
               <Heading level="3" margin="none" align="right">
                 My App
               </Heading>

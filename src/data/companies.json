@@ -1,0 +1,10 @@
+{ "companies": [
+    {
+        "companyName": "Tutor1",
+        "pay": "$35.00/hr"
+    },
+    {
+        "companyName": "PremierTutoring",
+        "pay": "$25.00/hr"
+    }]
+}
