@@ -8,6 +8,7 @@ import {
     Add,
   } from "grommet-icons";
   import React, { useState } from "react";
+  import CompanyDropMenu from "../../Create-events/Company-drop-menu";
 
   function CompanyButton() {
     const [show, setShow] = React.useState();
@@ -26,7 +27,10 @@ import {
           onEsc={() => setShow(false)}
           onClickOutside={() => setShow(false)}
           >   
-          <Box height="medium" width="medium" overflow="auto">
+           <Box margin={{ top: "xsmall", bottom: "small"}}>
+                <CompanyDropMenu />
+              </Box>
+          <Box height="xsmall" width="xsmall" overflow="auto">
 
           </Box>
         </Layer>
