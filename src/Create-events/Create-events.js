@@ -41,8 +41,8 @@ import {
   function parseEventTime(timeString){
     let hour = timeString.substring(0,2)
     let minutes = timeString.substring(3,5)
-    let timeOfDay = timeString.substring(8,10)
-
+    let timeOfDay = timeString.substring(5,8)
+    console.log(timeOfDay);
     if(timeOfDay == "am") {
       if(hour == "12") hour = "00:00"
     } else {
