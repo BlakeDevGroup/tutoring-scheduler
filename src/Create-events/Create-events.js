@@ -138,20 +138,6 @@ function CreateButton() {
               pad="small"
               margin={{left: "medium"}}
               >
-              <Tip
-                content={
-            <Box alignContent="center" pad="xsmall" gap="small" width={{ max: 'small' }}>
-              <Text weight="bold">Pay: $35/hr</Text>
-              <>
-              </>
-            </Box>
-          }
-          dropProps={{ align: { left: 'right' } }}
-        >
-          <Button 
-          margin={{top: "small"}}
-          icon={<Money size="medium" />} />
-        </Tip>
               </Box>
               <Button 
               color="asd"
