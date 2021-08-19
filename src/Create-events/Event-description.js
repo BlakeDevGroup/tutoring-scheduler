@@ -2,17 +2,20 @@ import { TextArea } from "grommet";
 import React, { useState } from "react";
 
 
-function EventDescription() {
-    const [value, setValue] = React.useState('');
+function EventDescription(props) {
+    // const [value, setValue] = React.useState('');
     return (
+      
       <TextArea
         fill={true}
-        size="small"
+        size="large"
         resize={false}
         placeholder="Event Description"
-        value={value}
-        onChange={event => setValue(event.target.value)}
+        value={props.value}
+        onChange={(e) => props.onChange(e.target.value)}
       />
+      
+      
     );
   }
 
