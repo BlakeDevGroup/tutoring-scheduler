@@ -42,15 +42,13 @@ import {
     let hour = timeString.substring(0,2)
     let minutes = timeString.substring(3,5)
     let timeOfDay = timeString.substring(5,8)
-    console.log(timeOfDay);
-    if(timeOfDay == "am") {
-      if(hour == "12") hour = "00:00"
+    if(timeOfDay === "am") {
+      if(hour === "12") hour = "00:00"
     } else {
-      if(hour < 12 && timeOfDay == "pm" ) {
+      if(hour < 12 && timeOfDay === "pm" ) {
         hour  = parseInt(hour) + 12
       }
     }
-    console.log(hour, minutes, timeOfDay)
     return `${hour}:${minutes}`
   }
   //"2021-08-13T10:30"
@@ -61,7 +59,7 @@ import {
     let times = []
     for(let i = 0; i < 12; i++) {
         let time = i
-        if(i == 0) {
+        if(i === 0) {
           time = 12
           times.push(`${time}:00am`)
           times.push(`${time}:15am`)
@@ -82,7 +80,7 @@ import {
          
         for(let i = 0; i < 12; i++) {
           let time = i
-          if(i == 0) {
+          if(i === 0) {
             time = 12
             times.push(`${time}:00pm`)
             times.push(`${time}:15pm`)
