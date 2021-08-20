@@ -28,7 +28,7 @@ function CompanyDropMenu(props) {
         options={company}
         value={props.value}
         placeholder="Select company"
-        onChange={(e) => props.onChange(e.target.value)}
+        onChange={(e) => {props.onChange(e.target.value)}}
         multiple={false}
       />
     );

@@ -1,9 +1,11 @@
-// default class Companies {
+import CompanyButton from "../nav-bar/add-company-button/Add-new-company"
 
-//     constructor(eventObject) {
-//         this.title = eventObject.title
-//         this.pay
-//     }
+export default class Companies {
+
+    constructor(eventObject) {
+        this.title = eventObject.title
+        this.pay = eventObject.pay
+    }
 
 
-// }
+}
