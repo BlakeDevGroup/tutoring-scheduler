@@ -131,7 +131,10 @@ const App = () => {
                         setEvents = {setEvents}
                         calendars = {calendars}
                     />
-                    <AddViewForm />
+                    <AddViewForm
+                      calendars = {calendars}
+                      setCalendars = {setCalendars}
+                    />
                     <FullCalendar
                       plugins={[dayGridPlugin, interactionPlugin]}
                       initialView="dayGridMonth"

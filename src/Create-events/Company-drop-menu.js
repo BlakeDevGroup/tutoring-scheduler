@@ -22,7 +22,6 @@ function CompanyDropMenu(props) {
 
     return (
       <Select
-        // margin={{ right: "large", left: "large"}}
         icon={<CaretDownFill />}
         size="small"
         options={company}

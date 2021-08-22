@@ -196,7 +196,7 @@ function CreateButton(props) {
                 value={description}
                 />
               </Box>
-              <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}}>
+              <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}} direction="row-responsive">
                 <Box>
                   <CompanyDropMenu
                     value={company}
