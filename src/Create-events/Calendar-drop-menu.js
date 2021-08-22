@@ -1,7 +1,7 @@
 import { Select } from "grommet";
 import { CaretDownFill } from "grommet-icons";
 import React, { useState } from "react";
-import calendarData from "../data/companies.json";
+// import calendarData from "../data/companies.json";
 
 
 function FormatCalendars(calendars) {
@@ -25,7 +25,7 @@ function CalendarDropMenu(props) {
         icon={<CaretDownFill />}
         size="small"
         options={FormatCalendars(props.calendars)}
-        value={props.value}
+        value={props.calendar}
         placeholder="Select calendar"
         onChange={(e) => {props.onChange(e.target.value)}}
         multiple={false}

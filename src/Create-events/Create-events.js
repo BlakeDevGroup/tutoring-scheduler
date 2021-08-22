@@ -114,6 +114,7 @@ function CreateButton(props) {
     const [date, setDate] = React.useState();
     const [timeStart, setTimeStart] = React.useState("");
     const [timeEnd, setTimeEnd] = React.useState("");
+    const [calendar, setCalendar] = React.useState("");
     return (
       <Grommet theme={theme}>
       <Box>
@@ -203,8 +204,10 @@ function CreateButton(props) {
                   />
                 </Box>
                 <Box>
-                  <CalendarDropMenu 
-
+                  <CalendarDropMenu
+                    calendars={props.calendars}
+                    value={props.calendar} 
+                    onChange={setCalendar}
                   />
                 </Box>
               </Box>
