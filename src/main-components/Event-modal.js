@@ -13,7 +13,7 @@ import {
   import EventTitle from "../Create-events/Event-title";
   import AddDate from "../Create-events/Add-date";
   import EventDescription from "../Create-events/Event-description";
-  import CompanyDropMenu from "../Create-events/Company-drop-menu";
+  import CompanyDropMenu from "../nav-bar/add-company-button/Company-drop-menu";
   import React, { useState } from "react";
 
 

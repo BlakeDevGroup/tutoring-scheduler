@@ -7,13 +7,14 @@ import {
     Grommet,
   } from "grommet";
   import {
-    Add, Zoom,
+    Add,
   } from "grommet-icons";
   import EventTitle from "./Event-title";
   import AddDate from "./Add-date";
   import EventDescription from "./Event-description";
-  import CompanyDropMenu from "./Company-drop-menu";
+  import CompanyDropMenu from "../nav-bar/add-company-button/Company-drop-menu";
   import React, { useState } from "react";
+  
 
   export const setNewEvents = (events, newEvent, setEvents) => {
 
@@ -111,6 +112,8 @@ function CreateButton(props) {
     const [date, setDate] = React.useState();
     const [timeStart, setTimeStart] = React.useState("");
     const [timeEnd, setTimeEnd] = React.useState("");
+
+
     return (
       <Grommet theme={theme}>
       <Box>
@@ -194,6 +197,7 @@ function CreateButton(props) {
               </Box>
               <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}}>
                 <CompanyDropMenu
+                  companies={props.companies}
                   value={company}
                   onChange={setCompany}
                 />
