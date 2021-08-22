@@ -34,6 +34,7 @@ import Calendar from "./models/calendar";
 import MainCalendar from "./main-components/main-calendar";
 import eventsData from "./data/events.json";
 import CompanyButton from "./nav-bar/add-company-button/Add-new-company";
+import calendarsData from "./data/calendars.json";
 
 
 const theme = {
@@ -62,6 +63,17 @@ const getEvents = () => {
 }
   
 
+const getCalendars = () => {
+  
+  let calendars = []
+
+  calendarsData["calendars"].forEach(data => {
+
+    calendars.push(data)
+  })
+  return calendars
+}
+
 // const getCompanies = () => {
 
 //   let companies = []
@@ -80,7 +92,7 @@ const getEvents = () => {
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [events, setEvents] = useState(getEvents())
-  // const [companies, setCompanies] = useState(getCompanies())
+   const [calendars, setCalendars] = useState(getCalendars())
   return (
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
@@ -117,6 +129,7 @@ const App = () => {
                     <CreateButton
                         events={events}
                         setEvents = {setEvents}
+                        calendars = {calendars}
                     />
                     <AddViewForm />
                     <FullCalendar
