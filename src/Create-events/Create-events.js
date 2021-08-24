@@ -221,7 +221,8 @@ function CreateButton(props) {
                   "id":"3",
                   "title":title,
                   "start":`${date.split("T")[0]}T${parseEventTime(timeStart)}`,
-                  "end":`${date.split("T")[0]}T${parseEventTime(timeEnd)}`,                
+                  "end":`${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
+                  "description":`${descripton}`               
                 }, props.setEvents)
                 setShowEventModal(false)
               }

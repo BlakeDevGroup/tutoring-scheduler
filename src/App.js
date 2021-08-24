@@ -24,7 +24,7 @@ import {
 } from "grommet-icons";
 import AddViewForm from "./nav-bar/Add-calendar-view";
 import NavDropMenu from "./nav-bar/Nav-Drop-Menu";
-import CreateButton from "./Create-events/Create-events"
+import CreateButton from "./Create-events/Create-events";
 import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -35,7 +35,6 @@ import MainCalendar from "./main-components/main-calendar";
 import eventsData from "./data/events.json";
 import CompanyButton from "./nav-bar/add-company-button/Add-new-company";
 import calendarsData from "./data/calendars.json";
-
 
 const theme = {
   global: {
@@ -51,48 +50,40 @@ const theme = {
 };
 
 const getEvents = () => {
+  let events = [];
 
-  let events = []
-
-  eventsData["events"].forEach(data => {
-      
-      events.push(data)
+  eventsData["events"].forEach((data) => {
+    events.push(data);
   });
 
-  return events
-}
-  
+  return events;
+};
 
 const getCalendars = () => {
-  
-  let calendars = []
+  let calendars = [];
 
-  calendarsData["calendars"].forEach(data => {
-
-    calendars.push(data)
-  })
-  return calendars
-}
+  calendarsData["calendars"].forEach((data) => {
+    calendars.push(data);
+  });
+  return calendars;
+};
 
 // const getCompanies = () => {
 
 //   let companies = []
 
 //   eventsData["companies"].forEach(data => {
-      
+
 //       companies.push(data)
 //   });
 
 //   return companies
 // }
-  
-
-
 
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [events, setEvents] = useState(getEvents())
-   const [calendars, setCalendars] = useState(getCalendars())
+  const [events, setEvents] = useState(getEvents());
+  const [calendars, setCalendars] = useState(getCalendars());
   return (
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
@@ -103,7 +94,7 @@ const App = () => {
                 icon={<BladesVertical />}
                 onClick={() => setShowSidebar(!showSidebar)}
               />
-              <CompanyButton /> 
+              <CompanyButton />
               <Heading level="3" margin="none" align="right">
                 My App
               </Heading>
@@ -127,13 +118,13 @@ const App = () => {
                     justify="evenly"
                   >
                     <CreateButton
-                        events={events}
-                        setEvents = {setEvents}
-                        calendars = {calendars}
+                      events={events}
+                      setEvents={setEvents}
+                      calendars={calendars}
                     />
                     <AddViewForm
-                      calendars = {calendars}
-                      setCalendars = {setCalendars}
+                      calendars={calendars}
+                      setCalendars={setCalendars}
                     />
                     <FullCalendar
                       plugins={[dayGridPlugin, interactionPlugin]}
@@ -168,9 +159,7 @@ const App = () => {
                 </layer>
               )}
               <Main margin="xsmall">
-                <MainCalendar 
-                  events = {events}  
-                />
+                <MainCalendar events={events} />
               </Main>
             </Box>
           </Box>
