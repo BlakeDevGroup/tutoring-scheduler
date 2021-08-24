@@ -22,13 +22,15 @@ import CreateButton from "./Create-events/Create-events";
 import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Calendar from "./models/calendar";
 import MainCalendar from "./main-components/main-calendar";
 import eventsData from "./data/events.json";
 import companiesData from "./data/companies.json";
 import CompanyButton from "./nav-bar/add-company-button/Add-new-company";
 import calendarsData from "./data/calendars.json";
+import { SideBarCalendar } from "./nav-bar/side_bar_calendar";
+import viewsData from "./data/views.json";
 
 const theme = {
   global: {
@@ -72,6 +74,16 @@ const getCalendars = () => {
   return calendars;
 };
 
+const getViews = () => {
+  let views = [];
+
+  viewsData["views"].forEach((data) => {
+    views.push(data);
+  });
+
+  return views;
+};
+
 // const getCompanies = () => {
 
 //   let companies = []
@@ -89,6 +101,9 @@ const App = () => {
   const [events, setEvents] = useState(getEvents());
   const [companies, setCompanies] = useState(getCompanies());
   const [calendars, setCalendars] = useState(getCalendars());
+  const [views, setViews] = useState(getViews());
+  const [currentView, setCurrentView] = useState("dayGridMonth");
+
   return (
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
@@ -106,7 +121,7 @@ const App = () => {
               <Heading level="3" margin="none" align="right">
                 My App
               </Heading>
-              <NavDropMenu />
+              <NavDropMenu views={views} onChange={setCurrentView} />
             </NavBar>
             <Box
               direction=""
@@ -135,12 +150,7 @@ const App = () => {
                       calendars={calendars}
                       setCalendars={setCalendars}
                     />
-                    <FullCalendar
-                      plugins={[dayGridPlugin, interactionPlugin]}
-                      initialView="dayGridMonth"
-                      selectable={true}
-                      navLinks={true}
-                    />
+                    <SideBarCalendar />
                   </Box>
                 </Collapsible>
               ) : (
@@ -168,7 +178,7 @@ const App = () => {
                 </layer>
               )}
               <Main margin="xsmall">
-                <MainCalendar events={events} />
+                <MainCalendar currentView={currentView} events={events} />
               </Main>
             </Box>
           </Box>
