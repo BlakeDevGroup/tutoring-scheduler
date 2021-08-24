@@ -15,13 +15,7 @@ import {
 } from "grommet";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import {
-  FormClose,
-  BladesVertical,
-  Add,
-  CaretDownFill,
-  ChapterAdd,
-} from "grommet-icons";
+import { FormClose, BladesVertical } from "grommet-icons";
 import AddViewForm from "./nav-bar/Add-calendar-view";
 import NavDropMenu from "./nav-bar/Nav-Drop-Menu";
 import CreateButton from "./Create-events/Create-events";
@@ -29,10 +23,10 @@ import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import React, { useState } from "react";
-import Events from "./models/events";
 import Calendar from "./models/calendar";
 import MainCalendar from "./main-components/main-calendar";
 import eventsData from "./data/events.json";
+import companiesData from "./data/companies.json";
 import CompanyButton from "./nav-bar/add-company-button/Add-new-company";
 import calendarsData from "./data/calendars.json";
 
@@ -59,6 +53,16 @@ const getEvents = () => {
   return events;
 };
 
+const getCompanies = () => {
+  let companies = [];
+
+  companiesData["companies"].forEach((data) => {
+    companies.push(data);
+  });
+
+  return companies;
+};
+
 const getCalendars = () => {
   let calendars = [];
 
@@ -83,6 +87,7 @@ const getCalendars = () => {
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [events, setEvents] = useState(getEvents());
+  const [companies, setCompanies] = useState(getCompanies());
   const [calendars, setCalendars] = useState(getCalendars());
   return (
     <Grommet theme={theme} full>
@@ -94,7 +99,10 @@ const App = () => {
                 icon={<BladesVertical />}
                 onClick={() => setShowSidebar(!showSidebar)}
               />
-              <CompanyButton />
+              <CompanyButton
+                companies={companies}
+                setCompanies={setCompanies}
+              />
               <Heading level="3" margin="none" align="right">
                 My App
               </Heading>
@@ -119,6 +127,7 @@ const App = () => {
                   >
                     <CreateButton
                       events={events}
+                      companies={companies}
                       setEvents={setEvents}
                       calendars={calendars}
                     />
