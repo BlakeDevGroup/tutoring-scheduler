@@ -1,0 +1,13 @@
+{
+  "views": [
+    {
+      "center": "dayGridMonth"
+    },
+    {
+      "center": "timeGridWeek"
+    },
+    {
+      "center": "timeGridDay"
+    }
+  ]
+}

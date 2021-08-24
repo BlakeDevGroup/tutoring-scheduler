@@ -6,6 +6,11 @@ import React, { useState } from "react";
 export function SideBarCalendar(props) {
   return (
     <FullCalendar
+    //   headerToolbar={{
+    //     right: "daygridDay, daygridWeek, daygridMonth",
+        // center: "daygridWeek",
+        // right: "daygridMonth",
+    //   }}
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
       selectable={true}
