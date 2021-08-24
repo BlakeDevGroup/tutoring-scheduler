@@ -10,23 +10,20 @@ import {
 import React, { useState } from "react";
 import Calendar from "../models/calendar";
 
-let calendarOne = new Calendar({
-    id: Math.random() * 10000 + 1,
-    calendarName: "News",
-  });
-  
-  let calendarTwo = new Calendar({
-    id: Math.random() * 10000 + 1,
-    calendarName: "Work",
-  });
+function FormatCalendars(calendars) {
+
+  let calendarNames = []
+
+  calendars.forEach( item => {
+    calendarNames.push(item.calendarName)
+    })
+    return calendarNames
+  };
+
 
 
 
 function AddViewForm(props) {
-    const [calendars, setCalendars] = useState([
-      calendarOne.calendarName,
-      calendarTwo.calendarName,
-    ]);
     const [textValue, setTextValue] = useState("");
   
     return (
@@ -38,11 +35,11 @@ function AddViewForm(props) {
             id: Math.random * 10000 + 1,
             calendarName: textValue,
           });
-          setCalendars([].concat(calendars, calendar.calendarName));
+          props.setCalendars([].concat(props.calendars, calendar));
           setTextValue("");
         }}
       >
-        <CheckBoxGroup options={calendars} gap="small" margin="medium" />
+        <CheckBoxGroup options={FormatCalendars(props.calendars)} gap="small" margin="medium" />
         <FormField name="name" htmlFor="text-input-id" label="Add View">
           <TextInput
             id="text-input-id"

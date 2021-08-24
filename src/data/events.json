@@ -3,12 +3,14 @@
 { "events": [
     {
         "id": "1",
+        "calendar_id":"1",
         "title": "Our Second Event",
         "start": "2021-08-10T14:30:00",
         "end": "2021-08-10T15:30:00"
     },
     {
         "id": "2",
+        "calendar_id":"2",
         "title": "Our First Event",
         "start": "2021-08-13T10:30",
         "end": "2021-08-13T13:30"

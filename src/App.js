@@ -15,13 +15,10 @@ import {
 } from "grommet";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import {
-  FormClose,
-  BladesVertical,
-} from "grommet-icons";
+import { FormClose, BladesVertical } from "grommet-icons";
 import AddViewForm from "./nav-bar/Add-calendar-view";
 import NavDropMenu from "./nav-bar/Nav-Drop-Menu";
-import CreateButton from "./Create-events/Create-events"
+import CreateButton from "./Create-events/Create-events";
 import NavBar from "./nav-bar/new-bar";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -29,9 +26,9 @@ import React, { useState } from "react";
 import Calendar from "./models/calendar";
 import MainCalendar from "./main-components/main-calendar";
 import eventsData from "./data/events.json";
-import companiesData from './data/companies.json';
+import companiesData from "./data/companies.json";
 import CompanyButton from "./nav-bar/add-company-button/Add-new-company";
-
+import calendarsData from "./data/calendars.json";
 
 const theme = {
   global: {
@@ -47,49 +44,51 @@ const theme = {
 };
 
 const getEvents = () => {
+  let events = [];
 
-  let events = []
-
-  eventsData["events"].forEach(data => {
-      
-      events.push(data)
+  eventsData["events"].forEach((data) => {
+    events.push(data);
   });
 
-  return events
-}
+  return events;
+};
 
 const getCompanies = () => {
+  let companies = [];
 
-  let companies = []
-
-  companiesData["companies"].forEach(data => {
-      
-      companies.push(data)
+  companiesData["companies"].forEach((data) => {
+    companies.push(data);
   });
 
-  return companies
-}
-  
+  return companies;
+};
+
+const getCalendars = () => {
+  let calendars = [];
+
+  calendarsData["calendars"].forEach((data) => {
+    calendars.push(data);
+  });
+  return calendars;
+};
 
 // const getCompanies = () => {
 
 //   let companies = []
 
 //   eventsData["companies"].forEach(data => {
-      
+
 //       companies.push(data)
 //   });
 
 //   return companies
 // }
-  
-
-
 
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [events, setEvents] = useState(getEvents());
-  const[companies, setCompanies] = useState(getCompanies());
+  const [companies, setCompanies] = useState(getCompanies());
+  const [calendars, setCalendars] = useState(getCalendars());
   return (
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
@@ -103,8 +102,7 @@ const App = () => {
               <CompanyButton
                 companies={companies}
                 setCompanies={setCompanies}
-              
-              /> 
+              />
               <Heading level="3" margin="none" align="right">
                 My App
               </Heading>
@@ -128,11 +126,15 @@ const App = () => {
                     justify="evenly"
                   >
                     <CreateButton
-                        events={events}
-                        companies={companies}
-                        setEvents = {setEvents}
+                      events={events}
+                      companies={companies}
+                      setEvents={setEvents}
+                      calendars={calendars}
                     />
-                    <AddViewForm />
+                    <AddViewForm
+                      calendars={calendars}
+                      setCalendars={setCalendars}
+                    />
                     <FullCalendar
                       plugins={[dayGridPlugin, interactionPlugin]}
                       initialView="dayGridMonth"
@@ -166,9 +168,7 @@ const App = () => {
                 </layer>
               )}
               <Main margin="xsmall">
-                <MainCalendar 
-                  events = {events}  
-                />
+                <MainCalendar events={events} />
               </Main>
             </Box>
           </Box>

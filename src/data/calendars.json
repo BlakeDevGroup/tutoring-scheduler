@@ -1,0 +1,10 @@
+{ "calendars": [
+    {
+        "calendarName":"Personal",
+        "calendar_id":"1"
+    },
+    {
+        "calendarName":"Work",
+        "calendar_id":"2"
+    }]
+}
