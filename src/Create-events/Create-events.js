@@ -41,7 +41,6 @@ function parseEventTime(timeString) {
   }
   return `${hour}:${minutes}`;
 }
-//"2021-08-13T10:30"
 console.log(parseEventTime("03:45:00pm"));
 
 function timeArray() {
@@ -227,7 +226,7 @@ function CreateButton(props) {
                 <Box>
                   <CalendarDropMenu
                     calendars={props.calendars}
-                    value={props.calendar}
+                    value={calendar}
                     onChange={setCalendar}
                   />
                 </Box>
@@ -255,6 +254,7 @@ function CreateButton(props) {
                       )}`,
                       end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
                       description: `${description}`,
+                      calendar_id: calendar,
                     },
                     props.setEvents
                   );
