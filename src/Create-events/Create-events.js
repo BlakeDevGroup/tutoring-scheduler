@@ -253,6 +253,7 @@ function CreateButton(props) {
                         timeStart
                       )}`,
                       end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
+                      description: `${description}`,
                       calendar_id: calendar,
                     },
                     props.setEvents
