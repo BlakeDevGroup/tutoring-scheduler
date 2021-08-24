@@ -218,7 +218,11 @@ function CreateButton(props) {
                 direction="row-responsive"
               >
                 <Box>
-                  <CompanyDropMenu value={company} onChange={setCompany} />
+                  <CompanyDropMenu
+                    companies={props.companies}
+                    value={company}
+                    onChange={setCompany}
+                  />
                 </Box>
                 <Box>
                   <CalendarDropMenu
