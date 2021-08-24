@@ -29,6 +29,7 @@ import eventsData from "./data/events.json";
 import companiesData from "./data/companies.json";
 import CompanyButton from "./nav-bar/add-company-button/Add-new-company";
 import calendarsData from "./data/calendars.json";
+import { SideBarCalendar } from "./nav-bar/side_bar_calendar";
 
 const theme = {
   global: {
@@ -135,12 +136,7 @@ const App = () => {
                       calendars={calendars}
                       setCalendars={setCalendars}
                     />
-                    <FullCalendar
-                      plugins={[dayGridPlugin, interactionPlugin]}
-                      initialView="dayGridMonth"
-                      selectable={true}
-                      navLinks={true}
-                    />
+                    <SideBarCalendar />
                   </Box>
                 </Collapsible>
               ) : (
