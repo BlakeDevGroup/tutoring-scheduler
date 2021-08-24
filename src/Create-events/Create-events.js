@@ -14,6 +14,7 @@ import {
   import EventDescription from "./Event-description";
   import CompanyDropMenu from "./Company-drop-menu";
   import React, { useState } from "react";
+  import CalendarDropMenu from "./Calendar-drop-menu";
 
   export const setNewEvents = (events, newEvent, setEvents) => {
 
@@ -111,6 +112,7 @@ function CreateButton(props) {
     const [date, setDate] = React.useState();
     const [timeStart, setTimeStart] = React.useState("");
     const [timeEnd, setTimeEnd] = React.useState("");
+    const [calendar, setCalendar] = React.useState("");
     return (
       <Grommet theme={theme}>
       <Box>
@@ -170,18 +172,18 @@ function CreateButton(props) {
               </Box>
               </Box>
               <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}} direction="row-responsive">
-              <Text
+                <Text
                     size="small" 
                     align="center"
                     margin={{ top: "xsmall", right: "medium" }}
-                  >
+                >
                     Date:
-                    </Text>
-                <AddDate
-                  onChange={setDate}
-                  value={date}
-                
-                />
+                </Text>
+                  <AddDate
+                    onChange={setDate}
+                    value={date}
+                  
+                  />
               </Box>
               <Box 
                 margin={{ top: "small", left: "medium", right:"medium", bottom:"small"}} 
@@ -192,11 +194,20 @@ function CreateButton(props) {
                 value={description}
                 />
               </Box>
-              <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}}>
-                <CompanyDropMenu
-                  value={company}
-                  onChange={setCompany}
-                />
+              <Box margin={{ top: "xsmall", left: "medium", right:"medium", bottom:"xsmall"}} direction="row-responsive">
+                <Box>
+                  <CompanyDropMenu
+                    value={company}
+                    onChange={setCompany}
+                  />
+                </Box>
+                <Box>
+                  <CalendarDropMenu
+                    calendars={props.calendars}
+                    value={props.calendar} 
+                    onChange={setCalendar}
+                  />
+                </Box>
               </Box>
               <Button 
               type="submit"

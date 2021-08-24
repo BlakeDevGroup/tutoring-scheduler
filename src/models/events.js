@@ -5,8 +5,7 @@ export default class Events {
         this.title = eventObject.title
         this.start = eventObject.start
         this.end = eventObject.end
-        this.startTime = eventObject.startTime
-        this.endTime = eventObject.endTime
+        this.calendar_id = eventObject.calendar_id
         this.editable = eventObject.editable
         this.display = eventObject.display
         this.color = eventObject.color
