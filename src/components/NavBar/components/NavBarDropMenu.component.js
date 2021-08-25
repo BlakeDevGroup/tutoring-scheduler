@@ -1,6 +1,6 @@
 import { Select } from "grommet";
 import { CaretDownFill } from "grommet-icons";
-import React, { useState } from "react";
+import React from "react";
 
 function getViewName(views) {
   let viewOptions = [];
@@ -8,11 +8,10 @@ function getViewName(views) {
   views.forEach((item) => {
     viewOptions.push(item.view_id);
   });
-  console.log(viewOptions);
   return viewOptions;
 }
 
-function NavDropMenu(props) {
+export default function NavBarDropMenu(props) {
   function getViewObject(view_id) {
     for (let i = 0; i < props.views.length; i++) {
       if (props.views[i].view_id == view_id) {
@@ -42,5 +41,3 @@ function NavDropMenu(props) {
     />
   );
 }
-
-export default NavDropMenu;

@@ -1,6 +1,6 @@
 import { Select } from "grommet";
 import { CaretDownFill } from "grommet-icons";
-import React, { useState } from "react";
+import React from "react";
 // import calendarData from "../data/companies.json";
 
 function FormatCalendars(calendars) {
@@ -9,7 +9,6 @@ function FormatCalendars(calendars) {
   calendars.forEach((item) => {
     calendarNames.push(item.calendarName);
   });
-  console.log(calendarNames);
   return calendarNames;
 }
 

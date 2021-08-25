@@ -2,12 +2,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import React, { useEffect, useState, useRef } from "react";
-
-import Events from "../models/events";
-import eventsData from "../data/events.json";
-import EventModal from "./Event-modal";
-import { Calendar } from "grommet";
+import React, { useEffect, useRef } from "react";
 
 const MainCalendar = (props) => {
   const cal = useRef();
