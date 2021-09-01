@@ -25,6 +25,7 @@ export default function CreateEventTimeSelector(props) {
           placeholder="Start time"
           options={timeArray()}
           onChange={({ option }) => props.setTimeStart(option)}
+          
         />
       </Box>
       <Box>
@@ -85,6 +86,5 @@ function timeArray() {
       times.push(`${time}:45pm`);
     }
   }
-
   return times;
 }

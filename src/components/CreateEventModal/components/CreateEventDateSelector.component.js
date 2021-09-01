@@ -1,4 +1,5 @@
 import { Grommet, Box, Text, DateInput } from "grommet";
+import AllDaySelector from "./AllDaySelector.component";
 export default function CreateEventDateSelector(props) {
   return (
     <Box
@@ -27,6 +28,7 @@ export default function CreateEventDateSelector(props) {
           }}
         />
       </Grommet>
+      <AllDaySelector />
     </Box>
   );
 }
