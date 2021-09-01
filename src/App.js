@@ -92,7 +92,7 @@ const App = (props) => {
                 calendars={calendars}
               />
               <AddViewForm calendars={calendars} setCalendars={setCalendars} />
-              <SideBarCalendar />
+              {/* <SideBarCalendar /> */}
             </Box>
           </Collapsible>
         ) : (
