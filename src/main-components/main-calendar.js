@@ -18,7 +18,7 @@ const MainCalendar = (props) => {
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
       initialView={props.currentView}
       expandRows={true}
-      handleWindowResize
+      handleWindowResize={false}
       selectable={true}
       navLinks={true}
       events={props.events}

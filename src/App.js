@@ -7,7 +7,6 @@ import MainCalendar from "./main-components/main-calendar";
 import eventsData from "./data/events.json";
 import companiesData from "./data/companies.json";
 import calendarsData from "./data/calendars.json";
-import { SideBarCalendar } from "./components/NavBar/components/SideBarCalendar.component";
 import viewsData from "./data/views.json";
 import NavBarWrapper from "./components/NavBar/NavBarWrapper.component";
 
@@ -92,7 +91,7 @@ const App = (props) => {
                 calendars={calendars}
               />
               <AddViewForm calendars={calendars} setCalendars={setCalendars} />
-              <SideBarCalendar />
+              {/* <SideBarCalendar /> */}
             </Box>
           </Collapsible>
         ) : (
