@@ -1,6 +1,40 @@
 import { CheckBox, Box, Layer, Select, Button } from "grommet";
 import React from "react";
+// import momentPlugin from "@fullcalendar/moment";
 // import RecuringDateSelectPopup from "./RecurringDateSelectModal.component";
+
+function getTodaysDate() {
+  var d = new Date();
+
+  var weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  var n = weekday[d.getDay()];
+  return n;
+}
+
+function getOptions() {
+  const newOptions = [];
+
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  weekday.forEach((day) => newOptions.push(day));
+
+  return newOptions;
+}
 
 const Option = React.memo(({ value, selected }) => (
   <Box direction="row" gap="small" align="center" pad="xsmall">
@@ -9,7 +43,7 @@ const Option = React.memo(({ value, selected }) => (
   </Box>
 ));
 
-const dummyOptions = Array(7)
+const dummyOptions = Array()
   .fill()
   .map((_, i) => `option ${i}`)
   .sort((a, b) =>
@@ -23,7 +57,7 @@ export default function AllDaySelector(props) {
   const [value, setValue] = React.useState();
   const [selected, setSelected] = React.useState([]);
   const [options, setOptions] = React.useState(dummyOptions);
-  console.log(value);
+  console.log(getOptions());
   return (
     <Box
       margin={{
@@ -51,17 +85,14 @@ export default function AllDaySelector(props) {
           onClickOutside={() => setShow(false)}
         >
           <Box fill align="center" justify="start" pad="large">
-            <Button margin={{bottom:"small"}} label="save" onClick={() => setShow(false)} />
+            <Button
+              margin={{ bottom: "small" }}
+              label="save"
+              onClick={() => setShow(false)}
+            />
             <Select
-              options={[
-                "Sunday",
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-              ]}
+              options={getOptions()}
+              // plugins={[momentPlugin]}
               multiple={true}
               placeholder="select an option..."
               closeOnChange={false}
