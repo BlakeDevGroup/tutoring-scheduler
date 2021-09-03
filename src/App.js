@@ -114,7 +114,13 @@ const App = (props) => {
           </layer>
         )}
         <Main margin="xsmall">
-          <MainCalendar currentView={currentView} events={events} />
+          <MainCalendar
+            currentView={currentView}
+            events={events}
+            companies={companies}
+            setEvents={setEvents}
+            calendars={calendars}
+          />
         </Main>
       </Box>
     </Box>

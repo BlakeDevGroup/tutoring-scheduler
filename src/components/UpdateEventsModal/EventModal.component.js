@@ -1,41 +1,33 @@
-import { Layer, Box, Button } from "grommet";
+import { Layer, Box, Text, Button } from "grommet";
+import { useState, useeffect, useEffect } from "react";
 import { Add } from "grommet-icons";
-import { useState } from "react";
-import CreateEventTitle from "./CreateEventTitle.component";
-import CreateEventDescription from "./CreateEventDescription.component.js";
-import CompanyDropMenu from "./CompanyDropMenu.component";
-import CalendarDropMenu from "./CalendarDropMenu.component";
-import CreateEventTimeSelector from "./CreateEventTimeSelector.component";
-import CreateEventDateSelector from "./CreateEventDateSelector.component";
+import CreateEventTitle from "../CreateEventModal/components/CreateEventTitle.component.js";
+import CreateEventDescription from "../CreateEventModal/components/CreateEventDescription.component.js";
+import CompanyDropMenu from "../CreateEventModal/components/CompanyDropMenu.component.js";
+import CalendarDropMenu from "../CreateEventModal/components/CalendarDropMenu.component";
+import CreateEventTimeSelector from "../CreateEventModal/components/CreateEventTimeSelector.component.js";
+import CreateEventDateSelector from "../CreateEventModal/components/CreateEventDateSelector.component.js";
 
-const setNewEvents = (events, newEvent, setEvents) => {
-  const newEvents = [].concat(events, [newEvent]);
-
-  setEvents(newEvents);
-};
-
-function parseEventTime(timeString) {
-  let hour = timeString.substring(0, 2);
-  let minutes = timeString.substring(3, 5);
-  let timeOfDay = timeString.substring(5, 8);
-  if (timeOfDay === "am") {
-    if (hour === "12") hour = "00";
-  } else {
-    if (hour < 12 && timeOfDay === "pm") {
-      hour = parseInt(hour) + 12;
-    }
-  }
-  return `${hour}:${minutes}`;
-}
-
-export default function CreateEventModal(props) {
+export default function EventModal(props) {
+  console.log(props.defaults);
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState();
+  const [date, setDate] = useState("");
   const [timeStart, setTimeStart] = useState("");
   const [timeEnd, setTimeEnd] = useState("");
   const [calendar, setCalendar] = useState("");
+
+  useEffect(() => {
+    setTitle(props.defaults.title || "");
+    setCompany(props.defaults.company_id);
+    setDescription(props.defaults.description);
+    // setDate()
+    // setTimeStart();
+    // setTimeEnd();
+    setCalendar(props.defaults.calendar_id);
+  }, [props.defaults]);
+
   return (
     <Layer
       onEsc={() => props.setShow(false)}
@@ -83,7 +75,7 @@ export default function CreateEventModal(props) {
         </Box>
         <Button
           type="submit"
-          icon={<Add />}
+          label="update"
           size="medium"
           alignSelf="center"
           hoverIndicator
@@ -94,19 +86,19 @@ export default function CreateEventModal(props) {
             bottom: "xsmall",
           }}
           onClick={() => {
-            setNewEvents(
-              props.events,
-              {
-                id: "3",
-                title: title,
-                start: `${date.split("T")[0]}T${parseEventTime(timeStart)}`,
-                end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
-                description: `${description}`,
-                calendar_id: calendar,
-                editable: "true",
-              },
-              props.setEvents
-            );
+            // updateEvent(
+            //   props.events,
+            //   {
+            //     id: "3",
+            //     title: title,
+            //     start: `${date.split("T")[0]}T${parseEventTime(timeStart)}`,
+            //     end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
+            //     description: `${description}`,
+            //     calendar_id: calendar,
+            //     editable: "true",
+            //   },
+            //   props.setEvents
+            // );
             props.setShow(false);
           }}
         />

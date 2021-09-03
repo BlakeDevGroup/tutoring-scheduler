@@ -39,6 +39,8 @@ export default function CreateEventWrapper(props) {
             calendars={props.calendars}
             setEvents={props.setEvents}
             events={props.events}
+            defaults={props.event}
+            onSubmit={props.updateEvents}
           />
         )}
       </Box>
