@@ -46,6 +46,29 @@ export default function EventModal(props) {
   const [timeEnd, setTimeEnd] = useState("");
   const [calendar, setCalendar] = useState("");
 
+  const updateEvents = () => {
+    let filteredEvents = props.events;
+    for (let i = 0; i < filteredEvents.length; i++) {
+      if (filteredEvents[i].id == props.defaults.id) {
+        const removedValue = filteredEvents.splice(i, 1);
+        break;
+      }
+    }
+
+    props.setEvents(
+      [].concat(filteredEvents, {
+        title: title,
+        company_name: company,
+        description: description,
+        start: "2021-09-04T22:30:00",
+        end: "2021-09-04T23:30:00",
+        id: props.defaults.id,
+        calendar_name: calendar,
+      })
+    );
+    props.setShow(false);
+  };
+
   useEffect(() => {
     setTitle(props.defaults.title || "");
     setCompany(props.defaults.company_name);
@@ -125,24 +148,20 @@ export default function EventModal(props) {
             right: "medium",
             bottom: "xsmall",
           }}
-          onClick={() => {
-            // updateEvent(
-            //   props.events,
-            //   {
-            //     id: "3",
-            //     title: title,
-            //     start: `${date.split("T")[0]}T${parseEventTime(timeStart)}`,
-            //     end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
-            //     description: `${description}`,
-            //     calendar_id: calendar,
-            //     editable: "true",
-            //   },
-            //   props.setEvents
-            // );
-            props.setShow(false);
-          }}
+          onClick={updateEvents}
         />
       </Box>
     </Layer>
   );
 }
+
+// {
+//   id: props.defaults.id,
+//   title: title,
+//   start: "2021-09-04T22:30:00",
+//   end: "2021-09-04T23:30:00",
+//   description: description,
+//   calendar_name: calendar,
+//   editable: "true",
+//   company_name: company,
+// }
