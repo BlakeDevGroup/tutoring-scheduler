@@ -6,9 +6,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Box } from "grommet";
 import EventModal from "../components/UpdateEventsModal/EventModal.component";
 
-
-
-
 const MainCalendar = (props) => {
   const cal = useRef();
   const [show, setShow] = useState(false);
@@ -20,17 +17,29 @@ const MainCalendar = (props) => {
   // const updateEvent = ( events, event_id, ) => {
   //   const filteredEvents = events.filter( event => event.id !== event_id )
   //   const updatedEvent = []
-  
+
   // };
+
+  function parseEventTime(timeString) {
+    let hour = timeString.substring(0, 2);
+    let minutes = timeString.substring(3, 5);
+    let timeOfDay = timeString.substring(5, 8);
+    if (timeOfDay === "am") {
+      if (hour === "12") hour = "00";
+    } else {
+      if (hour < 12 && timeOfDay === "pm") {
+        hour = parseInt(hour) + 12;
+      }
+    }
+    return `${hour}:${minutes}`;
+  }
 
   const EventClickHandler = (eventData) => {
     setShow(true);
-    // console.log(eventData);
 
     props.events.forEach((event) => {
       if (event.id == eventData.event.id) {
         setDefaults(event);
-        // console.log(event);
       }
     });
   };
@@ -39,9 +48,6 @@ const MainCalendar = (props) => {
     <Box>
       <FullCalendar
         ref={cal}
-        // headerToolbar={{
-        //   center: "dayGridMonth, timeGridWeek, timeGridDay",
-        // }}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView={props.currentView}
         expandRows={true}
@@ -51,7 +57,6 @@ const MainCalendar = (props) => {
         events={props.events}
         nowIndicator={true}
         eventClick={EventClickHandler}
-        // dateClick={changeView("timeGridDay")}
       />
       {show && (
         <EventModal

@@ -1,12 +1,18 @@
 import { Layer, Box, Text, Button } from "grommet";
-import { useState, useeffect, useEffect } from "react";
-import { Add } from "grommet-icons";
+import { useState, useEffect } from "react";
 import CreateEventTitle from "../CreateEventModal/components/CreateEventTitle.component.js";
 import CreateEventDescription from "../CreateEventModal/components/CreateEventDescription.component.js";
 import CompanyDropMenu from "../CreateEventModal/components/CompanyDropMenu.component.js";
 import CalendarDropMenu from "../CreateEventModal/components/CalendarDropMenu.component";
 import CreateEventTimeSelector from "../CreateEventModal/components/CreateEventTimeSelector.component.js";
 import CreateEventDateSelector from "../CreateEventModal/components/CreateEventDateSelector.component.js";
+
+const parseEventTimeData = (props) => {
+  const startTime = props.defaults.start;
+  const endTime = props.defaults.end;
+
+  return console.log(startTime);
+};
 
 export default function EventModal(props) {
   console.log(props.defaults);
@@ -20,14 +26,17 @@ export default function EventModal(props) {
 
   useEffect(() => {
     setTitle(props.defaults.title || "");
-    setCompany(props.defaults.company_id);
+    setCompany(props.defaults.company_name);
     setDescription(props.defaults.description);
+    // setCompany(props.default.company_name);
     // setDate()
-    // setTimeStart();
-    // setTimeEnd();
-    setCalendar(props.defaults.calendar_id);
+    // setTimeStart(props.defaults.start);
+    // setTimeEnd(props.defaults.end);
+    setCalendar(props.defaults.calendar_name);
   }, [props.defaults]);
-
+  // parseEventTimeData();
+  // console.log(props.defaults.start && props.defaults.start.substring(11, 16));
+  // console.log(props.defaults.end && props.defaults.end.substring(11, 16));
   return (
     <Layer
       onEsc={() => props.setShow(false)}
