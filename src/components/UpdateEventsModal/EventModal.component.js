@@ -8,6 +8,11 @@ import CreateEventTimeSelector from "../CreateEventModal/components/CreateEventT
 import CreateEventDateSelector from "../CreateEventModal/components/CreateEventDateSelector.component.js";
 import { parse } from "@babel/core";
 
+const parseEventDateData = (dateString) => {
+  let date = dateString.split("T");
+  return date[0];
+};
+
 const parseEventTimeData = (dateString) => {
   let parsedTime = dateString.substring(11, 16);
   let hour = parsedTime.substring(0, 2);
@@ -28,13 +33,8 @@ const parseEventTimeData = (dateString) => {
   } else {
     parsedTime = parsedTime + "am";
   }
-  console.log(parsedTime);
   return parsedTime;
 };
-
-// else if (hour > 12) {
-//   parsedTime = parsedTime.replace(hour, hour - 12);
-//   parsedTime = parsedTime + "pm";
 
 export default function EventModal(props) {
   // console.log(props.defaults);
@@ -50,20 +50,22 @@ export default function EventModal(props) {
     setTitle(props.defaults.title || "");
     setCompany(props.defaults.company_name);
     setDescription(props.defaults.description);
+    setCalendar(props.defaults.calendar_name);
+
     if (props.defaults.start) {
       setTimeStart(parseEventTimeData(props.defaults.start));
     }
+
     if (props.defaults.end) {
       setTimeEnd(parseEventTimeData(props.defaults.end));
     }
-    setCalendar(props.defaults.calendar_name);
+
+    if (props.defaults.start) {
+      setDate(parseEventDateData(props.defaults.start));
+    }
   }, [props.defaults]);
 
-  // setCompany(props.default.company_name);
-  // setDate()
-
-  console.log(props.defaults.end && props.defaults.end.substring(11, 16));
-  // console.log(props.defaults.end && props.defaults.end.substring(11, 16));
+  // console.log(props.defaults.start && props.defaults.start);
   return (
     <Layer
       onEsc={() => props.setShow(false)}
