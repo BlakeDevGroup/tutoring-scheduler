@@ -107,8 +107,9 @@ export default function CreateEventModal(props) {
                   start: `${date.split("T")[0]}T${parseEventTime(timeStart)}`,
                   end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
                   description: `${description}`,
-                  calendar_id: calendar,
+                  calendar_name: calendar,
                   editable: "true",
+                  company_name: company,
                 },
                 props.setEvents
               );
