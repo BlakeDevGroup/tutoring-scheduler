@@ -14,12 +14,6 @@ const MainCalendar = (props) => {
     cal.current.getApi().changeView(props.currentView);
   });
 
-  // const updateEvent = ( events, event_id, ) => {
-  //   const filteredEvents = events.filter( event => event.id !== event_id )
-  //   const updatedEvent = []
-
-  // };
-
   function parseEventTime(timeString) {
     let hour = timeString.substring(0, 2);
     let minutes = timeString.substring(3, 5);

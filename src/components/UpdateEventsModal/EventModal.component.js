@@ -8,6 +8,12 @@ import CreateEventTimeSelector from "../CreateEventModal/components/CreateEventT
 import CreateEventDateSelector from "../CreateEventModal/components/CreateEventDateSelector.component.js";
 import { parse } from "@babel/core";
 
+function parseEventTime(timeString) {
+  const parsedTime = timeString.substring(0, 5);
+  console.log(parsedTime);
+  return parsedTime;
+}
+
 const parseEventDateData = (dateString) => {
   let date = dateString.split("T");
   return date[0];
@@ -45,6 +51,8 @@ export default function EventModal(props) {
   const [timeStart, setTimeStart] = useState("");
   const [timeEnd, setTimeEnd] = useState("");
   const [calendar, setCalendar] = useState("");
+  console.log(parseEventTime(timeStart));
+  // console.log(`${date.split("T")}T${parseEventTime(timeStart)}`);
 
   const updateEvents = () => {
     let filteredEvents = props.events;
@@ -60,8 +68,8 @@ export default function EventModal(props) {
         title: title,
         company_name: company,
         description: description,
-        start: "2021-09-04T22:30:00",
-        end: "2021-09-04T23:30:00",
+        start: `${date.split("T")}T${parseEventTime(timeStart)}`,
+        end: `${date.split("T")}T${parseEventTime(timeEnd)}`,
         id: props.defaults.id,
         calendar_name: calendar,
       })
