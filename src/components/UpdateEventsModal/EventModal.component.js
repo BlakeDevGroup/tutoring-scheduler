@@ -8,14 +8,28 @@ import CreateEventTimeSelector from "../CreateEventModal/components/CreateEventT
 import CreateEventDateSelector from "../CreateEventModal/components/CreateEventDateSelector.component.js";
 import { parse } from "@babel/core";
 
-function parseEventTime(timeString) {
-  const parsedTime = timeString.substring(0, 5);
-  console.log(parsedTime);
-  return parsedTime;
+function changeDateDotToDash(date) {
+  let newDate = date.replace(/\-/g, "/");
+
+  return newDate;
 }
 
+function parseEventTime(timeString) {
+  let hour = timeString.substring(0, 2);
+  let minutes = timeString.substring(3, 5);
+  let timeOfDay = timeString.substring(5, 8);
+  if (timeOfDay === "am") {
+    if (hour === "12") hour = "00";
+  } else {
+    if (hour < 12 && timeOfDay === "pm") {
+      hour = parseInt(hour) + 12;
+    }
+  }
+  return `${hour}:${minutes}`;
+}
 const parseEventDateData = (dateString) => {
   let date = dateString.split("T");
+
   return date[0];
 };
 
@@ -43,7 +57,7 @@ const parseEventTimeData = (dateString) => {
 };
 
 export default function EventModal(props) {
-  // console.log(props.defaults);
+  console.log(props.defaults);
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
   const [description, setDescription] = useState("");
@@ -51,8 +65,6 @@ export default function EventModal(props) {
   const [timeStart, setTimeStart] = useState("");
   const [timeEnd, setTimeEnd] = useState("");
   const [calendar, setCalendar] = useState("");
-  console.log(parseEventTime(timeStart));
-  // console.log(`${date.split("T")}T${parseEventTime(timeStart)}`);
 
   const updateEvents = () => {
     let filteredEvents = props.events;
@@ -68,8 +80,8 @@ export default function EventModal(props) {
         title: title,
         company_name: company,
         description: description,
-        start: `${date.split("T")}T${parseEventTime(timeStart)}`,
-        end: `${date.split("T")}T${parseEventTime(timeEnd)}`,
+        start: `${parseEventDateData(date)}T${parseEventTime(timeStart)}`,
+        end: `${parseEventDateData(date)}T${parseEventTime(timeEnd)}`,
         id: props.defaults.id,
         calendar_name: calendar,
       })
@@ -85,18 +97,17 @@ export default function EventModal(props) {
 
     if (props.defaults.start) {
       setTimeStart(parseEventTimeData(props.defaults.start));
+      setDate(changeDateDotToDash(parseEventDateData(props.defaults.start)));
     }
 
     if (props.defaults.end) {
       setTimeEnd(parseEventTimeData(props.defaults.end));
     }
-
-    if (props.defaults.start) {
-      setDate(parseEventDateData(props.defaults.start));
-    }
   }, [props.defaults]);
 
-  // console.log(props.defaults.start && props.defaults.start);
+  // console.log(
+  //   setDate(changeDateDotToDash(parseEventDateData(props.defaults.start)))
+  // );
   return (
     <Layer
       onEsc={() => props.setShow(false)}

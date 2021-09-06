@@ -14,19 +14,7 @@ const MainCalendar = (props) => {
     cal.current.getApi().changeView(props.currentView);
   });
 
-  function parseEventTime(timeString) {
-    let hour = timeString.substring(0, 2);
-    let minutes = timeString.substring(3, 5);
-    let timeOfDay = timeString.substring(5, 8);
-    if (timeOfDay === "am") {
-      if (hour === "12") hour = "00";
-    } else {
-      if (hour < 12 && timeOfDay === "pm") {
-        hour = parseInt(hour) + 12;
-      }
-    }
-    return `${hour}:${minutes}`;
-  }
+
 
   const EventClickHandler = (eventData) => {
     setShow(true);
