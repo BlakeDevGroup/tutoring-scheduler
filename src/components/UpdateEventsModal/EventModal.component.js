@@ -10,6 +10,8 @@ import CreateEventDateSelector from "../CreateEventModal/components/CreateEventD
 import { parse } from "@babel/core";
 import { buildDayRanges } from "@fullcalendar/timegrid";
 import { filter } from "rxjs";
+import { useDispatch } from "react-redux";
+import { updateEvent, removeEvent } from "../../apis/events/events.slice";
 
 function changeDateDotToDash(date) {
   let newDate = date.replace(/\-/g, "/");
@@ -67,35 +69,18 @@ export default function EventModal(props) {
   const [timeStart, setTimeStart] = useState("");
   const [timeEnd, setTimeEnd] = useState("");
   const [calendar, setCalendar] = useState("");
+  const dispatch = useDispatch();
 
   const removeEvents = () => {
-    let changedEvents = props.events;
-    let newEvents = [];
-    for (let i = 0; i < changedEvents.length; i++) {
-      if (changedEvents[i].id == props.defaults.id) {
-        changedEvents.splice(i, 1);
-        break;
-      }
-    }
-    console.log(changedEvents);
-    props.setEvents([].concat(changedEvents));
+    dispatch(removeEvent({ id: props.defaults.id }));
     props.setShow(false);
   };
 
   console.log(props.events);
 
   const updateEvents = () => {
-    console.log(props.defaults);
-    let filteredEvents = props.events;
-    for (let i = 0; i < filteredEvents.length; i++) {
-      if (filteredEvents[i].id == props.defaults.id) {
-        const removedValue = filteredEvents.splice(i, 1);
-        break;
-      }
-    }
-
-    props.setEvents(
-      [].concat(filteredEvents, {
+    dispatch(
+      updateEvent({
         title: title,
         company_name: company,
         description: description,
@@ -105,6 +90,7 @@ export default function EventModal(props) {
         calendar_name: calendar,
       })
     );
+
     props.setShow(false);
   };
 

@@ -37,13 +37,28 @@ export default function CreateEventModal(props) {
   const [timeEnd, setTimeEnd] = useState("");
   const [calendar, setCalendar] = useState("");
   return (
-    console.log(timeEnd),
-    (
-      <Layer
-        onEsc={() => props.setShow(false)}
-        onClickOutside={() => props.setShow(false)}
+    <Layer
+      onEsc={() => props.setShow(false)}
+      onClickOutside={() => props.setShow(false)}
+    >
+      {" "}
+      <Box
+        margin={{
+          top: "xsmall",
+          left: "medium",
+          right: "medium",
+          bottom: "xsmall",
+        }}
       >
-        {" "}
+        <CreateEventTitle onChange={setTitle} value={title} />
+        <CreateEventTimeSelector
+          setTimeStart={setTimeStart}
+          setTimeEnd={setTimeEnd}
+        />
+        <CreateEventDateSelector onChange={setDate} value={date} />
+
+        <CreateEventDescription onChange={setDescription} value={description} />
+
         <Box
           margin={{
             top: "xsmall",
@@ -51,73 +66,49 @@ export default function CreateEventModal(props) {
             right: "medium",
             bottom: "xsmall",
           }}
+          direction="row-responsive"
+          justify="between"
         >
-          <CreateEventTitle onChange={setTitle} value={title} />
-          <CreateEventTimeSelector
-            setTimeStart={setTimeStart}
-            setTimeEnd={setTimeEnd}
-          />
-          <CreateEventDateSelector onChange={setDate} value={date} />
-
-          <CreateEventDescription
-            onChange={setDescription}
-            value={description}
+          <CompanyDropMenu
+            companies={props.companies}
+            value={company}
+            onChange={setCompany}
           />
 
-          <Box
-            margin={{
-              top: "xsmall",
-              left: "medium",
-              right: "medium",
-              bottom: "xsmall",
-            }}
-            direction="row-responsive"
-            justify="between"
-          >
-            <CompanyDropMenu
-              companies={props.companies}
-              value={company}
-              onChange={setCompany}
-            />
-
-            <CalendarDropMenu
-              calendars={props.calendars}
-              value={calendar}
-              onChange={setCalendar}
-            />
-          </Box>
-          <Button
-            type="submit"
-            icon={<Add />}
-            size="medium"
-            alignSelf="center"
-            hoverIndicator
-            margin={{
-              top: "xsmall",
-              left: "medium",
-              right: "medium",
-              bottom: "xsmall",
-            }}
-            onClick={() => {
-              setNewEvents(
-                props.events,
-                {
-                  id: "3",
-                  title: title,
-                  start: `${date.split("T")[0]}T${parseEventTime(timeStart)}`,
-                  end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
-                  description: `${description}`,
-                  calendar_name: calendar,
-                  editable: "true",
-                  company_name: company,
-                },
-                props.setEvents
-              );
-              props.setShow(false);
-            }}
+          <CalendarDropMenu
+            calendars={props.calendars}
+            value={calendar}
+            onChange={setCalendar}
           />
         </Box>
-      </Layer>
-    )
+
+        <Button
+          type="submit"
+          icon={<Add />}
+          size="medium"
+          alignSelf="center"
+          hoverIndicator
+          margin={{
+            top: "xsmall",
+            left: "medium",
+            right: "medium",
+            bottom: "xsmall",
+          }}
+          onClick={() => {
+            props.onSubmit({
+              id: "3",
+              title: title,
+              start: `${date.split("T")[0]}T${parseEventTime(timeStart)}`,
+              end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
+              description: `${description}`,
+              calendar_id: calendar,
+              editable: "true",
+            });
+
+            props.setShow(false);
+          }}
+        />
+      </Box>
+    </Layer>
   );
 }

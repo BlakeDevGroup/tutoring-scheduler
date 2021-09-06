@@ -5,7 +5,7 @@ import MessageService from "../../services/messaging/message.service";
 export default class EventApi {
   constructor() {
     this.apiController = axios.create({
-      baseURL: "http://localhost:49160",
+      baseURL: "http://localhost:3500",
       timeout: 1000,
       headers: { "Content-Type": "json" },
     });
@@ -155,3 +155,18 @@ export default class EventApi {
     }
   }
 }
+
+export const prepEventData = (eventData) => {
+  return eventData.map((event) => {
+    return {
+      id: event.event_id,
+      calendar_id: event.calendar_id,
+      title: event.title,
+      start: event.date_start,
+      end: event.date_end,
+      description: event.description,
+      user_id: event.user_id,
+      all_day: event.all_day,
+    };
+  });
+};
