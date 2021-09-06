@@ -8,7 +8,7 @@ import EventApi from "./apis/events.api";
 const theme = {
   global: {
     colors: {
-      brand: "#81FCED",
+      brand: "#6FFFB0",
     },
     font: {
       family: "Roboto",

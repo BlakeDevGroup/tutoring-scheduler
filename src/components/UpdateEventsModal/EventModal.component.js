@@ -1,5 +1,6 @@
 import { Layer, Box, Text, Button } from "grommet";
 import { useState, useEffect } from "react";
+import { Checkmark, Close } from "grommet-icons";
 import CreateEventTitle from "../CreateEventModal/components/CreateEventTitle.component.js";
 import CreateEventDescription from "../CreateEventModal/components/CreateEventDescription.component.js";
 import CompanyDropMenu from "../CreateEventModal/components/CompanyDropMenu.component.js";
@@ -172,29 +173,30 @@ export default function EventModal(props) {
         </Box>
         <Box justify="center" direction="row-responsive">
           <Button
-            type="submit"
-            label="update"
+            label="Update"
             size="xsmall"
             alignSelf="center"
             hoverIndicator
+            icon={<Checkmark />}
             margin={{
               top: "xsmall",
-              left: "medium",
-              right: "medium",
+              left: "xsmall",
+              right: "small",
               bottom: "xsmall",
             }}
             onClick={updateEvents}
           />
           <Button
-            label="delete"
+            label="Delete"
             size="xsmall"
             alignSelf="center"
             color="red"
             hoverIndicator
+            icon={<Close />}
             margin={{
               top: "xsmall",
-              left: "medium",
-              right: "medium",
+              left: "small",
+              right: "xsmall",
               bottom: "xsmall",
             }}
             onClick={removeEvents}
