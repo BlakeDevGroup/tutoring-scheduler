@@ -1,3 +1,4 @@
+import { isPropsEqual } from "@fullcalendar/react";
 import { Box, Text, Select } from "grommet";
 
 export default function CreateEventTimeSelector(props) {
@@ -25,7 +26,7 @@ export default function CreateEventTimeSelector(props) {
           placeholder="Start time"
           options={timeArray()}
           onChange={({ option }) => props.setTimeStart(option)}
-          
+          value={props.timeStart}
         />
       </Box>
       <Box>
@@ -37,6 +38,7 @@ export default function CreateEventTimeSelector(props) {
           placeholder="End time"
           options={timeArray()}
           onChange={({ option }) => props.setTimeEnd(option)}
+          value={props.timeEnd}
         />
       </Box>
     </Box>

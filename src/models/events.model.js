@@ -18,5 +18,6 @@ export default class Events {
     this.eventOverlap = eventObject.eventOverlap;
     this.eventAllow = eventObject.eventAllow;
     this.color = eventObject.color;
+    this.company_name = eventObject.company_name;
   }
 }
