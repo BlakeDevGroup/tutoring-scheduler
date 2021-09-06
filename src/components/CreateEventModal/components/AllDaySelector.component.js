@@ -57,7 +57,7 @@ export default function AllDaySelector(props) {
   const [value, setValue] = React.useState();
   const [selected, setSelected] = React.useState([]);
   const [options, setOptions] = React.useState(dummyOptions);
-  console.log(getOptions());
+  // console.log(getOptions());
   return (
     <Box
       margin={{

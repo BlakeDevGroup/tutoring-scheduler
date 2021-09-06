@@ -18,7 +18,7 @@ function CalendarDropMenu(props) {
       icon={<CaretDownFill />}
       size="small"
       options={FormatCalendars(props.calendars)}
-      value={props.calendar}
+      value={props.value}
       placeholder="Select calendar"
       onChange={(e) => {
         props.onChange(e.target.value);

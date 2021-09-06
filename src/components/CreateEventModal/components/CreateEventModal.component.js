@@ -19,7 +19,7 @@ function parseEventTime(timeString) {
   let minutes = timeString.substring(3, 5);
   let timeOfDay = timeString.substring(5, 8);
   if (timeOfDay === "am") {
-    if (hour === "12") hour = "00:00";
+    if (hour === "12") hour = "00";
   } else {
     if (hour < 12 && timeOfDay === "pm") {
       hour = parseInt(hour) + 12;
@@ -37,28 +37,13 @@ export default function CreateEventModal(props) {
   const [timeEnd, setTimeEnd] = useState("");
   const [calendar, setCalendar] = useState("");
   return (
-    <Layer
-      onEsc={() => props.setShow(false)}
-      onClickOutside={() => props.setShow(false)}
-    >
-      {" "}
-      <Box
-        margin={{
-          top: "xsmall",
-          left: "medium",
-          right: "medium",
-          bottom: "xsmall",
-        }}
+    console.log(timeEnd),
+    (
+      <Layer
+        onEsc={() => props.setShow(false)}
+        onClickOutside={() => props.setShow(false)}
       >
-        <CreateEventTitle onChange={setTitle} value={title} />
-        <CreateEventTimeSelector
-          setTimeStart={setTimeStart}
-          setTimeEnd={setTimeEnd}
-        />
-        <CreateEventDateSelector onChange={setDate} value={date} />
-
-        <CreateEventDescription onChange={setDescription} value={description} />
-
+        {" "}
         <Box
           margin={{
             top: "xsmall",
@@ -66,51 +51,73 @@ export default function CreateEventModal(props) {
             right: "medium",
             bottom: "xsmall",
           }}
-          direction="row-responsive"
-          justify="between"
         >
-          <CompanyDropMenu
-            companies={props.companies}
-            value={company}
-            onChange={setCompany}
+          <CreateEventTitle onChange={setTitle} value={title} />
+          <CreateEventTimeSelector
+            setTimeStart={setTimeStart}
+            setTimeEnd={setTimeEnd}
+          />
+          <CreateEventDateSelector onChange={setDate} value={date} />
+
+          <CreateEventDescription
+            onChange={setDescription}
+            value={description}
           />
 
-          <CalendarDropMenu
-            calendars={props.calendars}
-            value={calendar}
-            onChange={setCalendar}
+          <Box
+            margin={{
+              top: "xsmall",
+              left: "medium",
+              right: "medium",
+              bottom: "xsmall",
+            }}
+            direction="row-responsive"
+            justify="between"
+          >
+            <CompanyDropMenu
+              companies={props.companies}
+              value={company}
+              onChange={setCompany}
+            />
+
+            <CalendarDropMenu
+              calendars={props.calendars}
+              value={calendar}
+              onChange={setCalendar}
+            />
+          </Box>
+          <Button
+            type="submit"
+            icon={<Add />}
+            size="medium"
+            alignSelf="center"
+            hoverIndicator
+            margin={{
+              top: "xsmall",
+              left: "medium",
+              right: "medium",
+              bottom: "xsmall",
+            }}
+            onClick={() => {
+              setNewEvents(
+                props.events,
+                {
+                  id: "3",
+                  title: title,
+                  start: `${date.split("T")[0]}T${parseEventTime(timeStart)}`,
+                  end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
+                  description: `${description}`,
+                  calendar_name: calendar,
+                  editable: "true",
+                  company_name: company,
+                },
+                props.setEvents
+              );
+              props.setShow(false);
+            }}
           />
         </Box>
-        <Button
-          type="submit"
-          icon={<Add />}
-          size="medium"
-          alignSelf="center"
-          hoverIndicator
-          margin={{
-            top: "xsmall",
-            left: "medium",
-            right: "medium",
-            bottom: "xsmall",
-          }}
-          onClick={() => {
-            setNewEvents(
-              props.events,
-              {
-                id: "3",
-                title: title,
-                start: `${date.split("T")[0]}T${parseEventTime(timeStart)}`,
-                end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
-                description: `${description}`,
-                calendar_id: calendar,
-                editable: "true",
-              },
-              props.setEvents
-            );
-            props.setShow(false);
-          }}
-        />
-      </Box>
-    </Layer>
+      </Layer>
+    )
   );
 }
