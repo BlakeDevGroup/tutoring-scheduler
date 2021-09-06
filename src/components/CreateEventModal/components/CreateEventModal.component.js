@@ -94,19 +94,16 @@ export default function CreateEventModal(props) {
             bottom: "xsmall",
           }}
           onClick={() => {
-            setNewEvents(
-              props.events,
-              {
-                id: "3",
-                title: title,
-                start: `${date.split("T")[0]}T${parseEventTime(timeStart)}`,
-                end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
-                description: `${description}`,
-                calendar_id: calendar,
-                editable: "true",
-              },
-              props.setEvents
-            );
+            props.onSubmit({
+              id: "3",
+              title: title,
+              start: `${date.split("T")[0]}T${parseEventTime(timeStart)}`,
+              end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
+              description: `${description}`,
+              calendar_id: calendar,
+              editable: "true",
+            });
+
             props.setShow(false);
           }}
         />

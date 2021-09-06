@@ -2,6 +2,8 @@ import { Box, Button, Grommet } from "grommet";
 import { Add } from "grommet-icons";
 import React, { useState } from "react";
 import CreateEventModal from "./components/CreateEventModal.component";
+import { useSelector, useDispatch } from "react-redux";
+import { addEvent } from "../../apis/events/events.slice";
 
 const theme = {
   global: {
@@ -17,7 +19,12 @@ const theme = {
 };
 
 export default function CreateEventWrapper(props) {
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+
+  const onSubmit = (eventData) => {
+    dispatch(addEvent({ event: eventData }));
+  };
   return (
     <Grommet theme={theme}>
       <Box>
@@ -37,8 +44,7 @@ export default function CreateEventWrapper(props) {
             setShow={setShow}
             companies={props.companies}
             calendars={props.calendars}
-            setEvents={props.setEvents}
-            events={props.events}
+            onSubmit={onSubmit}
           />
         )}
       </Box>

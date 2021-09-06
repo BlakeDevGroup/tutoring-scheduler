@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { ResponsiveContext, Grommet } from "grommet";
+import { Provider } from "react-redux";
+import store from "./store";
 
 import EventApi from "./apis/events/events.api";
 
@@ -18,16 +20,18 @@ const theme = {
   },
 };
 
-const eventApi = new EventApi();
+// const eventApi = new EventApi();
 
-eventApi.getAllEvents(2).then((result) => console.log(result));
+// eventApi.getAllEvents(2).then((result) => console.log(result));
 
 ReactDOM.render(
   <React.StrictMode>
     <Grommet theme={theme} full>
-      <ResponsiveContext.Consumer>
-        {(size) => <App size={size} />}
-      </ResponsiveContext.Consumer>
+      <Provider store={store}>
+        <ResponsiveContext.Consumer>
+          {(size) => <App size={size} />}
+        </ResponsiveContext.Consumer>
+      </Provider>
     </Grommet>
   </React.StrictMode>,
   document.getElementById("root")

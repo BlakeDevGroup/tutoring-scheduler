@@ -2,23 +2,18 @@ import { Box, Collapsible, Button, Main } from "grommet";
 import { FormClose } from "grommet-icons";
 import AddViewForm from "./components/NavBar/components/AddViewForm.component";
 import CreateEventWrapper from "./components/CreateEventModal/CreateEventWrapper.component";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainCalendar from "./main-components/main-calendar";
 import eventsData from "./data/events.json";
 import companiesData from "./data/companies.json";
 import calendarsData from "./data/calendars.json";
 import viewsData from "./data/views.json";
 import NavBarWrapper from "./components/NavBar/NavBarWrapper.component";
+import { useSelector, useDispatch } from "react-redux";
+import { setEvents, getEvents } from "./apis/events/events.slice";
+import EventApi, { prepEventData } from "./apis/events/events.api";
 
-const getEvents = () => {
-  let events = [];
-
-  eventsData["events"].forEach((data) => {
-    events.push(data);
-  });
-
-  return events;
-};
+const eventApi = new EventApi();
 
 const getCompanies = () => {
   let companies = [];
@@ -51,7 +46,7 @@ const getViews = () => {
 
 const App = (props) => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [events, setEvents] = useState(getEvents());
+
   const [companies, setCompanies] = useState(getCompanies());
   const [calendars, setCalendars] = useState(getCalendars());
   const [views, setViews] = useState(getViews());
@@ -85,9 +80,8 @@ const App = (props) => {
               justify="evenly"
             >
               <CreateEventWrapper
-                events={events}
                 companies={companies}
-                setEvents={setEvents}
+                // setEvents={setEvents}
                 calendars={calendars}
               />
               <AddViewForm calendars={calendars} setCalendars={setCalendars} />
@@ -114,7 +108,7 @@ const App = (props) => {
           </layer>
         )}
         <Main margin="xsmall">
-          <MainCalendar currentView={currentView} events={events} />
+          <MainCalendar currentView={currentView} />
         </Main>
       </Box>
     </Box>
