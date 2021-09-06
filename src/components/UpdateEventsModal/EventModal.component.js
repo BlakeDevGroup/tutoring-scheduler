@@ -7,6 +7,8 @@ import CalendarDropMenu from "../CreateEventModal/components/CalendarDropMenu.co
 import CreateEventTimeSelector from "../CreateEventModal/components/CreateEventTimeSelector.component.js";
 import CreateEventDateSelector from "../CreateEventModal/components/CreateEventDateSelector.component.js";
 import { parse } from "@babel/core";
+import { buildDayRanges } from "@fullcalendar/timegrid";
+import { filter } from "rxjs";
 
 function changeDateDotToDash(date) {
   let newDate = date.replace(/\-/g, "/");
@@ -57,7 +59,6 @@ const parseEventTimeData = (dateString) => {
 };
 
 export default function EventModal(props) {
-  console.log(props.defaults);
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
   const [description, setDescription] = useState("");
@@ -66,7 +67,24 @@ export default function EventModal(props) {
   const [timeEnd, setTimeEnd] = useState("");
   const [calendar, setCalendar] = useState("");
 
+  const removeEvents = () => {
+    let changedEvents = props.events;
+    let newEvents = [];
+    for (let i = 0; i < changedEvents.length; i++) {
+      if (changedEvents[i].id == props.defaults.id) {
+        changedEvents.splice(i, 1);
+        break;
+      }
+    }
+    console.log(changedEvents);
+    props.setEvents([].concat(changedEvents));
+    props.setShow(false);
+  };
+
+  console.log(props.events);
+
   const updateEvents = () => {
+    console.log(props.defaults);
     let filteredEvents = props.events;
     for (let i = 0; i < filteredEvents.length; i++) {
       if (filteredEvents[i].id == props.defaults.id) {
@@ -97,7 +115,7 @@ export default function EventModal(props) {
 
     if (props.defaults.start) {
       setTimeStart(parseEventTimeData(props.defaults.start));
-      setDate(changeDateDotToDash(parseEventDateData(props.defaults.start)));
+      setDate(props.defaults.start);
     }
 
     if (props.defaults.end) {
@@ -105,9 +123,6 @@ export default function EventModal(props) {
     }
   }, [props.defaults]);
 
-  // console.log(
-  //   setDate(changeDateDotToDash(parseEventDateData(props.defaults.start)))
-  // );
   return (
     <Layer
       onEsc={() => props.setShow(false)}
@@ -141,7 +156,7 @@ export default function EventModal(props) {
             bottom: "xsmall",
           }}
           direction="row-responsive"
-          justify="between"
+          justify="center"
         >
           <CompanyDropMenu
             companies={props.companies}
@@ -155,20 +170,36 @@ export default function EventModal(props) {
             onChange={setCalendar}
           />
         </Box>
-        <Button
-          type="submit"
-          label="update"
-          size="medium"
-          alignSelf="center"
-          hoverIndicator
-          margin={{
-            top: "xsmall",
-            left: "medium",
-            right: "medium",
-            bottom: "xsmall",
-          }}
-          onClick={updateEvents}
-        />
+        <Box justify="center" direction="row-responsive">
+          <Button
+            type="submit"
+            label="update"
+            size="xsmall"
+            alignSelf="center"
+            hoverIndicator
+            margin={{
+              top: "xsmall",
+              left: "medium",
+              right: "medium",
+              bottom: "xsmall",
+            }}
+            onClick={updateEvents}
+          />
+          <Button
+            label="delete"
+            size="xsmall"
+            alignSelf="center"
+            color="red"
+            hoverIndicator
+            margin={{
+              top: "xsmall",
+              left: "medium",
+              right: "medium",
+              bottom: "xsmall",
+            }}
+            onClick={removeEvents}
+          />
+        </Box>
       </Box>
     </Layer>
   );
