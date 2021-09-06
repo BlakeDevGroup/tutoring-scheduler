@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 import axios from "axios";
-import MessageService from "../services/message.service";
+import MessageService from "../../services/messaging/message.service";
 
 export default class EventApi {
   constructor() {

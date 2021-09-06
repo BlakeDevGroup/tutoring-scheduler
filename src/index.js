@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { ResponsiveContext, Grommet } from "grommet";
-import winston from "winston";
-import EventApi from "./apis/events.api";
+
+import EventApi from "./apis/events/events.api";
 
 const theme = {
   global: {
@@ -20,10 +20,7 @@ const theme = {
 
 const eventApi = new EventApi();
 
-eventApi.getAllEvents(2);
-export const logger = winston.createLogger({
-  transports: [new winston.transports.Console()],
-});
+eventApi.getAllEvents(2).then((result) => console.log(result));
 
 ReactDOM.render(
   <React.StrictMode>

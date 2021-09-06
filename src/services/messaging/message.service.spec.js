@@ -1,6 +1,6 @@
 import sinon from "sinon";
 import { expect } from "chai";
-import winston from "winston";
+import { logger } from "../logging/logging.service";
 import MessageService from "./message.service";
 
 let logStub;
@@ -11,7 +11,7 @@ describe("MessageService", () => {
     sandBox = sinon.createSandbox();
   });
   beforeEach(() => {
-    logStub = sandBox.stub(winston, "log");
+    logStub = sandBox.stub(logger, "log");
   });
   afterEach(() => {
     logStub.restore();

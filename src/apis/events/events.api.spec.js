@@ -3,7 +3,7 @@ import sinon from "sinon";
 import sinonChai from "sinon-chai";
 import axios from "axios";
 import EventApi from "./events.api";
-import MessageService from "../services/message.service";
+import MessageService from "../../services/messaging/message.service";
 
 chai.use(sinonChai);
 const CALENDAR_ID = 1;
@@ -40,7 +40,7 @@ let axiosStub;
 let eventApi;
 let stubSuccess;
 let stubFailure;
-describe.only("EventApi", () => {
+describe("EventApi", () => {
   beforeEach(() => {
     eventApi = new EventApi();
     stubSuccess = sandBox.stub(MessageService, "sendSuccess");

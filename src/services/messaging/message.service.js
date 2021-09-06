@@ -1,4 +1,4 @@
-import { logger } from "../index";
+import { logger } from "../logging/logging.service";
 
 const sendSuccess = function sendSuccess(level, message, data) {
   logger.log(level, message);
