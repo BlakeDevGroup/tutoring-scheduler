@@ -14,8 +14,8 @@ export default function NavBarWrapper(props) {
         companies={props.companies}
         setCompanies={props.setCompanies}
       />
-      <Heading level="3" margin="none" align="right">
-        My App
+      <Heading level="3" margin="none" align="center">
+        Laura's Calendar
       </Heading>
       <NavBarDropMenu views={props.views} onChange={props.setCurrentView} />
     </NavBar>

@@ -1,12 +1,12 @@
 import { Box, Button, Grommet } from "grommet";
-import { Add } from "grommet-icons";
+import { AddCircle } from "grommet-icons";
 import React, { useState } from "react";
 import CreateEventModal from "./components/CreateEventModal.component";
 
 const theme = {
   global: {
     colors: {
-      brand: "#81FCED",
+      brand: "#6FFFB0",
     },
     font: {
       family: "Roboto",
@@ -26,9 +26,9 @@ export default function CreateEventWrapper(props) {
           alignSelf="start"
           label="Create"
           size="large"
-          icon={<Add />}
+          icon={<AddCircle />}
           margin={{ left: "small", top: "small" }}
-          hoverIndicator="true"
+          hoverIndicator
           onClick={() => setShow(true)}
         />
         {show && (
