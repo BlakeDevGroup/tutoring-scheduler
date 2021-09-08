@@ -2,6 +2,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import rrulePlugin from "@fullcalendar/rrule";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setEvents, updateEvent } from "../apis/events/events.slice";
@@ -20,7 +21,25 @@ const MainCalendar = (props) => {
 
   useEffect(async () => {
     const eventData = await eventApi.getAllEvents(2);
-    dispatch(setEvents({ events: prepEventData(eventData.data) }));
+    // dispatch(setEvents({ events: prepEventData(eventData.data) }));
+    dispatch(
+      setEvents({
+        events: [
+          {
+            groupId: "1",
+            title: "My Recurring Event",
+            rrule: {
+
+              freq: "weekly",
+              interval: 5,
+              byweekday: ["mo", "fr"],
+              dtstart: "2021-09-09T10:30:00", // will also accept '20120201T103000'
+              until: "2022-09-09", // will also accept '20120201'
+            },
+          },
+        ],
+      })
+    );
   }, []);
 
   useEffect(() => {
@@ -44,7 +63,12 @@ const MainCalendar = (props) => {
     <Box>
       <FullCalendar
         ref={cal}
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        plugins={[
+          dayGridPlugin,
+          timeGridPlugin,
+          interactionPlugin,
+          rrulePlugin,
+        ]}
         initialView={props.currentView}
         expandRows={true}
         handleWindowResize={false}
