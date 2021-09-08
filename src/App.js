@@ -9,11 +9,6 @@ import companiesData from "./data/companies.json";
 import calendarsData from "./data/calendars.json";
 import viewsData from "./data/views.json";
 import NavBarWrapper from "./components/NavBar/NavBarWrapper.component";
-import { useSelector, useDispatch } from "react-redux";
-import { setEvents, getEvents } from "./apis/events/events.slice";
-import EventApi, { prepEventData } from "./apis/events/events.api";
-
-const eventApi = new EventApi();
 
 const getCompanies = () => {
   let companies = [];
@@ -66,7 +61,7 @@ const App = (props) => {
         direction=""
         height="xsmall"
         flex
-        overflow={{ horizontal: "hidded" }}
+        overflow={{ horizontal: "hidden" }}
       >
         {!showSidebar || props.size !== "small" ? (
           <Collapsible direction="horizontal" open={showSidebar}>

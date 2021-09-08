@@ -6,18 +6,21 @@ export default class Events {
     this.end = eventObject.end;
     this.calendar_id = eventObject.calendar_id;
     this.description = eventObject.description;
-    this.editable = eventObject.editable;
-    this.display = eventObject.display;
-    this.color = eventObject.color;
-    this.startRecur = eventObject.startRecur;
-    this.endRecur = eventObject.endRecur;
-    this.textColor = eventObject.textColor;
-    this.backgroundColor = eventObject.backgroundColor;
-    this.eventResizableFromStart = eventObject.eventResizableFromStart;
-    this.eventDurationEditable = eventObject.eventDurationEditable;
-    this.eventOverlap = eventObject.eventOverlap;
-    this.eventAllow = eventObject.eventAllow;
-    this.color = eventObject.color;
-    this.company_name = eventObject.company_name;
+    this.allDay = eventObject.allDay;
+    this.company_id = eventObject.company_id;
   }
 }
+
+// this.editable = eventObject.editable;
+// this.display = eventObject.display;
+// this.color = eventObject.color;
+// this.startRecur = eventObject.startRecur;
+// this.endRecur = eventObject.endRecur;
+// this.textColor = eventObject.textColor;
+// this.backgroundColor = eventObject.backgroundColor;
+// this.eventResizableFromStart = eventObject.eventResizableFromStart;
+// this.eventDurationEditable = eventObject.eventDurationEditable;
+// this.eventOverlap = eventObject.eventOverlap;
+// this.eventAllow = eventObject.eventAllow;
+// this.color = eventObject.color;
+// this.company_name = eventObject.company_name;

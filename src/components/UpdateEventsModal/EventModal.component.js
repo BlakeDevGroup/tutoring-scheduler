@@ -72,7 +72,7 @@ export default function EventModal(props) {
   const dispatch = useDispatch();
 
   const removeEvents = () => {
-    dispatch(removeEvent({ id: props.defaults.id }));
+    dispatch(removeEvent(props.defaults.id));
     props.setShow(false);
   };
 

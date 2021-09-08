@@ -7,7 +7,7 @@ export default class EventApi {
     this.apiController = axios.create({
       baseURL: "http://localhost:3500",
       timeout: 1000,
-      headers: { "Content-Type": "json" },
+      headers: { "Content-Type": "application/json;charset=utf-8" },
     });
   }
   async getAllEvents(calendar_id) {
