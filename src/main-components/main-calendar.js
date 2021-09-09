@@ -26,16 +26,14 @@ const MainCalendar = (props) => {
       setEvents({
         events: [
           {
+            daysOfWeek: [0, 1],
+            startTime: "10:00",
+            endTime: "12:00",
+            startRecur: "2021-09-07",
+            endRecur: "2022-09-07",
             groupId: "1",
             title: "My Recurring Event",
-            rrule: {
-
-              freq: "weekly",
-              interval: 5,
-              byweekday: ["mo", "fr"],
-              dtstart: "2021-09-09T10:30:00", // will also accept '20120201T103000'
-              until: "2022-09-09", // will also accept '20120201'
-            },
+            description: "ASDFSDFGSDFG",
           },
         ],
       })

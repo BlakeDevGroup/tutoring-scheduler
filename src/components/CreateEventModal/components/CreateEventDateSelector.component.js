@@ -1,16 +1,9 @@
 import { Grommet, Box, Text, DateInput } from "grommet";
-import AllDaySelector from "./AllDaySelector.component";
+import React from "react";
+
 export default function CreateEventDateSelector(props) {
   return (
-    <Box
-      margin={{
-        top: "xsmall",
-        left: "medium",
-        right: "medium",
-        bottom: "xsmall",
-      }}
-      direction="row-responsive"
-    >
+    <React.Fragment>
       <Text
         size="small"
         align="center"
@@ -21,15 +14,14 @@ export default function CreateEventDateSelector(props) {
       <Grommet theme={theme}>
         <DateInput
           size="small"
-          format="yyyy/mm/dd"
+          format="yyyy-mm-dd"
           value={props.value}
           onChange={(e) => {
             props.onChange(e.value);
           }}
         />
       </Grommet>
-      <AllDaySelector />
-    </Box>
+    </React.Fragment>
   );
 }
 

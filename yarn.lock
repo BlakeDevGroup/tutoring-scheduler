@@ -10477,7 +10477,7 @@
     "@types/node" "*"
     "acorn" "^7.1.0"
 
-"rrule@^2.6.0", "rrule@^2.6.8":
+"rrule@^2.6.0":
   "integrity" "sha512-cUaXuUPrz9d1wdyzHsBfT1hptKlGgABeCINFXFvulEPqh9Np9BnF3C3lrv9uO54IIr8VDb58tsSF3LhsW+4VRw=="
   "resolved" "https://registry.npmjs.org/rrule/-/rrule-2.6.8.tgz"
   "version" "2.6.8"

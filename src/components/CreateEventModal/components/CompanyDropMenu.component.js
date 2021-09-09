@@ -23,6 +23,7 @@ function CompanyDropMenu(props) {
       onChange={(e) => {
         props.onChange(e.target.value);
       }}
+      defaultValue={FormatCompanies(props.companies)[0]}
       multiple={false}
     />
   );

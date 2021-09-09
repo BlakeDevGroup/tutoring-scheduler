@@ -25,6 +25,7 @@ function CalendarDropMenu(props) {
       }}
       multiple={false}
       calendars={props.calendars}
+      defaultValue={FormatCalendars(props.calendars)[0]}
     />
   );
 }
