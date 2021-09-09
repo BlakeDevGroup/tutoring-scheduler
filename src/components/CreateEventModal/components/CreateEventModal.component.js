@@ -1,5 +1,5 @@
-import { Layer, Box, Button } from "grommet";
-import { Add } from "grommet-icons";
+import { Layer, Box, Button, CheckBox } from "grommet";
+import { Checkmark } from "grommet-icons";
 import { useState } from "react";
 import CreateEventTitle from "./CreateEventTitle.component";
 import CreateEventDescription from "./CreateEventDescription.component.js";
@@ -7,6 +7,7 @@ import CompanyDropMenu from "./CompanyDropMenu.component";
 import CalendarDropMenu from "./CalendarDropMenu.component";
 import CreateEventTimeSelector from "./CreateEventTimeSelector.component";
 import CreateEventDateSelector from "./CreateEventDateSelector.component";
+import RecurringDatesSelector from "./ReccuringDatesSelector.component";
 
 const setNewEvents = (events, newEvent, setEvents) => {
   const newEvents = [].concat(events, [newEvent]);
@@ -32,10 +33,49 @@ export default function CreateEventModal(props) {
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState();
+  const [dateStart, setDateStart] = useState("");
+  const [dateEnd, setDateEnd] = useState("");
   const [timeStart, setTimeStart] = useState("");
   const [timeEnd, setTimeEnd] = useState("");
   const [calendar, setCalendar] = useState("");
+  const [daysOfWeek, setDaysOfWeek] = useState([]);
+  const [allDay, setAllDay] = useState(false);
+  const [isRecurring, setIsRecurring] = useState(false);
+  console.log(daysOfWeek);
+
+  const selectEventType = () => {
+    /**
+     * determines if creating an event or a series
+     * a series is just a recurring event for a specified amount of time
+     * if dateEnd is empty the series recurs infinitely
+     *
+     * check if recurring days of the week have been set
+     * if true, event is a series
+     * if false, event is not recurring
+     */
+    //
+    if (daysOfWeek.length > 0) {
+      return {
+        daysOfWeek: daysOfWeek,
+        startTime: parseEventTime(timeStart),
+        endTime: parseEventTime(timeEnd),
+        startRecur: dateStart.split("T")[0],
+        endRecur: dateEnd.split("T")[0],
+        title: title,
+        description: description,
+        groupId: "2",
+      };
+    } else {
+      return {
+        title: title,
+        start: `${dateStart.split("T")[0]}T${parseEventTime(timeStart)}`,
+        end: `${dateStart.split("T")[0]}T${parseEventTime(timeEnd)}`,
+        description: `${description}`,
+        calendar_id: calendar,
+        editable: "true",
+      };
+    }
+  };
   return (
     <Layer
       onEsc={() => props.setShow(false)}
@@ -52,10 +92,39 @@ export default function CreateEventModal(props) {
       >
         <CreateEventTitle onChange={setTitle} value={title} />
         <CreateEventTimeSelector
+          timeStart={timeStart}
+          timeEnd={timeEnd}
+          description={description}
           setTimeStart={setTimeStart}
           setTimeEnd={setTimeEnd}
         />
-        <CreateEventDateSelector onChange={setDate} value={date} />
+        <Box
+          margin={{
+            top: "xsmall",
+            left: "medium",
+            right: "medium",
+            bottom: "xsmall",
+          }}
+          direction="row-responsive"
+        >
+          <CreateEventDateSelector onChange={setDateStart} value={dateStart} />
+          <CheckBox
+            checked={allDay}
+            label="all day"
+            onChange={(event) => setAllDay(event.target.checked)}
+            pad="small"
+          />
+          <RecurringDatesSelector
+            daysOfWeek={daysOfWeek}
+            setDaysOfWeek={setDaysOfWeek}
+            dateStart={dateStart}
+            setDateStart={setDateStart}
+            dateEnd={dateEnd}
+            setDateEnd={setDateEnd}
+            setChecked={setIsRecurring}
+            checked={isRecurring}
+          />
+        </Box>
 
         <CreateEventDescription onChange={setDescription} value={description} />
 
@@ -84,7 +153,8 @@ export default function CreateEventModal(props) {
 
         <Button
           type="submit"
-          icon={<Add />}
+          icon={<Checkmark />}
+          label="Create"
           size="medium"
           alignSelf="center"
           hoverIndicator
@@ -95,15 +165,7 @@ export default function CreateEventModal(props) {
             bottom: "xsmall",
           }}
           onClick={() => {
-            props.onSubmit({
-              id: "3",
-              title: title,
-              start: `${date.split("T")[0]}T${parseEventTime(timeStart)}`,
-              end: `${date.split("T")[0]}T${parseEventTime(timeEnd)}`,
-              description: `${description}`,
-              calendar_id: calendar,
-              editable: "true",
-            });
+            props.onSubmit(selectEventType());
 
             props.setShow(false);
           }}
