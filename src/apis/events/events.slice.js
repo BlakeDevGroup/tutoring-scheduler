@@ -6,7 +6,7 @@ const eventApi = new EventApi();
 export const addEvent = createAsyncThunk(
   "events/addEvent",
   async (event, thunkAPI) => {
-    return event.event;
+    // return event.event;
     const result = await eventApi.createEvent(2, {
       date_end: event.event.end,
       date_start: event.event.start,

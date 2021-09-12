@@ -2,6 +2,7 @@ import { Layer, Box, Button } from "grommet";
 import CompanyModalTitleInput from "./CompanyModalTitleInput.component";
 import CompanyPay from "./CompanyModalPayInput.component";
 import { useState } from "react";
+import CompanyColorSelector from "./CompanyModalColorSelector.component";
 
 export default function CompanyButtonModal(props) {
   const [title, setTitle] = useState("");
@@ -13,27 +14,28 @@ export default function CompanyButtonModal(props) {
     >
       <Box
         margin={{
-          top: "small",
+          top: "medium",
           bottom: "small",
           right: "medium",
           left: "medium",
         }}
         height="small"
-        width="medium"
-        overflow="auto"
+        width="small"
+        // overflow="auto"
       >
         <CompanyModalTitleInput onChange={setTitle} value={title} />
         <CompanyPay onChange={setPay} value={pay} />
+        <CompanyColorSelector />
         <Button
           label="save"
-          size="small"
+          size="xsmall"
           alignSelf="center"
           hoverIndicator
           margin={{
-            top: "medium",
-            left: "medium",
-            right: "medium",
-            bottom: "medium",
+            top: "small",
+            left: "small",
+            right: "small",
+            bottom: "small",
           }}
           background="linear-gradient(102.77deg, #865ED6 -9.18%, #18BAB9 209.09%)"
           onClick={() => {

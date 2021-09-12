@@ -15,7 +15,7 @@ export default function CompanyModalWrapper(props) {
         color=""
         size="large"
         icon={<Add />}
-        hoverIndicator="true"
+        hoverIndicator
         onClick={() => setShow(true)}
       />
       {show && (

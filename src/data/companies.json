@@ -1,12 +1,14 @@
-
-
-{ "companies": [
+{
+  "companies": [
     {
-        "companyName": "Tutor1",
-        "pay": "$35.00/hr"
+      "name": "Tutor1",
+      "pay_rate": "$35.00/hr",
+      "color": ""
     },
     {
-        "companyName": "PremierTutoring",
-        "pay": "$25.00/hr"
-    }]
+      "companyName": "PremierTutoring",
+      "pay": "$25.00/hr",
+      "color": ""
+    }
+  ]
 }

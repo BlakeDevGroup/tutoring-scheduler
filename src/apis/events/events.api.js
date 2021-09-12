@@ -167,6 +167,9 @@ export const prepEventData = (eventData) => {
       description: event.description,
       user_id: event.user_id,
       all_day: event.all_day,
+      company_id: event.company_id,
+      backgroundColor: "#84F011",
+      borderColor: "#FFF",
     };
   });
 };
