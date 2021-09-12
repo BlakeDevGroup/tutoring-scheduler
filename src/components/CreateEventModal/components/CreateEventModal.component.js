@@ -41,6 +41,7 @@ export default function CreateEventModal(props) {
   const [daysOfWeek, setDaysOfWeek] = useState([]);
   const [allDay, setAllDay] = useState(false);
   const [isRecurring, setIsRecurring] = useState(false);
+  // const [hexColor, setHexColor] = useState("");
   console.log(props.companies);
 
   const selectEventType = () => {
@@ -73,6 +74,7 @@ export default function CreateEventModal(props) {
         description: `${description}`,
         calendar_id: calendar,
         editable: "true",
+        backgroundColor: props.companies.color
       };
     }
   };

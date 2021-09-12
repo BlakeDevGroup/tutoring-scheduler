@@ -6,7 +6,7 @@ function FormatCompanies(companies) {
   let companyNames = [];
 
   companies.forEach((item) => {
-    companyNames.push(item.companyName);
+    companyNames.push(item.name);
   });
 
   return companyNames;

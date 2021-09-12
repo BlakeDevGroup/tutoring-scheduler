@@ -2,13 +2,13 @@
   "companies": [
     {
       "name": "Tutor1",
-      "pay_rate": "$35.00/hr",
-      "color": ""
+      "pay_rate": 25,
+      "color": "#FF68A8"
     },
     {
       "name": "PremierTutoring",
-      "pay": "$25.00/hr",
-      "color": ""
+      "pay": 35,
+      "color": "#64CFF7"
     }
   ]
 }
