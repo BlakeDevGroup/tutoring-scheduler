@@ -26,20 +26,18 @@ const colorOptions = [
 ];
 
 export default function CompanyColorSelector(props) {
-  const [value, setValue] = React.useState("");
-  console.log(value);
   return (
     <Select
       icon={<CaretDownFill />}
       labelKey="label"
       size="medium"
       options={colorOptions}
-      value={value}
+      value={props.color}
       placeholder="Color"
       onChange={(options) => {
-        setValue(options.label);
+        props.setColor(options.label);
+        props.setHexColor(options.value.color);
       }}
-      views={props.views}
       multiple={false}
     />
   );

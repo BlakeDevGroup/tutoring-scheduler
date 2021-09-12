@@ -41,7 +41,7 @@ export default function CreateEventModal(props) {
   const [daysOfWeek, setDaysOfWeek] = useState([]);
   const [allDay, setAllDay] = useState(false);
   const [isRecurring, setIsRecurring] = useState(false);
-  console.log(daysOfWeek);
+  console.log(props.companies);
 
   const selectEventType = () => {
     /**

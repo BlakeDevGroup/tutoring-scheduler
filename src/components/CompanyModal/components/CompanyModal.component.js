@@ -7,6 +7,9 @@ import CompanyColorSelector from "./CompanyModalColorSelector.component";
 export default function CompanyButtonModal(props) {
   const [title, setTitle] = useState("");
   const [pay, setPay] = useState("");
+  const [color, setColor] = useState("");
+  const [hexColor, setHexColor] = useState("");
+
   return (
     <Layer
       onEsc={() => props.setShow(false)}
@@ -25,7 +28,11 @@ export default function CompanyButtonModal(props) {
       >
         <CompanyModalTitleInput onChange={setTitle} value={title} />
         <CompanyPay onChange={setPay} value={pay} />
-        <CompanyColorSelector />
+        <CompanyColorSelector
+          color={color}
+          setColor={setColor}
+          setHexColor={setHexColor}
+        />
         <Button
           label="save"
           size="xsmall"
@@ -42,11 +49,12 @@ export default function CompanyButtonModal(props) {
             const newCompanies = [
               ...props.companies,
               {
-                companyName: title,
+                name: title,
                 pay: pay,
+                color: hexColor,
               },
             ];
-
+            console.log(color);
             props.setCompanies(newCompanies);
             props.setShow(false);
           }}

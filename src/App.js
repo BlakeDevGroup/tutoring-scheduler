@@ -20,6 +20,8 @@ const getCompanies = () => {
   return companies;
 };
 
+console.log(companiesData);
+
 const getCalendars = () => {
   let calendars = [];
 
