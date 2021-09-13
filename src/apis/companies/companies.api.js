@@ -1,0 +1,156 @@
+import axios from "axios";
+import MessageService from "../../services/messaging/message.service";
+
+export default class CompanyApi {
+  constructor() {
+    this.apiController = axios.create({
+      baseURL: "http://localhost:3500",
+      timeout: 1000,
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+    });
+  }
+  async getAllCompanies() {
+    try {
+      const result = await this.apiController.get(`/companies`);
+
+      if (result.data.succes) {
+        return MessageService.sendSuccess(
+          "http",
+          result.data.message,
+          result.data.data
+        );
+      } else {
+        return MessageService.sendFailure(
+          "heep",
+          result.data.message,
+          result.data.error
+        );
+      }
+    } catch (e) {
+      return MessageService.sendFailure("error", e.message, e);
+    }
+  }
+
+  async getCompanyById(company_id) {
+    try {
+      const reult = await this.apiController.get(`/companies/${company_id}`);
+
+      if (reult.data.succes) {
+        return MessageService.sendSuccess(
+          "http",
+          result.data.message,
+          result.data.data
+        );
+      } else {
+        return MessageService.sendFailure(
+          "http",
+          result.data.message,
+          result.data.error
+        );
+      }
+    } catch (e) {
+      return MessageService.sendFailure("error", e.message, e);
+    }
+  }
+
+  async createCompany(company_id, payload) {
+    try {
+      const result = await this.apiController.post(
+        `/companies/${company_id}`,
+        payload
+      );
+
+      if (result.data.succes) {
+        return MessageService.sendSuccess(
+          "http",
+          result.data.message,
+          result.data.data
+        );
+      } else {
+        return MessageService.sendFailure(
+          "http",
+          result.data.message,
+          result.data.error
+        );
+      }
+    } catch (e) {
+      return MessageService.sendFailure("error", e.message, e);
+    }
+  }
+
+  async deleteCompany(company_id) {
+    try {
+      const result = await this.apiController.delete(
+        `/companies/${company_id}`
+      );
+
+      if (result.data.success) {
+        return MessageService.sendSuccess(
+          "http",
+          result.data.message,
+          result.data.data
+        );
+      } else {
+        return MessageService.sendFailure(
+          "http",
+          result.data.message,
+          result.data.error
+        );
+      }
+    } catch (e) {
+      return MessageService.sendFailure("error", e.message, e);
+    }
+  }
+
+  async updateCompany(company_id, payload) {
+    try {
+      const result = await this.apiController.put(
+        `/companies/${company_id}`,
+        payload
+      );
+      if (result.data.succes) {
+        return MessageService.sendSuccess(
+          "http",
+          result.data.message,
+          result.data.error
+        );
+      }
+    } catch (e) {
+      return MessageService.sendFailure("error", e.message, e);
+    }
+  }
+
+  async patchCompany(company_id, payload) {
+    try {
+      const result = await this.apiController.patch(
+        `/companies/${company_id}`,
+        payload
+      );
+      if (result.data.success) {
+        return MessageService.sendSuccess(
+          "http",
+          result.data.message,
+          result.data.data
+        );
+      } else {
+        return MessageService.sendFailure(
+          "http",
+          result.data.message,
+          result.data.error
+        );
+      }
+    } catch (e) {
+      return MessageService.sendFailure("error", e.message, e);
+    }
+  }
+}
+
+export const prepCompanyData = (companyData) => {
+  return companyData.map((company) => {
+    return {
+      company_id: company.company_id,
+      pay: company.pay,
+      color: company.color,
+    };
+  });
+};
