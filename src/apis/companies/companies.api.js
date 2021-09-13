@@ -12,7 +12,7 @@ export default class CompanyApi {
   async getAllCompanies() {
     try {
       const result = await this.apiController.get(`/companies`);
-
+      d;
       if (result.data.succes) {
         return MessageService.sendSuccess(
           "http",
@@ -148,6 +148,7 @@ export default class CompanyApi {
 export const prepCompanyData = (companyData) => {
   return companyData.map((company) => {
     return {
+      name: company.name,
       company_id: company.company_id,
       pay: company.pay,
       color: company.color,
