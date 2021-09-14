@@ -87,3 +87,7 @@ export const companySlice = createSlice({
     });
   },
 });
+
+export const { setCompanies } = companySlice.actions;
+
+export default companySlice.reducer;
