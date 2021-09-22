@@ -87,7 +87,6 @@ export default function UpdateCompanyModal(props) {
               props.setShow(false);
             }}
           />
-
           <Button
             label="Delete"
             size="xsmall"
