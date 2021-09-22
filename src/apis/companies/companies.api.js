@@ -1,8 +1,7 @@
-import { Observable } from "rxjs";
 import axios from "axios";
 import MessageService from "../../services/messaging/message.service";
 
-export default class EventApi {
+export default class CompanyApi {
   constructor() {
     this.apiController = axios.create({
       baseURL: "http://localhost:3500",
@@ -10,11 +9,52 @@ export default class EventApi {
       headers: { "Content-Type": "application/json;charset=utf-8" },
     });
   }
-  async getAllEvents(calendar_id) {
+  async getAllCompanies() {
     try {
-      const result = await this.apiController.get(
-        `/calendars/${calendar_id}/events`
-      );
+      const result = await this.apiController.get(`/companies`);
+      if (result.data.success) {
+        return MessageService.sendSuccess(
+          "http",
+          result.data.message,
+          result.data.data
+        );
+      } else {
+        return MessageService.sendFailure(
+          "heep",
+          result.data.message,
+          result.data.error
+        );
+      }
+    } catch (e) {
+      return MessageService.sendFailure("error", e.message, e);
+    }
+  }
+
+  async getCompanyById(company_id) {
+    try {
+      const reult = await this.apiController.get(`/companies/${company_id}`);
+
+      if (reult.data.success) {
+        return MessageService.sendSuccess(
+          "http",
+          result.data.message,
+          result.data.data
+        );
+      } else {
+        return MessageService.sendFailure(
+          "http",
+          result.data.message,
+          result.data.error
+        );
+      }
+    } catch (e) {
+      return MessageService.sendFailure("error", e.message, e);
+    }
+  }
+
+  async createCompany(company_id, payload) {
+    try {
+      const result = await this.apiController.post(`/companies`, payload);
 
       if (result.data.success) {
         return MessageService.sendSuccess(
@@ -34,59 +74,10 @@ export default class EventApi {
     }
   }
 
-  async getEventById(calendar_id, event_id) {
-    try {
-      const result = await this.apiController.get(
-        `/calendars/${calendar_id}/events/${event_id}`
-      );
-
-      if (result.data.success) {
-        return MessageService.sendSuccess(
-          "http",
-          result.data.message,
-          result.data.data
-        );
-      } else {
-        return MessageService.sendFailure(
-          "http",
-          result.data.message,
-          result.data.error
-        );
-      }
-    } catch (e) {
-      return MessageService.sendFailure("error", e.message, e);
-    }
-  }
-
-  async createEvent(calendar_id, payload) {
-    try {
-      const result = await this.apiController.post(
-        `/calendars/${calendar_id}/events`,
-        payload
-      );
-
-      if (result.data.success) {
-        return MessageService.sendSuccess(
-          "http",
-          result.data.message,
-          result.data.data
-        );
-      } else {
-        return MessageService.sendFailure(
-          "http",
-          result.data.message,
-          result.data.error
-        );
-      }
-    } catch (e) {
-      return MessageService.sendFailure("error", e.message, e);
-    }
-  }
-
-  async deleteEvent(calendar_id, event_id) {
+  async deleteCompany(company_id) {
     try {
       const result = await this.apiController.delete(
-        `/calendars/${calendar_id}/events/${event_id}`
+        `/companies/${company_id}`
       );
 
       if (result.data.success) {
@@ -107,22 +98,16 @@ export default class EventApi {
     }
   }
 
-  async updateEvent(calendar_id, event_id, payload) {
+  async updateCompany(company_id, payload) {
     try {
       const result = await this.apiController.put(
-        `/calendars/${calendar_id}/events/${event_id}`,
+        `/companies/${company_id}`,
         payload
       );
       if (result.data.success) {
         return MessageService.sendSuccess(
           "http",
           result.data.message,
-          result.data.data
-        );
-      } else {
-        return MessageService.sendFailure(
-          "http",
-          result.data.message,
           result.data.error
         );
       }
@@ -131,10 +116,10 @@ export default class EventApi {
     }
   }
 
-  async patchEvent(calendar_id, event_id, payload) {
+  async patchCompany(company_id, payload) {
     try {
       const result = await this.apiController.patch(
-        `/calendars/${calendar_id}/events/${event_id}`,
+        `/companies/${company_id}`,
         payload
       );
       if (result.data.success) {
@@ -156,20 +141,13 @@ export default class EventApi {
   }
 }
 
-export const prepEventData = (eventData) => {
-  return eventData.map((event) => {
+export const prepCompanyData = (companyData) => {
+  return companyData.map((company) => {
     return {
-      id: event.event_id,
-      calendar_id: event.calendar_id,
-      title: event.title,
-      start: event.date_start,
-      end: event.date_end,
-      description: event.description,
-      user_id: event.user_id,
-      all_day: event.all_day,
-      company_id: event.company_id,
-      backgroundColor: "#84F011",
-      borderColor: "#FFF",
+      name: company.name,
+      company_id: company.company_id,
+      pay: company.pay,
+      color: company.color,
     };
   });
 };

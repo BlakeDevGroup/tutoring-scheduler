@@ -5,21 +5,21 @@ const eventApi = new EventApi();
 
 export const addEvent = createAsyncThunk(
   "events/addEvent",
-  async (event, thunkAPI) => {
-    return event.event;
+  async (data, thunkAPI) => {
+    // return event.event;
     const result = await eventApi.createEvent(2, {
-      date_end: event.event.end,
-      date_start: event.event.start,
-      title: event.event.title,
+      date_end: data.event.end,
+      date_start: data.event.start,
+      title: data.event.title,
       all_day: false,
       user_id: 1,
       calendar_id: 2,
     });
     if (result.success) {
       return {
-        end: event.event.end,
-        start: event.event.start,
-        title: event.event.title,
+        end: data.event.end,
+        start: data.event.start,
+        title: data.event.title,
         all_day: false,
         user_id: 1,
         calendar_id: 2,
@@ -56,7 +56,7 @@ export const updateEvent = createAsyncThunk(
     } else {
       console.error(result.error);
     }
-  }
+ } 
 );
 
 export const removeEvent = createAsyncThunk(

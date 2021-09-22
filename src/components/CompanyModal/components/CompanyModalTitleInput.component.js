@@ -4,9 +4,8 @@ import React from "react";
 export default function CompanyModalTitleInput(props) {
   return (
     <TextInput
-      Margin={{ Top: "small" }}
       value={props.value}
-      placeholder="Company title"
+      placeholder="Title"
       onChange={(e) => props.onChange(e.target.value)}
       size="medium"
     />
