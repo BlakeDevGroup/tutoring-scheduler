@@ -3,12 +3,15 @@ import CompanyModalTitleInput from "./CompanyModalTitleInput.component";
 import CompanyPay from "./CompanyModalPayInput.component";
 import { useState } from "react";
 import CompanyColorSelector from "./CompanyModalColorSelector.component";
+import { useDispatch } from "react-redux";
+import { addCompany } from "../../../apis/companies/companies.slice";
 
 export default function CompanyButtonModal(props) {
   const [title, setTitle] = useState("");
   const [pay, setPay] = useState("");
   const [color, setColor] = useState("");
   const [hexColor, setHexColor] = useState("");
+  const dispatch = useDispatch();
 
   return (
     <Layer
@@ -46,16 +49,13 @@ export default function CompanyButtonModal(props) {
           }}
           background="linear-gradient(102.77deg, #865ED6 -9.18%, #18BAB9 209.09%)"
           onClick={() => {
-            const newCompanies = [
-              ...props.companies,
-              {
+            dispatch(
+              addCompany({
                 name: title,
                 pay: pay,
                 color: hexColor,
-              },
-            ];
-            console.log(color);
-            props.setCompanies(newCompanies);
+              })
+            );
             props.setShow(false);
           }}
         />

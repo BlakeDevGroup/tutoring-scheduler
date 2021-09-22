@@ -12,8 +12,7 @@ export default class CompanyApi {
   async getAllCompanies() {
     try {
       const result = await this.apiController.get(`/companies`);
-      d;
-      if (result.data.succes) {
+      if (result.data.success) {
         return MessageService.sendSuccess(
           "http",
           result.data.message,
@@ -35,7 +34,7 @@ export default class CompanyApi {
     try {
       const reult = await this.apiController.get(`/companies/${company_id}`);
 
-      if (reult.data.succes) {
+      if (reult.data.success) {
         return MessageService.sendSuccess(
           "http",
           result.data.message,
@@ -55,12 +54,9 @@ export default class CompanyApi {
 
   async createCompany(company_id, payload) {
     try {
-      const result = await this.apiController.post(
-        `/companies/${company_id}`,
-        payload
-      );
+      const result = await this.apiController.post(`/companies`, payload);
 
-      if (result.data.succes) {
+      if (result.data.success) {
         return MessageService.sendSuccess(
           "http",
           result.data.message,
@@ -108,7 +104,7 @@ export default class CompanyApi {
         `/companies/${company_id}`,
         payload
       );
-      if (result.data.succes) {
+      if (result.data.success) {
         return MessageService.sendSuccess(
           "http",
           result.data.message,

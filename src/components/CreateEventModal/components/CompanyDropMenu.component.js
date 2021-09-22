@@ -1,6 +1,13 @@
 import { Select } from "grommet";
 import { CaretDownFill } from "grommet-icons";
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCompanies } from "../../../apis/companies/companies.slice";
+import CompanyApi, {
+  prepCompanyData,
+} from "../../../apis/companies/companies.api";
+
+const companyApi = new CompanyApi();
 
 function FormatCompanies(companies) {
   let companyNames = [];
@@ -13,11 +20,18 @@ function FormatCompanies(companies) {
 }
 
 function CompanyDropMenu(props) {
+  const companies = useSelector((state) => state.companies.companies);
+  const dispatch = useDispatch();
+  useEffect(async () => {
+    const companyData = await companyApi.getAllCompanies();
+    dispatch(setCompanies({ companies: prepCompanyData(companyData.data) }));
+  }, []);
+
   return (
     <Select
       icon={<CaretDownFill />}
       size="small"
-      options={FormatCompanies(props.companies)}
+      options={FormatCompanies(companies)}
       value={props.value}
       placeholder="Select company"
       onChange={(e) => {

@@ -9,7 +9,7 @@ export const addCompany = createAsyncThunk(
     // return company.company
     const result = await companyApi.createCompany(2, {
       name: company.name,
-      pay: company.pay,
+      pay_rate: company.pay,
       color: company.color,
     });
     if (result.success) {
