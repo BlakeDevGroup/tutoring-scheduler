@@ -92,7 +92,24 @@ export default function CreateEventModal(props) {
           bottom: "xsmall",
         }}
       >
-        <CreateEventTitle onChange={setTitle} value={title} />
+        <Box
+          margin={{
+            top: "small",
+            left: "medium",
+            right: "medium",
+            bottom: "xsmall",
+          }}
+          direction="row-responsive"
+          justify="center"
+          gap="xsmall"
+        >
+          <CreateEventTitle onChange={setTitle} value={title} />
+          <CompanyDropMenu
+            companies={props.companies}
+            value={company}
+            onChange={setCompany}
+          />
+        </Box>
         <CreateEventTimeSelector
           timeStart={timeStart}
           timeEnd={timeEnd}
@@ -129,50 +146,26 @@ export default function CreateEventModal(props) {
         </Box>
 
         <CreateEventDescription onChange={setDescription} value={description} />
-
-        <Box
-          margin={{
-            top: "xsmall",
-            left: "medium",
-            right: "medium",
-            bottom: "xsmall",
-          }}
-          direction="row-responsive"
-          justify="between"
-        >
-          <CompanyDropMenu
-            companies={props.companies}
-            value={company}
-            onChange={setCompany}
-          />
-
-          <CalendarDropMenu
-            calendars={props.calendars}
-            value={calendar}
-            onChange={setCalendar}
-          />
-        </Box>
-
-        <Button
-          type="submit"
-          icon={<Checkmark />}
-          label="Create"
-          size="medium"
-          alignSelf="center"
-          hoverIndicator
-          margin={{
-            top: "xsmall",
-            left: "medium",
-            right: "medium",
-            bottom: "xsmall",
-          }}
-          onClick={() => {
-            props.onSubmit(selectEventType());
-
-            props.setShow(false);
-          }}
-        />
       </Box>
+      <Button
+        type="submit"
+        icon={<Checkmark />}
+        label="Create"
+        size="medium"
+        alignSelf="center"
+        hoverIndicator
+        margin={{
+          top: "xsmall",
+          left: "medium",
+          right: "medium",
+          bottom: "xsmall",
+        }}
+        onClick={() => {
+          props.onSubmit(selectEventType());
+
+          props.setShow(false);
+        }}
+      />
     </Layer>
   );
 }

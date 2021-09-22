@@ -1,4 +1,5 @@
 import { TextArea, Box } from "grommet";
+import { TextAlignFull } from "grommet-icons";
 import React from "react";
 
 export default function CreateEventDescription(props) {

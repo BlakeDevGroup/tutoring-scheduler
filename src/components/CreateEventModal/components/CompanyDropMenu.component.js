@@ -1,4 +1,4 @@
-import { Select } from "grommet";
+import { Box, Select } from "grommet";
 import { CaretDownFill } from "grommet-icons";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -28,18 +28,19 @@ function CompanyDropMenu(props) {
   }, []);
 
   return (
-    <Select
-      icon={<CaretDownFill />}
-      size="small"
-      options={FormatCompanies(companies)}
-      value={props.value}
-      placeholder="Select company"
-      onChange={(e) => {
-        props.onChange(e.target.value);
-      }}
-      defaultValue={FormatCompanies(companies)[0]}
-      multiple={false}
-    />
+    <Box margin={{ bottom: "small" }} basis="1/2">
+      <Select
+        size="small"
+        options={FormatCompanies(companies)}
+        value={props.value}
+        placeholder="Select company"
+        onChange={(e) => {
+          props.onChange(e.target.value);
+        }}
+        defaultValue={FormatCompanies(companies)[0]}
+        multiple={false}
+      />
+    </Box>
   );
 }
 
