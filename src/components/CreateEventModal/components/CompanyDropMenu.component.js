@@ -10,7 +10,7 @@ import CompanyApi, {
 const companyApi = new CompanyApi();
 
 function FormatCompanies(companies) {
-  let companyNames = [];
+  let companyNames = [""];
 
   companies.forEach((item) => {
     companyNames.push(item.name);

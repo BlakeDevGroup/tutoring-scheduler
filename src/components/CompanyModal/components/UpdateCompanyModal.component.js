@@ -80,6 +80,7 @@ export default function UpdateCompanyModal(props) {
                 company_id: companyId,
               })
             );
+            setCompanyIdentifier("");
             props.setShow(false);
           }}
         />
