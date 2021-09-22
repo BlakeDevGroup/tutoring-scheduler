@@ -53,8 +53,6 @@ export default function UpdateCompanyModal(props) {
           right: "medium",
           left: "medium",
         }}
-        // height="small"
-        // width="small"
       >
         <CompanyDropMenu onChange={setCompanyIdentifier} />
         <CompanyModalTitleInput onChange={setName} value={name} />
