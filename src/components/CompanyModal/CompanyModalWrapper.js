@@ -2,6 +2,7 @@ import { Box, Button, Menu } from "grommet";
 import { Add } from "grommet-icons";
 import React, { useEffect } from "react";
 import CompanyButtonModal from "./components/CompanyModal.component";
+import UpdateCompanyModal from "./components/UpdateCompanyModal.component";
 import CompanyApi, {
   prepCompanyData,
 } from "../../apis/companies/companies.api";
@@ -33,15 +34,23 @@ export default function CompanyModalWrapper(props) {
               setShow(e.target.innerHTML);
             },
           },
-          { label: "Update", onClick: () => {} },
+          {
+            label: "Update",
+            onClick: (e) => {
+              setShow(e.target.innerHTML);
+            },
+          },
         ]}
       />
       {show == "Create" && (
         <CompanyButtonModal
-          companies={props.companies}
+          companies={companies}
           setCompanies={props.setCompanies}
           setShow={setShow}
         />
+      )}
+      {show == "Update" && (
+        <UpdateCompanyModal companies={companies} setShow={setShow} />
       )}
     </Box>
   );

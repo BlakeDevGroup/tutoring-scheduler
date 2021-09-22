@@ -7,17 +7,8 @@ import CompanyDropMenu from "../CreateEventModal/components/CompanyDropMenu.comp
 import CalendarDropMenu from "../CreateEventModal/components/CalendarDropMenu.component";
 import CreateEventTimeSelector from "../CreateEventModal/components/CreateEventTimeSelector.component.js";
 import CreateEventDateSelector from "../CreateEventModal/components/CreateEventDateSelector.component.js";
-import { parse } from "@babel/core";
-import { buildDayRanges } from "@fullcalendar/timegrid";
-import { filter } from "rxjs";
 import { useDispatch } from "react-redux";
 import { updateEvent, removeEvent } from "../../apis/events/events.slice";
-
-function changeDateDotToDash(date) {
-  let newDate = date.replace(/\-/g, "/");
-
-  return newDate;
-}
 
 function parseEventTime(timeString) {
   let hour = timeString.substring(0, 2);
