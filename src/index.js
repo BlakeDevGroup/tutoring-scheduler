@@ -10,6 +10,8 @@ const theme = {
   global: {
     colors: {
       brand: "#027788",
+      focus: "#34929f",
+      selected: "#34929f",
     },
     font: {
       family: "Dosis",

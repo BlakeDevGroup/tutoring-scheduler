@@ -1,7 +1,8 @@
-import { Box, Button } from "grommet";
+import { Box, Button, Menu } from "grommet";
 import { Add } from "grommet-icons";
 import React, { useEffect } from "react";
 import CompanyButtonModal from "./components/CompanyModal.component";
+import UpdateCompanyModal from "./components/UpdateCompanyModal.component";
 import CompanyApi, {
   prepCompanyData,
 } from "../../apis/companies/companies.api";
@@ -19,24 +20,37 @@ export default function CompanyModalWrapper(props) {
     const companyData = await companyApi.getAllCompanies();
     dispatch(setCompanies({ companies: prepCompanyData(companyData.data) }));
   }, []);
+  console.log(show);
 
   return (
     <Box>
-      <Button
-        primary
-        label="Company"
-        alignSelf="start"
-        size="medium"
-        icon={<Add />}
-        onClick={() => setShow(true)}
-        // width="400px"
+      <Menu
+        label="Companies"
+        dropBackground="#027788"
+        items={[
+          {
+            label: "Create",
+            onClick: (e) => {
+              setShow(e.target.innerHTML);
+            },
+          },
+          {
+            label: "Update",
+            onClick: (e) => {
+              setShow(e.target.innerHTML);
+            },
+          },
+        ]}
       />
-      {show && (
+      {show == "Create" && (
         <CompanyButtonModal
-          companies={props.companies}
+          companies={companies}
           setCompanies={props.setCompanies}
           setShow={setShow}
         />
+      )}
+      {show == "Update" && (
+        <UpdateCompanyModal companies={companies} setShow={setShow} />
       )}
     </Box>
   );

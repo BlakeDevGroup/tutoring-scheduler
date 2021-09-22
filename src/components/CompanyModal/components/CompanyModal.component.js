@@ -1,6 +1,7 @@
 import { Layer, Box, Button } from "grommet";
 import CompanyModalTitleInput from "./CompanyModalTitleInput.component";
-import CompanyPay from "./CompanyModalPayInput.component";
+import { Checkmark } from "grommet-icons";
+import CompanyModalPayInput from "./CompanyModalPayInput.component";
 import { useState } from "react";
 import CompanyColorSelector from "./CompanyModalColorSelector.component";
 import { useDispatch } from "react-redux";
@@ -10,7 +11,6 @@ export default function CompanyButtonModal(props) {
   const [title, setTitle] = useState("");
   const [pay, setPay] = useState("");
   const [color, setColor] = useState("");
-  const [hexColor, setHexColor] = useState("");
   const dispatch = useDispatch();
 
   return (
@@ -21,26 +21,23 @@ export default function CompanyButtonModal(props) {
       <Box
         margin={{
           top: "medium",
-          bottom: "small",
+          bottom: "xsmall",
           right: "medium",
           left: "medium",
         }}
-        height="small"
-        width="small"
         // overflow="auto"
       >
         <CompanyModalTitleInput onChange={setTitle} value={title} />
-        <CompanyPay onChange={setPay} value={pay} />
-        <CompanyColorSelector
-          color={color}
-          setColor={setColor}
-          setHexColor={setHexColor}
-        />
+        <Box justify="center" direction="row-responsive" gap="xsmall">
+          <CompanyModalPayInput onChange={setPay} value={pay} />
+          <CompanyColorSelector color={color} setColor={setColor} />
+        </Box>
         <Button
-          label="save"
-          size="xsmall"
+          label="Create"
+          size="medium"
           alignSelf="center"
           hoverIndicator
+          icon={<Checkmark />}
           margin={{
             top: "small",
             left: "small",
@@ -53,7 +50,7 @@ export default function CompanyButtonModal(props) {
               addCompany({
                 name: title,
                 pay: pay,
-                color: hexColor,
+                color: color.color,
               })
             );
             props.setShow(false);

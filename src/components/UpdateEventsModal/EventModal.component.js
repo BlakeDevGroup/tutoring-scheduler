@@ -7,17 +7,8 @@ import CompanyDropMenu from "../CreateEventModal/components/CompanyDropMenu.comp
 import CalendarDropMenu from "../CreateEventModal/components/CalendarDropMenu.component";
 import CreateEventTimeSelector from "../CreateEventModal/components/CreateEventTimeSelector.component.js";
 import CreateEventDateSelector from "../CreateEventModal/components/CreateEventDateSelector.component.js";
-import { parse } from "@babel/core";
-import { buildDayRanges } from "@fullcalendar/timegrid";
-import { filter } from "rxjs";
 import { useDispatch } from "react-redux";
 import { updateEvent, removeEvent } from "../../apis/events/events.slice";
-
-function changeDateDotToDash(date) {
-  let newDate = date.replace(/\-/g, "/");
-
-  return newDate;
-}
 
 function parseEventTime(timeString) {
   let hour = timeString.substring(0, 2);
@@ -124,7 +115,25 @@ export default function EventModal(props) {
           bottom: "xsmall",
         }}
       >
-        <CreateEventTitle onChange={setTitle} value={title} />
+        <Box
+          margin={{
+            top: "small",
+            left: "medium",
+            right: "medium",
+            bottom: "xxsmall",
+          }}
+          direction="row-responsive"
+          justify="center"
+          gap="xsmall"
+        >
+          <CreateEventTitle onChange={setTitle} value={title} />
+          <CompanyDropMenu
+            companies={props.companies}
+            value={company}
+            onChange={setCompany}
+          />
+        </Box>
+
         <CreateEventTimeSelector
           timeStart={timeStart}
           timeEnd={timeEnd}
@@ -132,31 +141,7 @@ export default function EventModal(props) {
           setTimeEnd={setTimeEnd}
         />
         <CreateEventDateSelector onChange={setDate} value={date} />
-
         <CreateEventDescription onChange={setDescription} value={description} />
-
-        <Box
-          margin={{
-            top: "xsmall",
-            left: "medium",
-            right: "medium",
-            bottom: "xsmall",
-          }}
-          direction="row-responsive"
-          justify="center"
-        >
-          <CompanyDropMenu
-            companies={props.companies}
-            value={company}
-            onChange={setCompany}
-          />
-
-          <CalendarDropMenu
-            calendars={props.calendars}
-            value={calendar}
-            onChange={setCalendar}
-          />
-        </Box>
         <Box justify="center" direction="row-responsive">
           <Button
             label="Update"

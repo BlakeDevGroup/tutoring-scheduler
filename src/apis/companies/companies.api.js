@@ -146,7 +146,7 @@ export const prepCompanyData = (companyData) => {
     return {
       name: company.name,
       company_id: company.company_id,
-      pay: company.pay,
+      pay: company.pay_rate,
       color: company.color,
     };
   });

@@ -1,7 +1,6 @@
 import NavBar from "./components/NavBar.component";
 import { Button, Heading } from "grommet";
 import { BladesVertical } from "grommet-icons";
-import CompanyModalWrapper from "../CompanyModal/CompanyModalWrapper.component";
 import NavBarDropMenu from "./components/NavBarDropMenu.component";
 export default function NavBarWrapper(props) {
   return (

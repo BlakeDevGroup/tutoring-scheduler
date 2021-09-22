@@ -12,13 +12,12 @@ export default function CreateEventTimeSelector(props) {
       }}
       direction="row-responsive"
     >
-      <Box>
-        <Text size="small" align="center" margin={{ top: "small" }}>
-          Time:
-        </Text>
+      <Box justify="center" pad={{ right: "small" }}>
+        <Text size="small">Time:</Text>
       </Box>
-      <Box margin={{ left: "medium" }}>
+      <Box>
         <Select
+          margin={{ right: "xsmall" }}
           multiple={false}
           dropHeight="small"
           size="small"

@@ -1,18 +1,24 @@
 import { Grommet, Box, Text, DateInput } from "grommet";
+import { Calendar } from "grommet-icons";
 import React from "react";
 
 export default function CreateEventDateSelector(props) {
   return (
-    <React.Fragment>
-      <Text
-        size="small"
-        align="center"
-        margin={{ top: "xsmall", right: "medium" }}
-      >
-        Date:
-      </Text>
+    <Box
+      direction="row-responsive"
+      margin={{
+        top: "xsmall",
+        left: "medium",
+        right: "medium",
+        bottom: "xsmall",
+      }}
+    >
+      <Box justify="center" pad={{ right: "small" }}>
+        <Text size="small">Date:</Text>
+      </Box>
       <Grommet theme={theme}>
         <DateInput
+          inputProps={{ icon: <Calendar color="#027788" /> }}
           size="small"
           format="yyyy-mm-dd"
           value={props.value}
@@ -21,17 +27,14 @@ export default function CreateEventDateSelector(props) {
           }}
         />
       </Grommet>
-    </React.Fragment>
+    </Box>
   );
 }
 
 const theme = {
   global: {
-    colors: {
-      brand: "#81FCED",
-    },
     font: {
-      family: "Roboto",
+      family: "Dosis",
       size: "18px",
       height: "20px",
     },

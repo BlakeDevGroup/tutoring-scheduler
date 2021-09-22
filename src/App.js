@@ -9,7 +9,7 @@ import companiesData from "./data/companies.json";
 import calendarsData from "./data/calendars.json";
 import viewsData from "./data/views.json";
 import NavBarWrapper from "./components/NavBar/NavBarWrapper.component";
-import CompanyModalWrapper from "./components/CompanyModal/CompanyModalWrapper.component";
+import CompanyModalWrapper from "./components/CompanyModal/CompanyModalWrapper";
 
 const getCompanies = () => {
   let companies = [];
