@@ -24,13 +24,12 @@ export default function CompanyModalWrapper(props) {
     <Box>
       <Button
         primary
-        label="Add company"
+        label="Company"
         alignSelf="start"
-        color=""
-        size="large"
+        size="medium"
         icon={<Add />}
-        hoverIndicator
         onClick={() => setShow(true)}
+        // width="400px"
       />
       {show && (
         <CompanyButtonModal

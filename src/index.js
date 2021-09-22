@@ -4,17 +4,16 @@ import App from "./App";
 import { ResponsiveContext, Grommet } from "grommet";
 import { Provider } from "react-redux";
 import store from "./store";
-
-import EventApi from "./apis/events/events.api";
+import "./index.css";
 
 const theme = {
   global: {
     colors: {
-      brand: "#6FFFB0",
+      brand: "#027788",
     },
     font: {
-      family: "Roboto",
-      size: "18px",
+      family: "Dosis",
+      size: "22px",
       height: "20px",
     },
   },

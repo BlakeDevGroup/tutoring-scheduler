@@ -9,6 +9,7 @@ import companiesData from "./data/companies.json";
 import calendarsData from "./data/calendars.json";
 import viewsData from "./data/views.json";
 import NavBarWrapper from "./components/NavBar/NavBarWrapper.component";
+import CompanyModalWrapper from "./components/CompanyModal/CompanyModalWrapper.component";
 
 const getCompanies = () => {
   let companies = [];
@@ -67,20 +68,19 @@ const App = (props) => {
           <Collapsible direction="horizontal" open={showSidebar}>
             <Box
               flex
+              pad="medium"
               direction="column"
-              width="medium"
               background="light-2"
-              elevation="small"
-              animation="fadeIn"
-              justify="evenly"
+              elevation="medium"
+              animation="zoomIn"
+              justify="start"
             >
               <CreateEventWrapper
                 companies={companies}
                 // setEvents={setEvents}
                 calendars={calendars}
               />
-              <AddViewForm calendars={calendars} setCalendars={setCalendars} />
-              {/* <SideBarCalendar /> */}
+              <CompanyModalWrapper />
             </Box>
           </Collapsible>
         ) : (
@@ -89,7 +89,7 @@ const App = (props) => {
               background="light-2"
               tag="header"
               justify="end"
-              align="center"
+              align="start"
               direction="row"
             >
               <Button
@@ -97,12 +97,12 @@ const App = (props) => {
                 onClick={() => setShowSidebar(false)}
               />
             </Box>
-            <Box fill background="light-2" align="center" justify="center">
+            {/* <Box fill background="light-2" align="center" justify="center">
               sidebar
-            </Box>
+            </Box> */}
           </layer>
         )}
-        <Main margin="xsmall">
+        <Main pad="small">
           <MainCalendar
             currentView={currentView}
             companies={companies}

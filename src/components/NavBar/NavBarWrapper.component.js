@@ -10,10 +10,7 @@ export default function NavBarWrapper(props) {
         icon={<BladesVertical />}
         onClick={() => props.setShowSidebar(!props.showSidebar)}
       />
-      <CompanyModalWrapper
-        companies={props.companies}
-        setCompanies={props.setCompanies}
-      />
+
       <Heading level="3" margin="none" align="right">
         My App
       </Heading>

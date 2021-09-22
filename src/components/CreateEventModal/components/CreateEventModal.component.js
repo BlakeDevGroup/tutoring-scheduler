@@ -74,7 +74,7 @@ export default function CreateEventModal(props) {
         description: `${description}`,
         calendar_id: calendar,
         editable: "true",
-        backgroundColor: props.companies.color
+        backgroundColor: props.companies.color,
       };
     }
   };
