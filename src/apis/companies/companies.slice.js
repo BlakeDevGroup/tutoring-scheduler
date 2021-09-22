@@ -34,7 +34,7 @@ export const updateCompany = createAsyncThunk(
     if (result.success) {
       return {
         name: company.name,
-        pay: company.pay,
+        pay: company.pay_rate,
         color: company.color,
         company_id: company.company_id,
       };

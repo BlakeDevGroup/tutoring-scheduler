@@ -10,7 +10,6 @@ export default function CompanyButtonModal(props) {
   const [title, setTitle] = useState("");
   const [pay, setPay] = useState("");
   const [color, setColor] = useState("");
-  const [hexColor, setHexColor] = useState("");
   const dispatch = useDispatch();
 
   return (
@@ -31,11 +30,7 @@ export default function CompanyButtonModal(props) {
       >
         <CompanyModalTitleInput onChange={setTitle} value={title} />
         <CompanyPay onChange={setPay} value={pay} />
-        <CompanyColorSelector
-          color={color}
-          setColor={setColor}
-          setHexColor={setHexColor}
-        />
+        <CompanyColorSelector color={color} setColor={setColor} />
         <Button
           label="save"
           size="xsmall"
@@ -53,7 +48,7 @@ export default function CompanyButtonModal(props) {
               addCompany({
                 name: title,
                 pay: pay,
-                color: hexColor,
+                color: color.color,
               })
             );
             props.setShow(false);
