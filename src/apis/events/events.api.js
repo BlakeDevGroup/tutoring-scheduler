@@ -1,4 +1,3 @@
-import { Observable } from "rxjs";
 import axios from "axios";
 import MessageService from "../../services/messaging/message.service";
 
