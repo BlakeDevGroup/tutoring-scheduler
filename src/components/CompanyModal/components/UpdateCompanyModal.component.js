@@ -48,10 +48,10 @@ export default function UpdateCompanyModal(props) {
     >
       <Box
         margin={{
-          top: "large",
-          bottom: "large",
-          right: "large",
-          left: "large",
+          top: "medium",
+          bottom: "xsmall",
+          right: "medium",
+          left: "medium",
         }}
         // height="small"
         // width="small"
