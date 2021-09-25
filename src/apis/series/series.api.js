@@ -157,3 +157,18 @@ export default class SeriesApi {
     }
   }
 }
+
+export const prepSeriesData = (seriesData) => {
+  return seriesData.map((series) => {
+    return {
+      daysOfWeek: series.days_of_week,
+      startTime: series.start_time,
+      endTime: series.end_time,
+      startRecur: series.start_recur,
+      endRecur: series.end_recur,
+      groupId: series.series_id,
+      title: series.title,
+      description: series.description,
+    };
+  });
+};

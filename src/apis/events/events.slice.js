@@ -56,7 +56,7 @@ export const updateEvent = createAsyncThunk(
     } else {
       console.error(result.error);
     }
- } 
+  }
 );
 
 export const removeEvent = createAsyncThunk(
@@ -67,7 +67,7 @@ export const removeEvent = createAsyncThunk(
     if (result.success) {
       return id;
     } else {
-      console.error(result.error);
+      throw result.error;
     }
   }
 );
@@ -82,8 +82,6 @@ export const eventSlice = createSlice({
       console.log(state, action);
       state.events = action.payload.events;
     },
-
-    removeEvent: (state, action) => {},
   },
   extraReducers: (builder) => {
     builder.addCase(addEvent.fulfilled, (state, action) => {
@@ -99,7 +97,7 @@ export const eventSlice = createSlice({
 
     builder.addCase(removeEvent.fulfilled, (state, action) => {
       state.events = state.events.filter((event) => {
-        if (event.id !== action.payload) return event;
+        if (event.id !== action.payload.id) return event;
       });
     });
   },
