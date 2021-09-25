@@ -4,7 +4,6 @@ import AddViewForm from "./components/NavBar/components/AddViewForm.component";
 import CreateEventWrapper from "./components/CreateEventModal/CreateEventWrapper.component";
 import React, { useState, useEffect } from "react";
 import MainCalendar from "./main-components/main-calendar";
-import eventsData from "./data/events.json";
 import companiesData from "./data/companies.json";
 import calendarsData from "./data/calendars.json";
 import viewsData from "./data/views.json";
@@ -78,6 +77,7 @@ const App = (props) => {
             >
               <CreateEventWrapper companies={companies} calendars={calendars} />
               <CompanyModalWrapper />
+
               <CompanyCheckbox />
             </Box>
           </Collapsible>

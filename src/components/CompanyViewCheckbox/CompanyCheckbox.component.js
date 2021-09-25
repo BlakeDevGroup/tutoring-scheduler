@@ -23,6 +23,11 @@ export default function CompanyCheckbox() {
   const companies = useSelector((state) => state.companies.companies);
 
   return (
-    <CheckBoxGroup multiple options={FormatCompanies(companies)} gap="small" />
+    <CheckBoxGroup
+      multiple
+      options={FormatCompanies(companies)}
+      gap="small"
+      defaultChecked={true}
+    />
   );
 }

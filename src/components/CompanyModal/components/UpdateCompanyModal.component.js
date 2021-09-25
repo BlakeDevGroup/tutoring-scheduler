@@ -60,7 +60,10 @@ export default function UpdateCompanyModal(props) {
           left: "medium",
         }}
       >
-        <CompanyDropMenu onChange={setCompanyIdentifier} />
+        <CompanyDropMenu
+          onChange={setCompanyIdentifier}
+          value={companyIdentifier}
+        />
         <CompanyModalTitleInput onChange={setName} value={name} />
         <Box justify="center" direction="row-responsive" gap="xsmall">
           <CompanyModalPayInput onChange={setPay} value={pay} />
