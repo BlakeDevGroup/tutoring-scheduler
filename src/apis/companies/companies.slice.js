@@ -21,7 +21,7 @@ export const addCompany = createAsyncThunk(
       };
     }
     if (result.error) {
-      throw result.error;
+      throw new Error(result.message);
     }
   }
 );
@@ -39,7 +39,7 @@ export const updateCompany = createAsyncThunk(
         company_id: company.company_id,
       };
     } else {
-      console.log(result.error);
+      throw new Error(result.message);
     }
   }
 );
@@ -52,7 +52,7 @@ export const removeCompany = createAsyncThunk(
     if (result.success) {
       return company_id;
     } else {
-      console.error(result.error);
+      throw new Error(result.message);
     }
   }
 );
@@ -64,7 +64,6 @@ export const companySlice = createSlice({
   },
   reducers: {
     setCompanies: (state, action) => {
-      console.log(state, action);
       state.companies = action.payload.companies;
     },
   },

@@ -10,6 +10,7 @@ import { setEvents, updateEvent } from "../apis/events/events.slice";
 import EventApi, { prepEventData } from "../apis/events/events.api";
 import { Box } from "grommet";
 import EventModal from "../components/UpdateEventsModal/EventModal.component";
+import { current } from "@reduxjs/toolkit";
 
 const eventApi = new EventApi();
 
@@ -22,9 +23,9 @@ const MainCalendar = (props) => {
 
   useEffect(() => {
     cal.current.getApi().changeView(props.currentView);
-    console.log(cal.current.getApi().getEvents());
   }, [props.currentView]);
 
+  setTimeout(() => {}, 3000);
   const EventClickHandler = (eventData) => {
     setShow(true);
 
@@ -57,6 +58,7 @@ const MainCalendar = (props) => {
         events={events}
         nowIndicator={true}
         eventClick={EventClickHandler}
+        editable={true}
       />
       {show && (
         <EventModal

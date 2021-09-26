@@ -67,8 +67,6 @@ export default function EventModal(props) {
     props.setShow(false);
   };
 
-  console.log(props.events);
-
   const updateEvents = () => {
     dispatch(
       updateEvent({

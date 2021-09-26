@@ -20,7 +20,6 @@ export default function CompanyModalWrapper(props) {
     const companyData = await companyApi.getAllCompanies();
     dispatch(setCompanies({ companies: prepCompanyData(companyData.data) }));
   }, []);
-  console.log(show);
 
   return (
     <Box>

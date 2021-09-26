@@ -1,5 +1,5 @@
 import { Box, Collapsible, Button, Main } from "grommet";
-import "rrule/package.json";
+import { RRule, RRuleSet, rrulestr } from "rrule";
 import { FormClose } from "grommet-icons";
 import CreateEventWrapper from "./components/CreateEventModal/CreateEventWrapper.component";
 import React, { useState, useEffect } from "react";
@@ -60,8 +60,6 @@ const App = (props) => {
       seriesApi.getSeries(2),
       eventsApi.getAllEvents(2),
     ]);
-
-    console.log(result[0]);
 
     const calendarData = [
       ...prepSeriesData(result[0].data),

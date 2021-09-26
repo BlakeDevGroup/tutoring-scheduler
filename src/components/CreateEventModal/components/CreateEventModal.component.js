@@ -42,7 +42,6 @@ export default function CreateEventModal(props) {
   const [allDay, setAllDay] = useState(false);
   const [isRecurring, setIsRecurring] = useState(false);
   // const [hexColor, setHexColor] = useState("");
-  console.log(props.companies);
 
   const selectEventType = () => {
     /**

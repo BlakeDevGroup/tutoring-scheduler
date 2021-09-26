@@ -79,7 +79,6 @@ export const eventSlice = createSlice({
   },
   reducers: {
     setEvents: (state, action) => {
-      console.log(state, action);
       state.events = action.payload.events;
     },
   },
