@@ -8,7 +8,7 @@ import CompanyDropMenu from "../../CreateEventModal/components/CompanyDropMenu.c
 import { Checkmark, Close } from "grommet-icons";
 import {
   updateCompany,
-  deleteCompany,
+  removeCompany,
 } from "../../../apis/companies/companies.slice";
 import colorOptions from "../../../data/colorOptions.json";
 
@@ -21,6 +21,11 @@ export default function UpdateCompanyModal(props) {
   const companies = useSelector((state) => state.companies.companies);
   const [companyIdentifier, setCompanyIdentifier] = useState("");
   const [companyId, setCompanyId] = useState("");
+
+  const removeCompanies = () => {
+    dispatch(removeCompany(companyId));
+    props.setShow(false);
+  };
 
   const getCompanyByName = (name) => {
     return companies.filter((company) => name == company.name)[0];
@@ -41,6 +46,7 @@ export default function UpdateCompanyModal(props) {
     }
   }, [companyIdentifier]);
 
+  console.log(companies);
   return (
     <Layer
       onEsc={() => props.setShow(false)}
@@ -54,7 +60,10 @@ export default function UpdateCompanyModal(props) {
           left: "medium",
         }}
       >
-        <CompanyDropMenu onChange={setCompanyIdentifier} />
+        <CompanyDropMenu
+          onChange={setCompanyIdentifier}
+          value={companyIdentifier}
+        />
         <CompanyModalTitleInput onChange={setName} value={name} />
         <Box justify="center" direction="row-responsive" gap="xsmall">
           <CompanyModalPayInput onChange={setPay} value={pay} />
@@ -73,6 +82,7 @@ export default function UpdateCompanyModal(props) {
               right: "small",
               bottom: "small",
             }}
+            disabled={companyIdentifier == ""}
             background="linear-gradient(102.77deg, #865ED6 -9.18%, #18BAB9 209.09%)"
             onClick={() => {
               dispatch(
@@ -94,13 +104,14 @@ export default function UpdateCompanyModal(props) {
             color="red"
             hoverIndicator
             icon={<Close />}
+            disabled={companyIdentifier == ""}
             margin={{
               top: "small",
               left: "small",
               right: "small",
               bottom: "small",
             }}
-            // onClick={removeEvents}
+            onClick={removeCompanies}
           />
         </Box>
       </Box>
