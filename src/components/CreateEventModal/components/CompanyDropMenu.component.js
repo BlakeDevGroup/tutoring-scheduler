@@ -8,8 +8,8 @@ import CompanyApi, {
 
 const companyApi = new CompanyApi();
 
-function FormatCompanies(companies) {
-  let companyNames = [""];
+function formatCompanies(companies) {
+  let companyNames = [];
 
   companies.forEach((item) => {
     companyNames.push(item.name);
@@ -20,24 +20,40 @@ function FormatCompanies(companies) {
 
 function CompanyDropMenu(props) {
   const companies = useSelector((state) => state.companies.companies);
+  const [options, setOptions] = React.useState([]);
   const dispatch = useDispatch();
+
   useEffect(async () => {
     const companyData = await companyApi.getAllCompanies();
     dispatch(setCompanies({ companies: prepCompanyData(companyData.data) }));
   }, []);
-  console.log(companies);
+
+  useEffect(async () => {
+    setOptions(formatCompanies(companies));
+  }, [companies]);
+
   return (
     <Box margin={{ bottom: "small" }} basis="1/2">
       <Select
         size="small"
-        options={FormatCompanies(companies)}
+        options={options}
         value={props.value}
         placeholder="Select company"
         onChange={(e) => {
           props.onChange(e.target.value);
         }}
-        defaultValue={FormatCompanies(companies)[0]}
         multiple={false}
+        onSearch={(searchText) => {
+          const regexp = new RegExp(searchText, "i");
+          setOptions(
+            formatCompanies(
+              companies.filter((company) => company.name.match(regexp))
+            )
+          );
+        }}
+        onClose={() => {
+          setOptions(formatCompanies(companies));
+        }}
       />
     </Box>
   );
