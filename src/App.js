@@ -10,6 +10,9 @@ import calendarsData from "./data/calendars.json";
 import viewsData from "./data/views.json";
 import NavBarWrapper from "./components/NavBar/NavBarWrapper.component";
 import CompanyModalWrapper from "./components/CompanyModal/CompanyModalWrapper";
+import { ReactDOM } from "react";
+import reactDom from "react-dom";
+import CompanyCheckBoxesList from "./components/CompanyModal/components/CompanyCheckBoxList.component";
 
 const getCompanies = () => {
   let companies = [];
@@ -42,9 +45,8 @@ const getViews = () => {
 
 const App = (props) => {
   const [showSidebar, setShowSidebar] = useState(false);
-
-  const [companies, setCompanies] = useState(getCompanies());
-  const [calendars, setCalendars] = useState(getCalendars());
+  // const [companies, setCompanies] = useState(getCompanies());
+  // const [calendars, setCalendars] = useState(getCalendars());
   const [views, setViews] = useState(getViews());
   const [currentView, setCurrentView] = useState("dayGridMonth");
 
@@ -53,8 +55,8 @@ const App = (props) => {
       <NavBarWrapper
         showSidebar={showSidebar}
         setShowSidebar={setShowSidebar}
-        companies={companies}
-        setCompanies={setCompanies}
+        // companies={companies}
+        // setCompanies={setCompanies}
         views={views}
         setCurrentView={setCurrentView}
       />
@@ -75,11 +77,9 @@ const App = (props) => {
               animation="zoomIn"
               justify="start"
             >
-              <CreateEventWrapper
-                companies={companies}
-                // setEvents={setEvents}
-                calendars={calendars}
-              />
+              <CreateEventWrapper />
+
+              <CompanyCheckBoxesList />
               <CompanyModalWrapper />
             </Box>
           </Collapsible>
@@ -105,8 +105,8 @@ const App = (props) => {
         <Main pad="small">
           <MainCalendar
             currentView={currentView}
-            companies={companies}
-            calendars={calendars}
+            // companies={companies}
+            // calendars={calendars}
           />
         </Main>
       </Box>
