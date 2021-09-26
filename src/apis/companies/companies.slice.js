@@ -81,7 +81,7 @@ export const companySlice = createSlice({
 
     builder.addCase(removeCompany.fulfilled, (state, action) => {
       state.companies = state.companies.filter((company) => {
-        if (company.id !== action.payload) return company;
+        if (company.company_id !== action.payload) return company;
       });
     });
   },

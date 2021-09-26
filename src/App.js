@@ -9,6 +9,7 @@ import calendarsData from "./data/calendars.json";
 import viewsData from "./data/views.json";
 import NavBarWrapper from "./components/NavBar/NavBarWrapper.component";
 import CompanyModalWrapper from "./components/CompanyModal/CompanyModalWrapper";
+import CompanyCheckbox from "./components/CompanyViewCheckbox/CompanyCheckbox.component";
 
 import { useDispatch } from "react-redux";
 import { setEvents } from "./apis/events/events.slice";
@@ -114,12 +115,10 @@ const App = (props) => {
               animation="zoomIn"
               justify="start"
             >
-              <CreateEventWrapper
-                companies={companies}
-                // setEvents={setEvents}
-                calendars={calendars}
-              />
+              <CreateEventWrapper companies={companies} calendars={calendars} />
               <CompanyModalWrapper />
+
+              <CompanyCheckbox />
             </Box>
           </Collapsible>
         ) : (
