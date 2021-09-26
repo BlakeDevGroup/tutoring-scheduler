@@ -2,6 +2,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import rrule from "rrule";
 import rrulePlugin from "@fullcalendar/rrule";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,29 +20,9 @@ const MainCalendar = (props) => {
   const [show, setShow] = useState(false);
   const [defaults, setDefaults] = useState({});
 
-  useEffect(async () => {
-    const eventData = await eventApi.getAllEvents(2);
-    dispatch(setEvents({ events: prepEventData(eventData.data) }));
-    // dispatch(
-    //   setEvents({
-    //     events: [
-    //       {
-    //         daysOfWeek: [0, 1],
-    //         startTime: "10:00",
-    //         endTime: "12:00",
-    //         startRecur: "2021-09-07",
-    //         endRecur: "2022-09-07",
-    //         groupId: "1",
-    //         title: "My Recurring Event",
-    //         description: "ASDFSDFGSDFG",
-    //       },
-    //     ],
-    //   })
-    // );
-  }, []);
-
   useEffect(() => {
     cal.current.getApi().changeView(props.currentView);
+    console.log(cal.current.getApi().getEvents());
   }, [props.currentView]);
 
   const EventClickHandler = (eventData) => {
@@ -67,6 +48,7 @@ const MainCalendar = (props) => {
           interactionPlugin,
           rrulePlugin,
         ]}
+        eventRemove
         initialView={props.currentView}
         expandRows={true}
         handleWindowResize={false}

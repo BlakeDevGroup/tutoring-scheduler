@@ -56,9 +56,9 @@ describe("EventApi", () => {
 
   it("it should run axios create with proper arguments", () => {
     const axiosInstanceParams = {
-      baseURL: "http://localhost:49160",
+      baseURL: "http://localhost:3500",
       timeout: 1000,
-      headers: { "Content-Type": "json" },
+      headers: { "Content-Type": "application/json;charset=utf-8" },
     };
 
     axiosStub = sandBox.stub(axios, "create").returns(true);
