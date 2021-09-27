@@ -143,7 +143,7 @@ export default function EventModal(props) {
         <Box justify="center" direction="row-responsive">
           <Button
             label="Update"
-            size="xsmall"
+            size="small"
             alignSelf="center"
             hoverIndicator
             icon={<Checkmark />}
@@ -157,7 +157,7 @@ export default function EventModal(props) {
           />
           <Button
             label="Delete"
-            size="xsmall"
+            size="small"
             alignSelf="center"
             color="red"
             hoverIndicator

@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import EventApi from "./events.api";
+import { updateCompany } from "../companies/companies.slice";
+import EntityFactory from "../../entitities/EntityFactory";
 
 const eventApi = new EventApi();
 
@@ -97,6 +99,17 @@ export const eventSlice = createSlice({
     builder.addCase(removeEvent.fulfilled, (state, action) => {
       state.events = state.events.filter((event) => {
         if (event.id !== action.payload.id) return event;
+      });
+    });
+
+    builder.addCase(updateCompany.fulfilled, (state, action) => {
+      state.events = state.events.map((event) => {
+        if (event.company_id === action.payload.company_id)
+          return Object.assign({}, event, {
+            backgroundColor: action.payload.color,
+            borderColor: action.payload.color,
+          });
+        return event;
       });
     });
   },

@@ -25,11 +25,6 @@ function CompanyDropMenu(props) {
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    const companyData = await companyApi.getAllCompanies();
-    dispatch(setCompanies({ companies: prepCompanyData(companyData.data) }));
-  }, []);
-
-  useEffect(async () => {
     setOptions(formatCompanies(companies));
   }, [companies]);
 

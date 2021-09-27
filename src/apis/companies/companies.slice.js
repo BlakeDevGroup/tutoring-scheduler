@@ -73,10 +73,12 @@ export const companySlice = createSlice({
     });
 
     builder.addCase(updateCompany.fulfilled, (state, action) => {
-      state.companies = state.companies.map((company) => {
-        if (company.id === action.payload.id) return action.payload;
+      state.companies.map((company) => {
+        if (company.id === action.payload) return action.payload;
         return company;
       });
+      state.companies = [...state.companies];
+      console.log(state.events);
     });
 
     builder.addCase(removeCompany.fulfilled, (state, action) => {

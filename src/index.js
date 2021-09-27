@@ -5,8 +5,6 @@ import { ResponsiveContext, Grommet } from "grommet";
 import { Provider } from "react-redux";
 import store from "./store";
 import "./index.css";
-import SeriesApi from "./apis/series/series.api";
-import EventsApi from "./apis/events/events.api";
 
 const theme = {
   global: {
