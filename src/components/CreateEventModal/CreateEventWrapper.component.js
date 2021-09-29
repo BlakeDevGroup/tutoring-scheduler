@@ -5,19 +5,6 @@ import EventModal from "./components/EventModal.component";
 import { useSelector, useDispatch } from "react-redux";
 import { addEvent } from "../../apis/events/events.slice";
 
-// const theme = {
-//   global: {
-//     colors: {
-//       brand: "#81FCED",
-//     },
-//     font: {
-//       family: "Roboto",
-//       size: "18px",
-//       height: "20px",
-//     },
-//   },
-// };
-
 export default function CreateEventWrapper(props) {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -26,7 +13,7 @@ export default function CreateEventWrapper(props) {
     dispatch(addEvent({ event: eventData }));
   };
   return (
-    <Box>
+    <Box pad={{ bottom: "medium" }}>
       <Button
         primary
         alignSelf="start"
