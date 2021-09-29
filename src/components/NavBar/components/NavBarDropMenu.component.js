@@ -29,7 +29,7 @@ export default function NavBarDropMenu(props) {
     <Select
       // margin={{ right: "medium" }}
       icon={<CaretDownFill />}
-      size="xsmall"
+      size="small"
       options={getViewName(props.views)}
       value={value}
       placeholder="Select calendar view"

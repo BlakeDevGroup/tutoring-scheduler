@@ -1,8 +1,7 @@
 import { Box, Collapsible, Button, Main } from "grommet";
-import "rrule/package.json";
 import { FormClose } from "grommet-icons";
 import CreateEventWrapper from "./components/CreateEventModal/CreateEventWrapper.component";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import MainCalendar from "./main-components/main-calendar";
 import companiesData from "./data/companies.json";
 import calendarsData from "./data/calendars.json";
@@ -11,10 +10,16 @@ import NavBarWrapper from "./components/NavBar/NavBarWrapper.component";
 import CompanyModalWrapper from "./components/CompanyModal/CompanyModalWrapper";
 import CompanyCheckBoxesList from "./components/CompanyModal/components/CompanyCheckBoxList.component";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCompanies } from "./apis/companies/companies.slice";
+import CompanyApi, { prepCompanyData } from "./apis/companies/companies.api";
+import CalendarService from "./services/calendar/calendar.service";
+import EventApi from "./apis/events/events.api";
+import SeriesApi from "./apis/series/series.api";
 import { setEvents } from "./apis/events/events.slice";
-import EventApi, { prepEventData } from "./apis/events/events.api";
-import SeriesApi, { prepSeriesData } from "./apis/series/series.api";
+
+const eventApi = new EventApi();
+const seriesApi = new SeriesApi();
 
 const getViews = () => {
   let views = [];
@@ -28,46 +33,36 @@ const getViews = () => {
 
 const App = (props) => {
   const [showSidebar, setShowSidebar] = useState(false);
-
   const [views, setViews] = useState(getViews());
   const [currentView, setCurrentView] = useState("dayGridMonth");
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    const seriesApi = new SeriesApi();
-    const eventsApi = new EventApi();
+    const companyApi = new CompanyApi();
+    const companyData = await companyApi.getAllCompanies();
 
-    const result = await Promise.all([
+    await dispatch(
+      setCompanies({ companies: prepCompanyData(companyData.data) })
+    );
+
+    let [events, series] = await Promise.all([
+      eventApi.getAllEvents(2),
       seriesApi.getSeries(2),
-      eventsApi.getAllEvents(2),
     ]);
 
-    console.log(result[0]);
-
-    const calendarData = [
-      ...prepSeriesData(result[0].data),
-      ...prepEventData(result[1].data),
-    ];
-
-    dispatch(setEvents({ events: calendarData }));
-    // dispatch(
-    //   setEvents({
-    //     events: [
-    //       {
-    //         daysOfWeek: [0, 1],
-    //         startTime: "10:00",
-    //         endTime: "12:00",
-    //         startRecur: "2021-09-07",
-    //         endRecur: "2022-09-07",
-    //         groupId: "1",
-    //         title: "My Recurring Event",
-    //         description: "ASDFSDFGSDFG",
-
-    //         exdate: ["2021-09-13T10:30"],
-    //       },
-    //     ],
-    //   })
-    // );
+    events = CalendarService.prepCalendarEvents(
+      events.data,
+      prepCompanyData(companyData.data)
+    );
+    series = CalendarService.prepCalendarSeries(
+      series.data,
+      prepCompanyData(companyData.data)
+    );
+    dispatch(
+      setEvents({
+        events: [...events, ...series],
+      })
+    );
   }, []);
 
   return (
@@ -75,13 +70,11 @@ const App = (props) => {
       <NavBarWrapper
         showSidebar={showSidebar}
         setShowSidebar={setShowSidebar}
-        // companies={companies}
-        // setCompanies={setCompanies}
         views={views}
         setCurrentView={setCurrentView}
       />
       <Box
-        direction=""
+        direction="row-responsive"
         height="xsmall"
         flex
         overflow={{ horizontal: "hidden" }}
@@ -101,8 +94,6 @@ const App = (props) => {
 
               <CompanyCheckBoxesList />
               <CompanyModalWrapper />
-
-              {/* <CompanyCheckbox /> */}
             </Box>
           </Collapsible>
         ) : (
@@ -125,11 +116,7 @@ const App = (props) => {
           </layer>
         )}
         <Main pad="small">
-          <MainCalendar
-            currentView={currentView}
-            // companies={companies}
-            // calendars={calendars}
-          />
+          <MainCalendar currentView={currentView} />
         </Main>
       </Box>
     </Box>

@@ -1,7 +1,7 @@
 import { Box, Button, Grommet } from "grommet";
 import { Add } from "grommet-icons";
 import React, { useState } from "react";
-import CreateEventModal from "./components/CreateEventModal.component";
+import EventModal from "./components/EventModal.component";
 import { useSelector, useDispatch } from "react-redux";
 import { addEvent } from "../../apis/events/events.slice";
 
@@ -25,7 +25,8 @@ export default function CreateEventWrapper(props) {
         onClick={() => setShow(true)}
       />
       {show && (
-        <CreateEventModal
+        <EventModal
+          type="create"
           show={show}
           setShow={setShow}
           companies={props.companies}
