@@ -15,7 +15,7 @@ const toServer = (calendarEvent) => {
   return EntityFactory.createServerEvent(serverEventData);
 };
 
-const toCalendar = (serverEvent) => {
+const toCalendar = (serverEvent, companyData) => {
   const calendarEventData = {
     end: serverEvent.date_end,
     start: serverEvent.date_start,
@@ -28,7 +28,7 @@ const toCalendar = (serverEvent) => {
     id: serverEvent.event_id,
   };
 
-  return EntityFactory.createCalendarEvent(calendarEventData);
+  return EntityFactory.createCalendarEvent(calendarEventData, companyData);
 };
 
 export default {

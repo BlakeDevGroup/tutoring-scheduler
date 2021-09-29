@@ -20,7 +20,7 @@ export default function CreateEventDateSelector(props) {
         <DateInput
           inputProps={{ icon: <Calendar color="#027788" /> }}
           size="small"
-          format="yyyy-mm-dd"
+          format="yyyy/mm/dd"
           value={props.value}
           onChange={(e) => {
             props.onChange(e.value);

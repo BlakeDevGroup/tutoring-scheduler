@@ -116,25 +116,6 @@ export default function RecurringDatesSelector(props) {
               selected={props.daysOfweek}
               options={options}
               dropHeight="medium"
-              // onClose={() =>
-              //   setOptions(
-              //     options.sort((p1, p2) => {
-              //       const p1Exists = selected.includes(p1);
-              //       const p2Exists = selected.includes(p2);
-
-              //       if (!p1Exists && p2Exists) {
-              //         return 1;
-              //       }
-              //       if (p1Exists && !p2Exists) {
-              //         return -1;
-              //       }
-              //       return p1.localeCompare(p2, undefined, {
-              //         numeric: true,
-              //         sensitivity: "base",
-              //       });
-              //     })
-              //   )
-              // }
               onChange={({ selected: nextSelected }) => {
                 props.setDaysOfWeek(nextSelected);
               }}

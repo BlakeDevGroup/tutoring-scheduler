@@ -14,6 +14,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCompanies } from "./apis/companies/companies.slice";
 import CompanyApi, { prepCompanyData } from "./apis/companies/companies.api";
 import CalendarService from "./services/calendar/calendar.service";
+import EventApi from "./apis/events/events.api";
+import SeriesApi from "./apis/series/series.api";
+import { setEvents } from "./apis/events/events.slice";
+
+const eventApi = new EventApi();
+const seriesApi = new SeriesApi();
+
 const getViews = () => {
   let views = [];
 
@@ -32,13 +39,30 @@ const App = (props) => {
 
   useEffect(async () => {
     const companyApi = new CompanyApi();
-    const company_data = await companyApi.getAllCompanies();
+    const companyData = await companyApi.getAllCompanies();
 
     await dispatch(
-      setCompanies({ companies: prepCompanyData(company_data.data) })
+      setCompanies({ companies: prepCompanyData(companyData.data) })
     );
 
-    CalendarService.setCalendarEvents(2);
+    let [events, series] = await Promise.all([
+      eventApi.getAllEvents(2),
+      seriesApi.getSeries(2),
+    ]);
+
+    events = CalendarService.prepCalendarEvents(
+      events.data,
+      prepCompanyData(companyData.data)
+    );
+    series = CalendarService.prepCalendarSeries(
+      series.data,
+      prepCompanyData(companyData.data)
+    );
+    dispatch(
+      setEvents({
+        events: [...events, ...series],
+      })
+    );
   }, []);
 
   return (

@@ -4,6 +4,9 @@ import sinonChai from "sinon-chai";
 import EntityFactory from "../EntityFactory";
 import SeriesAdapter from "./SeriesAdapter";
 
+const COMPANY_DATA = {
+  color: "#fff",
+};
 describe("SeriesAdapter", () => {
   describe("CalendarSeriesEntity to ServerSeriesEntity", () => {
     it("should create serverSeries from calendarSeries interface", () => {
@@ -50,7 +53,7 @@ describe("SeriesAdapter", () => {
         company_id: 1,
       });
 
-      const result = SeriesAdapter.toCalendar(serverSeriesData);
+      const result = SeriesAdapter.toCalendar(serverSeriesData, COMPANY_DATA);
 
       expect(result).to.be.an("object");
 
@@ -64,6 +67,8 @@ describe("SeriesAdapter", () => {
       expect(result.daysOfWeek).to.equal(serverSeriesData.days_of_week);
       expect(result.user_id).to.equal(serverSeriesData.user_id);
       expect(result.company_id).to.equal(serverSeriesData.company_id);
+      expect(result.backgroundColor).to.equal(COMPANY_DATA.color);
+      expect(result.borderColor).to.equal(COMPANY_DATA.color);
     });
   });
 });

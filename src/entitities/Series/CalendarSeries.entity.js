@@ -43,7 +43,7 @@ export function CalendarSeriesEntity(seriesData, companyData = {}) {
   if (!validationService.isNumeric(this.company_id))
     throw new EntityTypeError(this.company_id, ENTITY_TYPES.NUMERIC);
 
-  this.groupId = seriesData.series_id;
+  this.groupId = seriesData.groupId;
   if (
     !validationService.isUndefined(this.groupId) &&
     !validationService.isNumeric(this.groupId)

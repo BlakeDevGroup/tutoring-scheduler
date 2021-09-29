@@ -19,7 +19,7 @@ const toServer = (calendarSeries) => {
   return EntityFactory.createServerSeries(serverEventData);
 };
 
-const toCalendar = (serverSeries) => {
+const toCalendar = (serverSeries, companyData) => {
   const seriesData = {
     startTime: serverSeries.start_time,
     endTime: serverSeries.end_time,
@@ -31,10 +31,10 @@ const toCalendar = (serverSeries) => {
     calendar_id: serverSeries.calendar_id,
     user_id: serverSeries.user_id,
     company_id: serverSeries.company_id,
-    series_id: serverSeries.series_id,
+    groupId: serverSeries.series_id,
   };
 
-  return EntityFactory.createCalendarSeries(seriesData);
+  return EntityFactory.createCalendarSeries(seriesData, companyData);
 };
 
 export default {

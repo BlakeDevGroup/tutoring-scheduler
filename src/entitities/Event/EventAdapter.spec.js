@@ -3,7 +3,9 @@ import sinon, { stub } from "sinon";
 import sinonChai from "sinon-chai";
 import EventFactory from "../EntityFactory";
 import EventAdapter from "./EventAdapter";
-
+const COMPANY_DATA = {
+  color: "#fffff",
+};
 describe("EventAdapter", () => {
   describe("calendarEventEntity to serverEventEntity", () => {
     it("should create serverEvent from calendarEvent data", () => {
@@ -48,7 +50,7 @@ describe("EventAdapter", () => {
         description: "Test",
       });
 
-      const result = EventAdapter.toCalendar(serverEvent);
+      const result = EventAdapter.toCalendar(serverEvent, COMPANY_DATA);
 
       expect(result).to.be.an("object");
 
@@ -61,6 +63,8 @@ describe("EventAdapter", () => {
       expect(result.company_id).to.equal(serverEvent.company_id);
       expect(result.description).to.equal(serverEvent.description);
       expect(result.id).to.equal(serverEvent.event_id);
+      expect(result.backgroundColor).to.equal(COMPANY_DATA.color);
+      expect(result.borderColor).to.equal(COMPANY_DATA.color);
     });
   });
 });

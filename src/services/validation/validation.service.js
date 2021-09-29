@@ -2,6 +2,7 @@ const isDateTime = (dateTimeString) => {
   const match = dateTimeString.match(
     /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}/
   );
+
   return !!match && !isNaN(new Date(dateTimeString).getTime());
 };
 

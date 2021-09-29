@@ -7,11 +7,13 @@ function createCalendarEvent(eventData) {
   return new CalendarEventEntity(eventData);
 }
 const EntityFactory = {
-  createCalendarEvent: (eventData) => new CalendarEventEntity(eventData),
+  createCalendarEvent: (eventData, companyData) =>
+    new CalendarEventEntity(eventData, companyData),
 
   createServerEvent: (eventData) => new ServerEventEntity(eventData),
 
-  createCalendarSeries: (seriesData) => new CalendarSeriesEntity(seriesData),
+  createCalendarSeries: (seriesData, companyData) =>
+    new CalendarSeriesEntity(seriesData, companyData),
 
   createServerSeries: (seriesData) => new ServerSeriesEntity(seriesData),
 };
