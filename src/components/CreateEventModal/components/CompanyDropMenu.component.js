@@ -6,6 +6,7 @@ import { setCompanies } from "../../../apis/companies/companies.slice";
 import CompanyApi, {
   prepCompanyData,
 } from "../../../apis/companies/companies.api";
+import CalendarService from "../../../services/calendar/calendar.service";
 
 const companyApi = new CompanyApi();
 
@@ -25,11 +26,6 @@ function CompanyDropMenu(props) {
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    const companyData = await companyApi.getAllCompanies();
-    dispatch(setCompanies({ companies: prepCompanyData(companyData.data) }));
-  }, []);
-
-  useEffect(async () => {
     setOptions(formatCompanies(companies));
   }, [companies]);
 
@@ -41,7 +37,9 @@ function CompanyDropMenu(props) {
         value={props.value}
         placeholder="Select company"
         onChange={(e) => {
-          props.onChange(e.target.value);
+          props.onChange(
+            CalendarService.getCompanyByName(companies, e.target.value)
+          );
         }}
         multiple={false}
         onSearch={(searchText) => {

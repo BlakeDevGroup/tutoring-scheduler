@@ -55,7 +55,6 @@ export const seriesSlice = createSlice({
   },
   reducers: {
     setSeries: (state, action) => {
-      console.log(state, action);
       state.series = action.payload.series;
     },
   },

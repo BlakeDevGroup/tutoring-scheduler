@@ -7,8 +7,6 @@ import CompanyDropMenu from "../CreateEventModal/components/CompanyDropMenu.comp
 import CalendarDropMenu from "../CreateEventModal/components/CalendarDropMenu.component";
 import CreateEventTimeSelector from "../CreateEventModal/components/CreateEventTimeSelector.component.js";
 import CreateEventDateSelector from "../CreateEventModal/components/CreateEventDateSelector.component.js";
-import { useDispatch } from "react-redux";
-import { updateEvent, removeEvent } from "../../apis/events/events.slice";
 
 function parseEventTime(timeString) {
   let hour = timeString.substring(0, 2);
@@ -60,27 +58,9 @@ export default function EventModal(props) {
   const [timeStart, setTimeStart] = useState("");
   const [timeEnd, setTimeEnd] = useState("");
   const [calendar, setCalendar] = useState("");
-  const dispatch = useDispatch();
 
-  const removeEvents = () => {
-    dispatch(removeEvent(props.defaults.id));
-    props.setShow(false);
-  };
 
-  console.log(props.events);
-
-  const updateEvents = () => {
-    dispatch(
-      updateEvent({
-        title: title,
-        company_name: company,
-        description: description,
-        start: `${parseEventDateData(date)}T${parseEventTime(timeStart)}`,
-        end: `${parseEventDateData(date)}T${parseEventTime(timeEnd)}`,
-        id: props.defaults.id,
-        calendar_name: calendar,
-      })
-    );
+  
 
     props.setShow(false);
   };
@@ -142,37 +122,7 @@ export default function EventModal(props) {
         />
         <CreateEventDateSelector onChange={setDate} value={date} />
         <CreateEventDescription onChange={setDescription} value={description} />
-        <Box justify="center" direction="row-responsive">
-          <Button
-            label="Update"
-            size="xsmall"
-            alignSelf="center"
-            hoverIndicator
-            icon={<Checkmark />}
-            margin={{
-              top: "xsmall",
-              left: "xsmall",
-              right: "small",
-              bottom: "xsmall",
-            }}
-            onClick={updateEvents}
-          />
-          <Button
-            label="Delete"
-            size="xsmall"
-            alignSelf="center"
-            color="red"
-            hoverIndicator
-            icon={<Close />}
-            margin={{
-              top: "xsmall",
-              left: "small",
-              right: "xsmall",
-              bottom: "xsmall",
-            }}
-            onClick={removeEvents}
-          />
-        </Box>
+        
       </Box>
     </Layer>
   );
