@@ -10,12 +10,20 @@ import { setEvents, updateEvent } from "../apis/events/events.slice";
 import EventApi, { prepEventData } from "../apis/events/events.api";
 import { Box } from "grommet";
 import EventModal from "../components/UpdateEventsModal/EventModal.component";
+import { createSelector } from "reselect";
+import { filter } from "rxjs";
 
 const eventApi = new EventApi();
 
 const MainCalendar = (props) => {
   const cal = useRef();
+
   const events = useSelector((state) => state.events.events);
+  const filteredCompanies = useSelector(
+    (state) => state.companies.filteredCompanies
+  );
+
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [defaults, setDefaults] = useState({});
@@ -24,6 +32,12 @@ const MainCalendar = (props) => {
     cal.current.getApi().changeView(props.currentView);
     console.log(cal.current.getApi().getEvents());
   }, [props.currentView]);
+
+  useEffect(() => {
+    setFilteredEvents(
+      events.filter((event) => !filteredCompanies.includes(event.company_id))
+    );
+  }, [events, filteredCompanies]);
 
   const EventClickHandler = (eventData) => {
     setShow(true);
@@ -54,7 +68,7 @@ const MainCalendar = (props) => {
         handleWindowResize={false}
         selectable={true}
         navLinks={true}
-        events={events}
+        events={filteredEvents}
         nowIndicator={true}
         eventClick={EventClickHandler}
       />

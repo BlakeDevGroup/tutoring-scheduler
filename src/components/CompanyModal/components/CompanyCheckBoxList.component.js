@@ -1,13 +1,20 @@
 import { Box, CheckBox, Grommet } from "grommet";
 import { Cloud, FormCheckmark } from "grommet-icons";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCompanies } from "../../../apis/companies/companies.slice";
+import {
+  addCompanyToFilter,
+  removeCompany,
+  removeCompanyFromFilter,
+  setCompanies,
+  f,
+} from "../../../apis/companies/companies.slice";
 import CompanyApi, {
   prepCompanyData,
 } from "../../../apis/companies/companies.api";
 import { grommet } from "grommet/themes";
 import { normalizeColor, deepMerge } from "grommet/utils";
+import ControlledCheckBoxComponent from "../ControlledCheckbox.component";
 
 const companyApi = new CompanyApi();
 
@@ -64,6 +71,9 @@ const customCheckBoxTheme = (color) => {
 
 export default function CompanyCheckBoxList(props) {
   const companies = useSelector((state) => state.companies.companies);
+  const filteredCompanies = useSelector(
+    (state) => state.companies.filteredCompanies
+  );
   const dispatch = useDispatch();
   const listItems = companies.map((company) => (
     <CheckBox name={company.name} />
@@ -72,21 +82,40 @@ export default function CompanyCheckBoxList(props) {
     const companyData = await companyApi.getAllCompanies();
     dispatch(setCompanies({ companies: prepCompanyData(companyData.data) }));
   }, []);
-  console.log(companies);
+
+  useEffect(() => {
+    console.log(filteredCompanies);
+  }, [filteredCompanies]);
   //   const checkBoxItems = companies.map((company) => (
 
   //   ));
 
   return (
     <Box pad={{ bottom: "small" }}>
-      {companies.map((company) => (
-        <Grommet
-          background="#f2f2f2"
-          theme={deepMerge(grommet, customCheckBoxTheme(company.color))}
-        >
-          <CheckBox label={company.name} />
-        </Grommet>
-      ))}
+      {companies.map((company) => {
+        let checked = true;
+        return (
+          <Grommet
+            background="#f2f2f2"
+            theme={deepMerge(grommet, customCheckBoxTheme(company.color))}
+          >
+            <ControlledCheckBoxComponent
+              onChange={(e) => {
+                console.log(e);
+                if (e.target.checked == true) {
+                  dispatch(removeCompanyFromFilter(company.company_id));
+                  checked = true;
+                } else {
+                  checked = false;
+                  dispatch(addCompanyToFilter(company.company_id));
+                }
+              }}
+              checked={checked}
+              label={company.name}
+            />
+          </Grommet>
+        );
+      })}
     </Box>
   );
 }

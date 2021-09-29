@@ -61,11 +61,19 @@ export const companySlice = createSlice({
   name: "companies",
   initialState: {
     companies: [],
+    filteredCompanies: [],
   },
   reducers: {
     setCompanies: (state, action) => {
-      console.log(state, action);
       state.companies = action.payload.companies;
+    },
+    addCompanyToFilter: (state, action) => {
+      state.filteredCompanies.push(action.payload);
+    },
+    removeCompanyFromFilter: (state, action) => {
+      state.filteredCompanies = state.filteredCompanies.filter(
+        (id) => id !== action.payload
+      );
     },
   },
   extraReducers: (builder) => {
@@ -88,6 +96,7 @@ export const companySlice = createSlice({
   },
 });
 
-export const { setCompanies } = companySlice.actions;
-
+export const { setCompanies, addCompanyToFilter, removeCompanyFromFilter } =
+  companySlice.actions;
+// export const setCompanies = companySlice.actions.setCompanies
 export default companySlice.reducer;
