@@ -8,13 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setEvents, updateEvent } from "../apis/events/events.slice";
 import EventApi from "../apis/events/events.api";
 import { Box } from "grommet";
-<<<<<<< HEAD
-import EventModal from "../components/UpdateEventsModal/EventModal.component";
-import { createSelector } from "reselect";
-import { filter } from "rxjs";
-=======
 import EventModal from "../components/CreateEventModal/components/EventModal.component";
->>>>>>> develop
 
 const eventApi = new EventApi();
 

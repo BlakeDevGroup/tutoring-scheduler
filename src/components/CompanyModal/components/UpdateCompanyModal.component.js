@@ -13,22 +13,16 @@ import {
 import colorOptions from "../../../data/colorOptions.json";
 
 export default function UpdateCompanyModal(props) {
-  const [title, setTitle] = useState("");
   const [name, setName] = useState("");
   const [pay, setPay] = useState("");
   const [color, setColor] = useState("");
   const dispatch = useDispatch();
-  const companies = useSelector((state) => state.companies.companies);
-  const [companyIdentifier, setCompanyIdentifier] = useState("");
+  const [company, setCompany] = useState("");
   const [companyId, setCompanyId] = useState("");
 
   const removeCompanies = () => {
-    dispatch(removeCompany(companyId));
+    dispatch(removeCompany(company.company_id));
     props.setShow(false);
-  };
-
-  const getCompanyByName = (name) => {
-    return companies.filter((company) => name == company.name)[0];
   };
 
   const getColor = (colorOptions, hexColor) => {
@@ -36,17 +30,12 @@ export default function UpdateCompanyModal(props) {
   };
 
   useEffect(() => {
-    const company = getCompanyByName(companyIdentifier);
+    setName(company.name);
+    setPay(company.pay || "");
+    setColor(getColor(colorOptions, company.color));
+    setCompanyId(company.company_id);
+  }, [company]);
 
-    if (company) {
-      setName(company.name);
-      setPay(company.pay || "");
-      setColor(getColor(colorOptions, company.color));
-      setCompanyId(company.company_id);
-    }
-  }, [companyIdentifier]);
-
-  console.log(companies);
   return (
     <Layer
       onEsc={() => props.setShow(false)}
@@ -60,10 +49,7 @@ export default function UpdateCompanyModal(props) {
           left: "medium",
         }}
       >
-        <CompanyDropMenu
-          onChange={setCompanyIdentifier}
-          value={companyIdentifier}
-        />
+        <CompanyDropMenu onChange={setCompany} value={company.name} />
         <CompanyModalTitleInput onChange={setName} value={name} />
         <Box justify="center" direction="row-responsive" gap="xsmall">
           <CompanyModalPayInput onChange={setPay} value={pay} />
@@ -82,7 +68,7 @@ export default function UpdateCompanyModal(props) {
               right: "small",
               bottom: "small",
             }}
-            disabled={companyIdentifier == ""}
+            disabled={company == ""}
             background="linear-gradient(102.77deg, #865ED6 -9.18%, #18BAB9 209.09%)"
             onClick={() => {
               dispatch(
@@ -93,7 +79,7 @@ export default function UpdateCompanyModal(props) {
                   company_id: companyId,
                 })
               );
-              setCompanyIdentifier("");
+              setCompany("");
               props.setShow(false);
             }}
           />
@@ -104,7 +90,7 @@ export default function UpdateCompanyModal(props) {
             color="red"
             hoverIndicator
             icon={<Close />}
-            disabled={companyIdentifier == ""}
+            disabled={company == ""}
             margin={{
               top: "small",
               left: "small",
