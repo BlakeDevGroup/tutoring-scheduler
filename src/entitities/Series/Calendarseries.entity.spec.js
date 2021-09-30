@@ -144,7 +144,7 @@ describe("CalendarSeriesEntity", () => {
     }
   });
 
-  it("when company_id is not valid numeric then throw error", () => {
+  it("when company_id is not valid numeric or not undefined then throw error", () => {
     const testData = Object.assign({}, DATA, { company_id: "XXX" });
 
     try {
@@ -152,6 +152,16 @@ describe("CalendarSeriesEntity", () => {
       expect(spy).calledOnceWith(testData.company_id, ENTITY_TYPES.NUMERIC);
     } catch (e) {
       expect(spy).calledOnceWith(testData.company_id, ENTITY_TYPES.NUMERIC);
+    }
+  });
+
+  it("when company_id is undefined then error is not thrown", () => {
+    const testData = Object.assign({}, DATA, { company_id: undefined });
+    try {
+      new CalendarSeriesEntity(testData);
+      expect(spy).not.called;
+    } catch (e) {
+      expect(spy).not.called;
     }
   });
 

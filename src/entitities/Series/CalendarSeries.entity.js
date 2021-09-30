@@ -40,12 +40,15 @@ export function CalendarSeriesEntity(seriesData, companyData = {}) {
     throw new EntityTypeError(this.user_id, ENTITY_TYPES.NUMERIC);
 
   this.company_id = seriesData.company_id;
-  if (!validationService.isNumeric(this.company_id))
+  if (
+    !validationService.isUndefinedOrNull(this.company_id) &&
+    !validationService.isNumeric(this.company_id)
+  )
     throw new EntityTypeError(this.company_id, ENTITY_TYPES.NUMERIC);
 
   this.groupId = seriesData.groupId;
   if (
-    !validationService.isUndefined(this.groupId) &&
+    !validationService.isUndefinedOrNull(this.groupId) &&
     !validationService.isNumeric(this.groupId)
   )
     throw new EntityTypeError(this.groupId, ENTITY_TYPES.NUMERIC);

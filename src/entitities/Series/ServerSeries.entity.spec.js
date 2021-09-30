@@ -159,6 +159,16 @@ describe("SeriesEntity", () => {
       }
     });
 
+    it("when company_id is undefined then no error is thrown", () => {
+      const testData = Object.assign({}, DATA, { company_id: undefined });
+      try {
+        new ServerSeriesEntity(testData);
+        expect(spy).not.called;
+      } catch (e) {
+        expect(spy).not.called;
+      }
+    });
+
     describe("series_id", () => {
       it("when series_id is not undefined and not a valid numeric then throw error", () => {
         const testData = Object.assign({}, DATA, { series_id: "XXX" });

@@ -97,9 +97,10 @@ export const eventSlice = createSlice({
     builder.addCase(updateEvent.fulfilled, (state, action) => {
       state.events = state.events.map((event) => {
         if (action.payload.type == "event") {
-          if (event.id !== action.payload.event.id) return action.payload.event;
+          if (event.id && event.id == action.payload.event.id)
+            return action.payload.event;
         } else if (action.payload.type == "series") {
-          if (event.groupId !== action.payload.event.groupId)
+          if (event.groupId && event.groupId == action.payload.event.groupId)
             return action.payload.event;
         }
 

@@ -106,7 +106,7 @@ describe("ServerEventEntity", () => {
       }
     });
 
-    it("when company_id is not a valid numeric then throw error", () => {
+    it("when company_id is not a valid numeric or not undefined then throw error", () => {
       const testData = Object.assign({}, DATA, { company_id: "XXX" });
 
       try {
@@ -115,6 +115,14 @@ describe("ServerEventEntity", () => {
       } catch (e) {
         expect(spy).calledOnceWith(testData.company_id, ENTITY_TYPES.NUMERIC);
       }
+
+      it("when company_id is undefined then do not throw error", () => {
+        new ServerEventEntity(
+          Object.assign({}, DATA, { company_id: undefined })
+        );
+
+        expect(spy).not.called;
+      });
     });
 
     it("when description is not a valid numeric then throw error", () => {
