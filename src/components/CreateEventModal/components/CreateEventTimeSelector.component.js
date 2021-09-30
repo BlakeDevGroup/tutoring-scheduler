@@ -32,16 +32,16 @@ export default function CreateEventTimeSelector(props) {
               console.log(timeEnd.substr(0, 2));
               if (timeEnd.substr(0, 2) == 23) {
                 timeEnd = `00${timeEnd.substr(2, 3)}`;
-                timeEnd = CalendarService.convertMilitaryTimeToTime(timeEnd);
                 console.log(timeEnd);
-                return timeEnd;
               } else {
                 timeEnd = CalendarService.parseTimeToMilitary(option);
                 let hour = parseInt(timeEnd.substr(0, 2)) + 1;
                 timeEnd = hour + timeEnd.substr(2, 3);
                 console.log(timeEnd);
-                return timeEnd;
               }
+              props.setTimeEnd(
+                CalendarService.convertMilitaryTimeToTime(timeEnd)
+              );
             }
           }}
           value={props.timeStart}
