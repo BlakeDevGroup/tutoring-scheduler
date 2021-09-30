@@ -11,7 +11,7 @@ export default function NavBarWrapper(props) {
       />
 
       <Heading level="3" margin="none" align="right">
-        Digital Tutoring
+        Digital Learning
       </Heading>
       <NavBarDropMenu views={props.views} onChange={props.setCurrentView} />
     </NavBar>

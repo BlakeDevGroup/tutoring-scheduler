@@ -1,5 +1,6 @@
 import { isPropsEqual } from "@fullcalendar/react";
 import { Box, Text, Select } from "grommet";
+import CalendarService from "../../../services/calendar/calendar.service";
 
 export default function CreateEventTimeSelector(props) {
   return (
@@ -26,6 +27,14 @@ export default function CreateEventTimeSelector(props) {
           options={timeArray()}
           onChange={({ option }) => {
             props.setTimeStart(option);
+            if (!props.timeEnd) {
+              let timeEnd = CalendarService.parseTimeToMilitary(option);
+              console.log(timeEnd.substr(0, 2));
+              if (timeEnd.substr(0, 2) == 23) {
+                timeEnd = `00${timeEnd.substr(2, 3)}`;
+                console.log(timeEnd);
+              }
+            }
           }}
           value={props.timeStart}
         />
