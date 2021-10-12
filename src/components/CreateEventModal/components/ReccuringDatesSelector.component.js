@@ -69,6 +69,7 @@ export default function RecurringDatesSelector(props) {
       <CheckBox
         checked={props.daysOfWeek.length > 0 ? true : false}
         label="recurring"
+        disabled={props.isDisabled}
       />
       {show && (
         <Drop

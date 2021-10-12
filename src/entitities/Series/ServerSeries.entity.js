@@ -16,7 +16,7 @@ export function ServerSeriesEntity(seriesData) {
     throw new EntityTypeError(this.start_recur, ENTITY_TYPES.DATE);
 
   this.end_recur = seriesData.end_recur;
-  if (!validationService.isDate(this.end_recur))
+  if (this.end_recur && !validationService.isDate(this.end_recur))
     throw new EntityTypeError(this.end_recur, ENTITY_TYPES.DATE);
 
   this.days_of_week = seriesData.days_of_week;
@@ -40,12 +40,15 @@ export function ServerSeriesEntity(seriesData) {
     throw new EntityTypeError(this.user_id, ENTITY_TYPES.NUMERIC);
 
   this.company_id = seriesData.company_id;
-  if (!validationService.isNumeric(this.company_id))
+  if (
+    !validationService.isUndefinedOrNull(this.company_id) &&
+    !validationService.isNumeric(this.company_id)
+  )
     throw new EntityTypeError(this.company_id, ENTITY_TYPES.NUMERIC);
 
   this.series_id = seriesData.series_id;
   if (
-    !validationService.isUndefined(this.series_id) &&
+    !validationService.isUndefinedOrNull(this.series_id) &&
     !validationService.isNumeric(this.series_id)
   )
     throw new EntityTypeError(this.series_id, ENTITY_TYPES.NUMERIC);

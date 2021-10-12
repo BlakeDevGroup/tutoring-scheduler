@@ -50,15 +50,17 @@ export default function EventModal(props) {
         setType("event");
       }
 
-      setCompany(CalendarService.getCompanyById(companies, payload.company_id));
-      setTitle(payload.title);
-      setDescription(payload.description);
-      setDateStart(payload.dateStart);
-      setDateEnd(payload.dateEnd);
-      setTimeStart(payload.timeStart);
-      setTimeEnd(payload.timeEnd);
+      setCompany(
+        CalendarService.getCompanyById(companies, payload.company_id) || {}
+      );
+      setTitle(payload.title || "");
+      setDescription(payload.description || "");
+      setDateStart(payload.dateStart || "");
+      setDateEnd(payload.dateEnd || "");
+      setTimeStart(payload.timeStart || "");
+      setTimeEnd(payload.timeEnd || "");
       setDaysOfWeek(payload.daysOfWeek || []);
-      setAllDay(payload.allDay);
+      setAllDay(payload.allDay || false);
     }
 
     console.log(payload);
@@ -91,6 +93,7 @@ export default function EventModal(props) {
       daysOfWeek.length > 0
     );
     dispatch(updateEvent({ type: type, event: payload }));
+    props.setShow(false);
   };
 
   const add = () => {
@@ -175,6 +178,7 @@ export default function EventModal(props) {
             setDateStart={setDateStart}
             dateEnd={dateEnd}
             setDateEnd={setDateEnd}
+            isDisabled={props.type !== "create" && daysOfWeek.length == 0}
           />
         </Box>
 

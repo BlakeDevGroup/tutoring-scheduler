@@ -5,7 +5,7 @@ import validationService from "../../services/validation/validation.service";
 export function ServerEventEntity(eventData, companyData = {}) {
   this.event_id = eventData.event_id;
   if (
-    !validationService.isUndefined(this.event_id) &&
+    !validationService.isUndefinedOrNull(this.event_id) &&
     !validationService.isNumeric(this.event_id)
   )
     throw new EntityTypeError(this.event_id, ENTITY_TYPES.NUMERIC);
@@ -47,6 +47,9 @@ export function ServerEventEntity(eventData, companyData = {}) {
 
   this.company_id = eventData.company_id;
 
-  if (!validationService.isNumeric(this.company_id))
+  if (
+    !validationService.isUndefinedOrNull(this.company_id) &&
+    !validationService.isNumeric(this.company_id)
+  )
     throw new EntityTypeError(this.company_id, ENTITY_TYPES.NUMERIC);
 }

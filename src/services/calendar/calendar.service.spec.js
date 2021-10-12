@@ -507,7 +507,7 @@ describe("CalendarService", () => {
 
       result = CalendarService.convertMilitaryTimeToTime("13:30");
 
-      expect(result).to.equal("1:30pm");
+      expect(result).to.equal("01:30pm");
     });
 
     it("when hour is less than 12 then return string and add am", () => {
@@ -558,8 +558,8 @@ describe("CalendarService", () => {
       const returnValue = {
         dateStart: "2021-07-29",
         dateEnd: "2021-07-29",
-        timeEnd: "3:30pm",
-        timeStart: "2:30pm",
+        timeEnd: "03:30pm",
+        timeStart: "02:30pm",
         title: "Our First Event",
         allDay: false,
         user_id: 1,
