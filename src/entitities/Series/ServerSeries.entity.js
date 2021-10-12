@@ -16,7 +16,7 @@ export function ServerSeriesEntity(seriesData) {
     throw new EntityTypeError(this.start_recur, ENTITY_TYPES.DATE);
 
   this.end_recur = seriesData.end_recur;
-  if (!validationService.isDate(this.end_recur))
+  if (this.end_recur && !validationService.isDate(this.end_recur))
     throw new EntityTypeError(this.end_recur, ENTITY_TYPES.DATE);
 
   this.days_of_week = seriesData.days_of_week;

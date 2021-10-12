@@ -87,9 +87,9 @@ describe("SeriesEntity", () => {
 
       try {
         new ServerSeriesEntity(testData);
-        expect(spy).calledOnceWith(testData.end_recur, ENTITY_TYPES.DATE);
+        expect(spy).calledWith(testData.end_recur, ENTITY_TYPES.DATE);
       } catch (e) {
-        expect(spy).calledOnceWith(testData.end_recur, ENTITY_TYPES.DATE);
+        expect(spy).calledWith(testData.end_recur, ENTITY_TYPES.DATE);
       }
     });
 

@@ -27,7 +27,11 @@ export const addEvent = createAsyncThunk(
     }
 
     if (result.success) {
-      return data.event;
+      if (result.data.event_id) {
+        return { ...data.event, id: result.data.event_id };
+      } else {
+        return { ...data.event, groupId: result.data.series_id };
+      }
     }
     if (result.error) {
       throw result.error;

@@ -16,7 +16,7 @@ export function CalendarSeriesEntity(seriesData, companyData = {}) {
     throw new EntityTypeError(this.startRecur, ENTITY_TYPES.DATE);
 
   this.endRecur = seriesData.endRecur;
-  if (!validationService.isDate(this.endRecur))
+  if (this.endRecur && !validationService.isDate(this.endRecur))
     throw new EntityTypeError(this.endRecur, ENTITY_TYPES.DATE);
 
   this.daysOfWeek = seriesData.daysOfWeek;

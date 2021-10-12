@@ -83,9 +83,9 @@ describe("CalendarSeriesEntity", () => {
 
     try {
       new CalendarSeriesEntity(testData);
-      expect(spy).calledOnceWith(testData.endRecur, ENTITY_TYPES.DATE);
+      expect(spy).calledWith(testData.endRecur, ENTITY_TYPES.DATE);
     } catch (e) {
-      expect(spy).calledOnceWith(testData.endRecur, ENTITY_TYPES.DATE);
+      expect(spy).calledWith(testData.endRecur, ENTITY_TYPES.DATE);
     }
   });
 
