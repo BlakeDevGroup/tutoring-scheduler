@@ -4,7 +4,7 @@ import messageService from "../../services/messaging/message.service";
 export default class SeriesApi {
   constructor() {
     this.apiController = axios.create({
-      baseURL: "http://localhost:3500",
+      baseURL: process.env.REACT_APP_SERVICE_URL,
       timeout: 1000,
       headers: { "Content-Type": "application/json;charset=utf-8" },
     });
