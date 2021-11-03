@@ -45,6 +45,16 @@ const isArray = (value) => {
   return false;
 };
 
+const isUndefinedOrNull = (value) => {
+  if (isUndefined(value) || isNull(value)) return true;
+  return false;
+};
+
+const isNull = (value) => {
+  if (value === null) return true;
+  return false;
+};
+
 export default {
   isDateTime: isDateTime,
   isDate: isDate,
@@ -55,4 +65,6 @@ export default {
   isBoolean: isBoolean,
   isMilitaryTime: isMilitaryTime,
   isArray: isArray,
+  isUndefinedOrNull: isUndefinedOrNull,
+  isNull: isNull,
 };

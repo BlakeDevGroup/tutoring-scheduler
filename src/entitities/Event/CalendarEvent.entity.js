@@ -5,7 +5,7 @@ import { ENTITY_TYPES } from "../EntityTypes";
 export function CalendarEventEntity(eventData, companyData = {}) {
   this.id = eventData.id;
   if (
-    !validationService.isUndefined(this.id) &&
+    !validationService.isUndefinedOrNull(this.id) &&
     !validationService.isNumeric(this.id)
   )
     throw new EntityTypeError(this.id, ENTITY_TYPES.NUMERIC);
@@ -42,7 +42,10 @@ export function CalendarEventEntity(eventData, companyData = {}) {
 
   this.company_id = eventData.company_id;
 
-  if (!validationService.isNumeric(this.company_id))
+  if (
+    !validationService.isUndefinedOrNull(this.company_id) &&
+    !validationService.isNumeric(this.company_id)
+  )
     throw new EntityTypeError(this.company_id, ENTITY_TYPES.NUMERIC);
 
   this.description = eventData.description;

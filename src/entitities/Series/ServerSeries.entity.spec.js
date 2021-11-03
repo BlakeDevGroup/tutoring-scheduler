@@ -87,9 +87,9 @@ describe("SeriesEntity", () => {
 
       try {
         new ServerSeriesEntity(testData);
-        expect(spy).calledOnceWith(testData.end_recur, ENTITY_TYPES.DATE);
+        expect(spy).calledWith(testData.end_recur, ENTITY_TYPES.DATE);
       } catch (e) {
-        expect(spy).calledOnceWith(testData.end_recur, ENTITY_TYPES.DATE);
+        expect(spy).calledWith(testData.end_recur, ENTITY_TYPES.DATE);
       }
     });
 
@@ -156,6 +156,16 @@ describe("SeriesEntity", () => {
         expect(spy).calledOnceWith(testData.company_id, ENTITY_TYPES.NUMERIC);
       } catch (e) {
         expect(spy).calledOnceWith(testData.company_id, ENTITY_TYPES.NUMERIC);
+      }
+    });
+
+    it("when company_id is undefined then no error is thrown", () => {
+      const testData = Object.assign({}, DATA, { company_id: undefined });
+      try {
+        new ServerSeriesEntity(testData);
+        expect(spy).not.called;
+      } catch (e) {
+        expect(spy).not.called;
       }
     });
 

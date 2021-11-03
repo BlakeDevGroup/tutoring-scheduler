@@ -86,6 +86,7 @@ const convertMilitaryTimeToTime = (militaryTimeString) => {
 
   if (hour == "00") {
     return `12:${minutes}am`;
+
   } else if (hour > 12 && hour < 22) {
     return `0${hour - 12}:${minutes}pm`;
   } else if (hour > 21) {

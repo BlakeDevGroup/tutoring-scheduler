@@ -170,6 +170,48 @@ describe("ValidationService", () => {
     });
   });
 
+  describe("validate undefinedOrNull", () => {
+    it("when value is undefined it should return true", () => {
+      const result = ValidationService.isUndefinedOrNull(undefined);
+
+      expect(result).to.equal(true);
+    });
+
+    it("when value is null it should return true", () => {
+      const result = ValidationService.isUndefinedOrNull(null);
+
+      expect(result).to.equal(true);
+    });
+
+    it("when value is not undefined or null return false", () => {
+      const result = ValidationService.isUndefinedOrNull(123);
+
+      expect(result).to.equal(false);
+    });
+  });
+
+  describe("valildate null", () => {
+    it("when value is null it should return true;", () => {
+      const result = ValidationService.isNull(null);
+
+      expect(result).to.equal(true);
+    });
+
+    it("when value is not null it should return false", () => {
+      let result = ValidationService.isNull(undefined);
+
+      expect(result).to.equal(false);
+
+      result = ValidationService.isNull(123);
+
+      expect(result).to.equal(false);
+
+      result = ValidationService.isNull("");
+
+      expect(result).to.equal(false);
+    });
+  });
+
   describe("validate boolean", () => {
     it("when value is not a boolean then return false", () => {
       let result = ValidationService.isBoolean("123");
