@@ -1,4 +1,4 @@
-import { TextInput, Box, Text } from "grommet";
+import { TextInput, Box } from "grommet";
 import React from "react";
 import { Organization } from "grommet-icons";
 

@@ -30,6 +30,7 @@ export default function EventModal(props) {
   const [allDay, setAllDay] = useState(false);
   const [id, setId] = useState("");
   const [type, setType] = useState("");
+  // console.log(dateStart.split("T")[0]);
 
   const dispatch = useDispatch();
 
