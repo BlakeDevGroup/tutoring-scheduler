@@ -9,7 +9,12 @@ import { setEvents, updateEvent } from "../apis/events/events.slice";
 import EventApi from "../apis/events/events.api";
 import { Box } from "grommet";
 import EventModal from "../components/CreateEventModal/components/EventModal.component";
-
+import {
+  setStart,
+  setEnd,
+  setFCEvents,
+  setView,
+} from "../apis/fullCalendar.slice";
 const eventApi = new EventApi();
 
 const MainCalendar = (props) => {
@@ -20,13 +25,14 @@ const MainCalendar = (props) => {
     (state) => state.companies.filteredCompanies
   );
 
-  const [filteredEvents, setFilteredEvents] = useState([]);
   const dispatch = useDispatch();
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const [show, setShow] = useState(false);
   const [defaults, setDefaults] = useState(null);
 
   useEffect(() => {
     cal.current.getApi().changeView(props.currentView);
+    dispatch(setView(props.currentView));
   }, [props.currentView]);
 
   useEffect(() => {
@@ -52,6 +58,16 @@ const MainCalendar = (props) => {
   const onSubmitHandler = (event) => {
     dispatch(updateEvent(event));
   };
+
+  const viewDidMountHandler = (view) => {
+    dispatch(setStart(view.view.currentStart));
+
+    dispatch(setEnd(view.view.currentEnd));
+  };
+
+  const eventsSetHandler = (events) => {
+    dispatch(setFCEvents(events));
+  };
   return (
     <Box>
       <FullCalendar
@@ -65,13 +81,15 @@ const MainCalendar = (props) => {
         eventRemove
         initialView={props.currentView}
         expandRows={true}
-        handleWindowResize={false}
+        handleWindowResize={true}
         selectable={true}
         navLinks={true}
         events={filteredEvents}
         nowIndicator={true}
         eventClick={EventClickHandler}
         editable={true}
+        eventsSet={eventsSetHandler}
+        viewDidMount={viewDidMountHandler}
       />
       {show && (
         <EventModal

@@ -17,6 +17,7 @@ import CalendarService from "./services/calendar/calendar.service";
 import EventApi from "./apis/events/events.api";
 import SeriesApi from "./apis/series/series.api";
 import { setEvents } from "./apis/events/events.slice";
+import CompanyDisplayWrapper from "./components/CompanyDisplay/CompanyDisplayWrapper";
 
 const eventApi = new EventApi();
 const seriesApi = new SeriesApi();
@@ -116,6 +117,7 @@ const App = (props) => {
           </layer>
         )}
         <Main pad="small">
+          <CompanyDisplayWrapper />
           <MainCalendar currentView={currentView} />
         </Main>
       </Box>

@@ -38,8 +38,8 @@
   "scripts": {
     "start": "set NODE_ENV=development&&env-cmd -e development react-scripts start",
     "build": "react-scripts build",
-    "test": "cd src&&mocha --require @babel/register",
-    "test-w": "cd src&&mocha --watch --require @babel/register",
+    "test": "cd src&&env-cmd -e test mocha --require @babel/register",
+    "test-w": "set NODE_ENV=test&&cd src&&mocha --watch --require @babel/register",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
