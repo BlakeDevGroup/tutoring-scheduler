@@ -7,6 +7,7 @@ import SeriesAdapter from "../../entitities/Series/SeriesAdapter";
 import EventAdapter from "../../entitities/Event/EventAdapter";
 import validationService from "../validation/validation.service";
 import { cli } from "winston/lib/winston/config";
+import { CalendarEventEntity } from "../../entitities/Event/CalendarEvent.entity";
 
 const eventApi = new EventApi();
 const seriesApi = new SeriesApi();
@@ -224,6 +225,80 @@ const createCalendarEntity = (clientInput, isRecurring) => {
     : clientToCalendarEvent(clientInput);
 };
 
+const filterEventsByDateRange = (events, dateStart, dateEnd) => {
+  const validate = validationService.isDate(dateStart);
+  if (!(validationService.isDate(dateStart) || dateStart instanceof Date))
+    throw new Error(
+      `${dateStart} is invalid dateString, expected format: YYYY-MM-DD`
+    );
+
+  if (!(validationService.isDate(dateEnd) || dateEnd instanceof Date))
+    throw new Error(
+      `${dateEnd} is invalid dateString, expected format: YYYY-MM-DD`
+    );
+
+  const start = new Date(dateStart);
+  const end = new Date(dateEnd);
+
+  return events.filter((event) => {
+    return event.start >= start && event.end <= end;
+  });
+};
+
+/**
+ * aggregate total pay for FullCalendar Events associated with company
+ * @param {*} fcEvents event object sourced from FullCalendar
+ * @param {*} company company data
+ * @returns revenue for events by company
+ */
+const aggregatePayByCompanyId = (fcEvents, companies) => {
+  let companyPay = {};
+
+  let data = {};
+
+  companies.forEach((company) => {
+    companyPay[company.company_id] = parseInt(company.pay);
+  });
+
+  fcEvents.forEach((events) => {
+    if (!data[events.extendedProps.company_id]) {
+      data[events.extendedProps.company_id] = 0;
+    }
+
+    data[events.extendedProps.company_id] +=
+      companyPay[events.extendedProps.company_id];
+  });
+
+  return data;
+};
+
+const aggByCId = (e) => {};
+
+const aggregatePayByAllCompanies = (events, companies) => {
+  let result = 0;
+  let pay_store = {};
+
+  companies.forEach((company) => {
+    pay_store[company.company_id] = parseInt(company.pay);
+  });
+
+  events.forEach((event) => {
+    if (pay_store[event.extendedProps.company_id])
+      result += pay_store[event.extendedProps.company_id];
+  });
+
+  return result;
+};
+
+const countOfEventsByCompany = (events, company) => {
+  let count = 0;
+
+  events.forEach((event) => {
+    if (event.extendedProps.company_id == company.company_id) count++;
+  });
+  return count;
+};
+
 export default {
   getCompanyById: getCompanyById,
   prepCalendarEvents: prepCalendarEvents,
@@ -239,4 +314,8 @@ export default {
   calendarEventToClientInterface: calendarEventToClientInterface,
   calendarSeriesToClientInterface: calendarSeriesToClientInterface,
   getCompanyByName: getCompanyByName,
+  filterEventsByDateRange: filterEventsByDateRange,
+  aggregatePayByCompanyId: aggregatePayByCompanyId,
+  aggregatePayByAllCompanies: aggregatePayByAllCompanies,
+  countOfEventsByCompany: countOfEventsByCompany,
 };

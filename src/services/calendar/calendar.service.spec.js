@@ -6,7 +6,6 @@ import EntityFactory from "../../entitities/EntityFactory";
 import SeriesAdapter from "../../entitities/Series/SeriesAdapter";
 import EventAdapter from "../../entitities/Event/EventAdapter";
 import validationService from "../../services/validation/validation.service";
-import { cli } from "winston/lib/winston/config";
 
 chai.use(sinonChai);
 let stub;
@@ -54,7 +53,56 @@ const eventData = [
     user_id: "1",
     calendar_id: "2",
     description: "description here",
-    company_id: "128",
+    company_id: "10",
+    extendedProps: {
+      company_id: "10",
+      pay: "25",
+    },
+  },
+  {
+    date_end: "2021-07-29T19:30:00.000Z",
+    date_start: "2021-07-29T15:30:00.000Z",
+    event_id: "316",
+    title: "MyEvent",
+    all_day: true,
+    user_id: "1",
+    calendar_id: "2",
+    description: "1",
+    company_id: "10",
+    extendedProps: {
+      company_id: "10",
+      pay: "25",
+    },
+  },
+  {
+    date_end: "2021-07-29T19:30:00.000Z",
+    date_start: "2021-07-29T15:30:00.000Z",
+    event_id: "316",
+    title: "MyEvent",
+    all_day: true,
+    user_id: "1",
+    calendar_id: "2",
+    description: "1",
+    company_id: "20",
+    extendedProps: {
+      company_id: "20",
+      pay: "35",
+    },
+  },
+  {
+    date_end: "2021-07-29T19:30:00.000Z",
+    date_start: "2021-07-29T15:30:00.000Z",
+    event_id: "316",
+    title: "MyEvent",
+    all_day: true,
+    user_id: "1",
+    calendar_id: "2",
+    description: "1",
+    company_id: "20",
+    extendedProps: {
+      company_id: "20",
+      pay: "35",
+    },
   },
   {
     date_end: "2021-07-29T19:30:00.000Z",
@@ -66,6 +114,31 @@ const eventData = [
     calendar_id: "2",
     description: "1",
     company_id: "128",
+    extendedProps: {
+      company_id: "128",
+      pay: "45",
+    },
+  },
+];
+
+const companyData = [
+  {
+    name: "Company 10",
+    pay: "25",
+    company_id: "10",
+    color: "#fff",
+  },
+  {
+    name: "Company 20",
+    pay: "35",
+    company_id: "20",
+    color: "#fff",
+  },
+  {
+    name: "Company 128",
+    pay: 45,
+    company_id: "128",
+    color: "#fff",
   },
 ];
 
@@ -137,11 +210,11 @@ describe("CalendarService", () => {
         COMPANY_DATA
       );
 
-      expect(createServerEventSpy).calledTwice;
-      expect(eventToCalendarSpy).calledTwice;
+      expect(createServerEventSpy).called;
+      expect(eventToCalendarSpy).called;
 
       expect(result).to.be.an("array");
-      expect(result.length).to.equal(2);
+      expect(result.length).to.equal(5);
     });
   });
 
@@ -610,6 +683,187 @@ describe("CalendarService", () => {
         CalendarService.calendarSeriesToClientInterface(calendarSeries);
 
       expect(result).to.eql(returnValue);
+    });
+  });
+
+  describe("filterEventsByDateRange", () => {
+    const events = [
+      {
+        end: new Date("2021-10-07"),
+        start: new Date("2021-10-07"),
+      },
+      {
+        end: new Date("2021-10-09"),
+        start: new Date("2021-10-09"),
+      },
+      {
+        end: new Date("2021-09-01"),
+        start: new Date("2021-09-01"),
+      },
+      {
+        end: new Date("2021-11-09"),
+        start: new Date("2021-11-09"),
+      },
+    ];
+    let spy;
+    before(() => {
+      spy = sandBox.spy(CalendarService, "filterEventsByDateRange");
+    });
+    after(() => {
+      spy.restore();
+    });
+
+    afterEach(() => {
+      spy.resetHistory();
+    });
+    it("should throw error if dateStart is not valid dateString", () => {
+      try {
+        CalendarService.filterEventsByDateRange(events, "XXX", 1);
+      } catch (e) {
+        expect(e.message).to.equal(
+          "XXX is invalid dateString, expected format: YYYY-MM-DD"
+        );
+      }
+      expect(spy.threw()).to.equal(true);
+    });
+
+    it("when dateEnd is not valid dateString then throw error", () => {
+      try {
+        CalendarService.filterEventsByDateRange(events, 1, "XXX");
+      } catch (e) {
+        expect(e.message).to.equal(
+          "XXX is invalid dateString, expected format: YYYY-MM-DD"
+        );
+      }
+
+      expect(spy.threw()).to.equal(true);
+    });
+
+    it("should not throw error when dateStart and dateEnd are valid JS Date Objects", () => {
+      try {
+        CalendarService.filterEventsByDateRange(
+          events,
+          new Date("2021-10-05"),
+          new Date("2021-10-06")
+        );
+      } catch (e) {
+        console.log(e.message);
+      }
+
+      expect(spy.threw()).to.equal(false);
+    });
+
+    it("should return events between dateStart and dateEnd", () => {
+      let results = CalendarService.filterEventsByDateRange(
+        events,
+        new Date("2021-10-01"),
+        new Date("2021-10-31")
+      );
+
+      expect(results).to.eql([
+        {
+          end: new Date("2021-10-07"),
+          start: new Date("2021-10-07"),
+        },
+        {
+          end: new Date("2021-10-09"),
+          start: new Date("2021-10-09"),
+        },
+      ]);
+
+      results = CalendarService.filterEventsByDateRange(
+        events,
+        "2021-10-01",
+        "2021-10-31"
+      );
+
+      expect(results).to.eql([
+        {
+          end: new Date("2021-10-07"),
+          start: new Date("2021-10-07"),
+        },
+        {
+          end: new Date("2021-10-09"),
+          start: new Date("2021-10-09"),
+        },
+      ]);
+
+      results = CalendarService.filterEventsByDateRange(
+        events,
+        new Date("2021-09-01"),
+        new Date("2021-09-31")
+      );
+
+      expect(results).to.eql([
+        {
+          end: new Date("2021-09-01"),
+          start: new Date("2021-09-01"),
+        },
+      ]);
+
+      results = CalendarService.filterEventsByDateRange(
+        events,
+        new Date("2021-11-01"),
+        new Date("2021-11-31")
+      );
+
+      expect(results).to.eql([
+        {
+          end: new Date("2021-11-09"),
+          start: new Date("2021-11-09"),
+        },
+      ]);
+    });
+  });
+
+  describe("aggregatePayByCompanyId", () => {
+    it("should add all events to a total dollar based on company id", () => {
+      let result = CalendarService.aggregatePayByCompanyId(
+        eventData,
+        companyData
+      );
+
+      expect(result).to.eql({
+        [companyData[0].company_id]: 50,
+        [companyData[1].company_id]: 70,
+        [companyData[2].company_id]: 45,
+      });
+    });
+  });
+
+  describe("aggregatePayByAllCompanies", () => {
+    it("should add sum pay for all events organized by company", () => {
+      let result = CalendarService.aggregatePayByAllCompanies(
+        eventData,
+        companyData
+      );
+
+      expect(result).to.equal(50 + 70 + 45);
+    });
+  });
+
+  describe("countOfEventsByCompany", () => {
+    it("should return the number of events associated with a company_id", () => {
+      let result = CalendarService.countOfEventsByCompany(
+        eventData,
+        companyData[0]
+      );
+
+      expect(result).to.equal(2);
+
+      result = CalendarService.countOfEventsByCompany(
+        eventData,
+        companyData[1]
+      );
+
+      expect(result).to.equal(2);
+
+      result = CalendarService.countOfEventsByCompany(
+        eventData,
+        companyData[2]
+      );
+
+      expect(result).to.equal(1);
     });
   });
 });
