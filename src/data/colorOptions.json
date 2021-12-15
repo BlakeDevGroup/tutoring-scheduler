@@ -1,22 +1,62 @@
 [
   {
-    "label": "Pink",
-    "color": "#FF68A8"
+    "label": "light-red",
+    "color": "#CC3366"
   },
   {
-    "label": "Light Blue",
-    "color": "#64CFF7"
+    "label": "red",
+    "color": "#CC0000"
   },
   {
-    "label": "Yellow",
-    "color": "#F7E752"
+    "label": "dark-red",
+    "color": "#660000"
   },
   {
-    "label": "Purple",
-    "color": "#CA7CD8"
+    "label": "light-yellow",
+    "color": "#FFFF99"
   },
   {
-    "label": "Dark Blue",
-    "color": "#3968CB"
+    "label": "yellow",
+    "color": "#FFFF00"
+  },
+  {
+    "label": "dark-yellow",
+    "color": "#999900"
+  },
+  {
+    "label": "light-blue",
+    "color": "#00FFFF"
+  },
+  {
+    "label": "blue",
+    "color": "#0066FF"
+  },
+  {
+    "label": "dark-blue",
+    "color": "#000099"
+  },
+  {
+    "label": "light-green",
+    "color": "#99FF99"
+  },
+  {
+    "label": "green",
+    "color": "#33FF00"
+  },
+  {
+    "label": "dark-green",
+    "color": "#006600"
+  },
+  {
+    "label": "light-purple",
+    "color": "#9966FF"
+  },
+  {
+    "label": "purple",
+    "color": "#660099"
+  },
+  {
+    "label": "dark-purple",
+    "color": "#330033"
   }
 ]

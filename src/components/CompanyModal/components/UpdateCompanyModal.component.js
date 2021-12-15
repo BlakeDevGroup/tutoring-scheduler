@@ -1,9 +1,9 @@
-import { Layer, Box, Button, Avatar } from "grommet";
+import { Layer, Box, Button } from "grommet";
 import CompanyModalTitleInput from "./CompanyModalTitleInput.component";
 import { useState, useEffect } from "react";
 import CompanyColorSelector from "./CompanyModalColorSelector.component";
 import CompanyModalPayInput from "./CompanyModalPayInput.component";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import CompanyDropMenu from "../../CreateEventModal/components/CompanyDropMenu.component";
 import { Checkmark, Close } from "grommet-icons";
 import {

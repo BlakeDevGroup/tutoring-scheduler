@@ -1,5 +1,4 @@
-import { Box, Button, Menu } from "grommet";
-import { Add } from "grommet-icons";
+import { Box, Menu } from "grommet";
 import React, { useEffect } from "react";
 import CompanyButtonModal from "./components/CompanyModal.component";
 import UpdateCompanyModal from "./components/UpdateCompanyModal.component";

@@ -59,11 +59,7 @@ export default function EventModal(props) {
   const [timeEnd, setTimeEnd] = useState("");
   const [calendar, setCalendar] = useState("");
 
-
-  
-
-    props.setShow(false);
-  };
+  props.setShow(false);
 
   useEffect(() => {
     setTitle(props.defaults.title || "");
@@ -122,19 +118,7 @@ export default function EventModal(props) {
         />
         <CreateEventDateSelector onChange={setDate} value={date} />
         <CreateEventDescription onChange={setDescription} value={description} />
-        
       </Box>
     </Layer>
   );
 }
-
-// {
-//   id: props.defaults.id,
-//   title: title,
-//   start: "2021-09-04T22:30:00",
-//   end: "2021-09-04T23:30:00",
-//   description: description,
-//   calendar_name: calendar,
-//   editable: "true",
-//   company_name: company,
-// }

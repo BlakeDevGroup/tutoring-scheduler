@@ -47,6 +47,7 @@ const MainCalendar = (props) => {
     events.forEach((event) => {
       if (event.daysOfWeek) {
         if (event.groupId == eventData.event.groupId) {
+          console.log(event, eventData);
           setDefaults(event);
         }
       } else if (event.id == eventData.event.id) {

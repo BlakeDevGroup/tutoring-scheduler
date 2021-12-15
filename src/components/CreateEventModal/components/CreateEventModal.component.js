@@ -41,9 +41,8 @@ export default function CreateEventModal(props) {
   const [daysOfWeek, setDaysOfWeek] = useState([]);
   const [allDay, setAllDay] = useState(false);
   const [isRecurring, setIsRecurring] = useState(false);
-  // const [hexColor, setHexColor] = useState("");
-  console.log(props.companies);
-
+  // console.log(props.companies);
+  // console.log(dateStart);
   const selectEventType = () => {
     /**
      * determines if creating an event or a series
@@ -55,6 +54,7 @@ export default function CreateEventModal(props) {
      * if false, event is not recurring
      */
     //
+
     if (daysOfWeek.length > 0) {
       return {
         daysOfWeek: daysOfWeek,
@@ -78,6 +78,7 @@ export default function CreateEventModal(props) {
       };
     }
   };
+
   return (
     <Layer
       onEsc={() => props.setShow(false)}
